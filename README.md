@@ -1,2 +1,4 @@
 # egi-notebooks-images
-Docker images for the EGI Notebook service
+
+This repository contains the Dockerfiles to build the images used in the
+EGI Notebooks service.
