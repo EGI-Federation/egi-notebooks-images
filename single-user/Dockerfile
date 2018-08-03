@@ -37,28 +37,28 @@ RUN apt-get update && \
 		;
 
 # You can use rsession from rstudio's desktop package as well.
-#ENV RSTUDIO_PKG=rstudio-server-1.1.456-amd64.deb
-#
-#RUN wget -q http://download2.rstudio.org/${RSTUDIO_PKG}
-#RUN dpkg -i ${RSTUDIO_PKG}
-#RUN rm ${RSTUDIO_PKG}
-#
-#RUN apt-get clean && \
-#    rm -rf /var/lib/apt/lists/*
-#
-## The desktop package uses /usr/lib/rstudio/bin
-#ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
-#ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
-#
-#USER $NB_UID
-#RUN pip install nbserverproxy nbrsessionproxy
-#
-## RUN git clone https://github.com/Viasat/nbrsessionproxy.git /tmp/nbrsessionproxy 
-#
-#RUN jupyter serverextension enable --sys-prefix --py nbserverproxy && \ 
-#    jupyter serverextension enable --sys-prefix --py nbrsessionproxy && \
-#    jupyter nbextension install    --sys-prefix --py nbrsessionproxy && \
-#    jupyter nbextension     enable  --py --sys-prefix nbrsessionproxy 
+ENV RSTUDIO_PKG=rstudio-server-1.1.456-amd64.deb
+
+RUN wget -q http://download2.rstudio.org/${RSTUDIO_PKG}
+RUN dpkg -i ${RSTUDIO_PKG}
+RUN rm ${RSTUDIO_PKG}
+
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# The desktop package uses /usr/lib/rstudio/bin
+ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
+ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
+
+USER $NB_UID
+RUN pip install nbserverproxy nbrsessionproxy
+
+# RUN git clone https://github.com/Viasat/nbrsessionproxy.git /tmp/nbrsessionproxy
+
+RUN jupyter serverextension enable --sys-prefix --py nbserverproxy && \
+    jupyter serverextension enable --sys-prefix --py nbrsessionproxy && \
+    jupyter nbextension install    --sys-prefix --py nbrsessionproxy && \
+    jupyter nbextension     enable  --py --sys-prefix nbrsessionproxy
 #    jupyter labextension link /tmp/nbrsessionproxy/jupyterlab-rsessionproxy
 
 # Allow sudo access ?
