@@ -5,12 +5,18 @@ jobs:
   include:
   - stage: build docker images
     script:
-    - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else git rev-parse --short HEAD; fi)
+    - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else git
+      rev-parse --short HEAD; fi)
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build -t singleuser single-user 
+    - docker build -t singleuser single-user
     - docker tag singleuser $DOCKER_REPO/single-user:$TAG
-    - docker build -t hub hub 
+    - docker build -t hub hub
     - docker tag hub $DOCKER_REPO/hub:$TAG
     after_success:
     - docker push $DOCKER_REPO/single-user
     - docker push $DOCKER_REPO/hub
+env:
+  global:
+  - DOCKER_REPO=eginotebooks
+  - secure: Iq7vyskXYttgyoSjCx1c39OPwJ0tDpJrcrjBc6VbBlO5MBfiMnztpMGumgRRvltpvs/U735GrX+fcjIhrMVYGooY83rJgRjRrj7CFRTkQ+8TQAWr3VNxFZ7L8WjgIROQClxIF3W9P0x7140Oox/rtPTveGfd+WDZZhGMGf7RLTHcQ/BhXL33/C780SvIl2ph5t339y6x0h7MLvn7Imo9+DpkH3ZhKJMQyPqRDB47lgRirtPrdfX2cNwIGCYEu00TIQTcXP6LdJnP2TR8obweQhSe9koigOr3hG3thQNGui9j9ZcCnT7OS1jsjOy0tqKiH9jEMsdB2ldb39TFrXgd30y2BwAE8VMoiQyMNahjLiuj9hKu0Ve4+lYdeymtXrnEVECqrGbpPccuWSpkuICGq5VfcekXgzoaPIM0eq4ccLuS84+DYBnmZDrlkez5RtyuPf+f/JYQZf8K/exgGIOttWxYUMnVNo6zBGZy4F3KnacTAZXicQaRjTRH22H3IGVd6SVyUAsSrwzrpRPj8G6OQ4TEX7N1253YYMi/cXziiS5HEkVL7XZORYJz/pdr6inNaAA61E3R6HiZTZy7gVRGe8qZxi7AsiD2cPpqXuSxiMkRf7csE7KU1JmjcxbvwlvotTe+hOVS6322fqBrG0QFPS4wG41XfwrnhxAbL6Gcomk=
+  - secure: othS/TmELZmjtk4o5zAldH/wJDfQq1ntN+3dMXuuMBeejyDoWd6eQUXoXIZfZJP8kTOPXorsMcqKOYpvxjQ7FLWMNHmsEoNuT2GK3YOAx3h5nzaYHDAOvCIQ+EIQ/F0+wq7f/v6gaV6u8LWhL+SeIqhUs5I8a+qOhozemexwFzf+v/oeq1U0YVlysgIwoVEhb1poLhh63r6if/wHP3oFfrIC7EL2EIGz/3Rozx6IUccxVS5eN6dNYeqWmbRCRZQkO0O7UiRNqi/fECwaHpeolfAiAh22qId1DFYV0u1jOA5W2nNLF7x2owhG5NMSx/uJ2j3pOGL9roxIRgBxZ3Rdc8BfltsOBIOgSr8U3XASB9qUoO4JFBzJRYWR8E790CodaSde2w0AYEmI9Uo5DQwS7huRXEAO5FLwi9iw0TzV2H0dF1jX3Ex+tiZWpKd/l9LUCzk37fOjcY/abOJhkeVZRz6F+6/6jnLvE5vW1JLNd0Iwo8mfObY0mQnyrOOAgrLyLUJLegTzY4F5auimcAWOZpYcwwp3r0zc6fk2H1RzGvtbqZhzgXfBMe+KwJjZ9M260hbixEEU85g0dwOGf5cMDQPaGFwQnmhDtr/GQwOFpXaHCauippP82TbMj/JrXmkvO4y6RzPaueQrBP3HrrZExERGmWE18aw/4l0WYci7hYs=
