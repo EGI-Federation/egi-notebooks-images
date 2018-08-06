@@ -7,7 +7,7 @@ RUN pip3 install git+https://github.com/enolfc/d4scienceauth.git@v0.2
 
 # Customise Jupyter login
 # TODO(enolfc): this can break quite easily, should find a better way
-COPY login.htmnl /usr/local/share/jupyterhub/templates/login.html
+COPY login.html /usr/local/share/jupyterhub/templates/login.html
 COPY egi-notebooks.png /usr/local/share/jupyterhub/static/images/jupyter.png
 
 
