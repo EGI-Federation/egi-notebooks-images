@@ -1,0 +1,63 @@
+{% extends "page.html" %}
+{% if announcement_login %}
+  {% set announcement = announcement_login %}
+{% endif %}
+
+{% block stylesheet %}
+{{ super() }}
+<style>
+.jumbotron {
+  background-color: transparent;
+}
+.btn-egi {
+  background-color: #0067b1;
+  color: #fff;
+}
+.btn-egi:hover {
+  color: #999999;
+}
+.spacer-lg { margin:0; padding:0; height:100px; }
+.spacer-sm { margin:0; padding:0; height:50px; }
+</style>
+{% endblock %}
+
+{% block login_widget %}
+{% endblock %}
+
+{% block main %}
+
+{% block login %}
+<div id="login-main" class="container">
+<div class="jumbotron">
+    <h1>EGI Notebooks</h1>
+	<p>
+	EGI Notebooks is an environment based on <a href="http://jupyter.org/">Jupyter</a> and 
+	the <a href="https://www.egi.eu/services/cloud-compute/">EGI cloud service</a> that
+	offers a browser-based, scalable tool for interactive data analysis. The EGI Notebooks
+	environment provides users with notebooks where they can combine text, mathematics,
+	computations and rich media output. 
+	</p>
+        <div class="spacer-sm"></div>
+	<p class="text-center">
+  		<a role="button" class='btn btn-egi btn-lg' href='{{authenticator_login_url}}'>
+    			Sign in with EGI Check-in 
+  		</a>
+	</p>
+</div>
+
+</div>
+{% endblock login %}
+
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+if (window.location.protocol === "http:") {
+  // unhide http warning
+  var warning = document.getElementById('insecure-login-warning');
+  warning.className = warning.className.replace(/\bhidden\b/, '');
+}
+</script>
+
+{% endblock %}
