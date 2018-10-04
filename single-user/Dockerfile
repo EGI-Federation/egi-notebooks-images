@@ -15,7 +15,11 @@ RUN conda install -y r-plotly \
         pydot \
         xlrd \
         lxml \
-        geojson
+        geojson \
+        proj4 \
+        pydap \
+        xarray \
+        cartopy
 
 RUN pip install shortid \
         nbgitpuller
