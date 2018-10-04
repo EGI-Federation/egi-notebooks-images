@@ -24,6 +24,9 @@ RUN conda install -y r-plotly \
 RUN pip install shortid \
         nbgitpuller
 
+# Overwrite cartopy with branch to fix matplotlib 3.0 compat
+RUN pip install git+https://github.com/QuLogic/cartopy.git@mpl3
+
 
 # Modified OWSLib
 RUN git clone -b d4science https://github.com/enolfc/OWSLib.git /tmp/owslib \
