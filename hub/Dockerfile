@@ -5,11 +5,16 @@ FROM jupyterhub/k8s-hub:b4779dc
 USER root
 RUN pip3 install git+https://github.com/enolfc/d4scienceauth.git@v0.2
 
+# install oauthenticator with EGI Check-in
+RUN pip3 install git+https://github.com/enolfc/oauthenticator@checkin
+
+# install the EGI Spawner
+RUN pip3 install git+https://github.com/enolfc/egispawner
+
 # Customise Jupyter login
 # TODO(enolfc): this can break quite easily, should find a better way
 COPY login.html /usr/local/share/jupyterhub/templates/login.html
 COPY egi-notebooks.png /usr/local/share/jupyterhub/static/images/jupyter.png
-
 
 ARG NB_USER=jovyan
 USER ${NB_USER}
