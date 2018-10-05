@@ -5,7 +5,7 @@ FROM jupyterhub/k8s-hub:b4779dc
 USER root
 RUN pip3 install git+https://github.com/enolfc/d4scienceauth.git@v0.2
 
-# install oauthenticator with EGI Check-in
+# install oauthenticator with EGI Check-in, with refresh
 RUN pip3 install git+https://github.com/enolfc/oauthenticator@checkin
 
 # install the EGI Spawner
