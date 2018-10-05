@@ -8,13 +8,15 @@ jobs:
     - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else git
       rev-parse --short HEAD; fi)
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build -t singleuser single-user
-    - docker tag singleuser $DOCKER_REPO/single-user:$TAG
-    - docker build -t hub hub
-    - docker tag hub $DOCKER_REPO/hub:$TAG
+    - docker build -t $DOCKER_REPO/single-user single-user
+    - docker tag $DOCKER_REPO/single-user $DOCKER_REPO/single-user:$TAG
+    - docker build -t $DOCKER_REPO/hub hub
+    - docker tag $DOCKER_REPO/hub $DOCKER_REPO/hub:$TAG
     after_success:
     - docker push $DOCKER_REPO/single-user
+    - docker push $DOCKER_REPO/single-user:$TAG
     - docker push $DOCKER_REPO/hub
+    - docker push $DOCKER_REPO/hub:$TAG
 env:
   global:
   - DOCKER_REPO=eginotebooks
