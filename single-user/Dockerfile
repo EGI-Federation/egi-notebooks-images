@@ -19,7 +19,8 @@ RUN conda install -y r-plotly \
         proj4 \
         pydap \
         xarray \
-        cartopy
+        cartopy \
+        ipyleaflet
 
 RUN pip install shortid \
         nbgitpuller
@@ -31,6 +32,8 @@ RUN pip install git+https://github.com/QuLogic/cartopy.git@mpl3
 # Modified OWSLib
 RUN git clone -b d4science https://github.com/enolfc/OWSLib.git /tmp/owslib \
     && pip install /tmp/owslib/ && rm -rf /tmp/owslib
+
+RUN jupyter labextension install jupyter-leaflet
 
 # R-studio
 #USER root
