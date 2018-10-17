@@ -20,7 +20,9 @@ RUN conda install -y r-plotly \
         pydap \
         xarray \
         cartopy \
-        ipyleaflet
+        ipyleaflet \
+        ipywidgets \
+        beakerx
 
 RUN pip install shortid \
         nbgitpuller
