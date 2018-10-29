@@ -21,7 +21,8 @@ RUN conda install -y r-plotly \
         xarray \
         cartopy \
         ipyleaflet \
-        ipywidgets
+        ipywidgets \
+        jmespath
 
 RUN pip install shortid \
         nbgitpuller
