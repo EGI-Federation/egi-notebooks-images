@@ -2,6 +2,9 @@ FROM jupyter/datascience-notebook:03b897d05f16
 
 USER root
 RUN apt-get update && apt-get install -y graphviz vim
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 
 RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
          -o /usr/local/bin/retry && chmod +x /usr/local/bin/retry
@@ -31,9 +34,6 @@ RUN pip install shortid \
 RUN pip install git+https://github.com/QuLogic/cartopy.git@mpl3
 
 RUN jupyter labextension install jupyter-leaflet
-
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 # Allow sudo access ?
 USER root
