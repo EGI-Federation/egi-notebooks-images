@@ -12,7 +12,7 @@ jobs:
     - docker tag $DOCKER_REPO/single-user $DOCKER_REPO/single-user:$TAG
     - docker build -t $DOCKER_REPO/single-user-aginfra single-user-aginfra
     - docker tag $DOCKER_REPO/single-user-aginfra $DOCKER_REPO/single-user-aginfra:$TAG
-     - docker build -t $DOCKER_REPO/hub hub
+    - docker build -t $DOCKER_REPO/hub hub
     - docker tag $DOCKER_REPO/hub $DOCKER_REPO/hub:$TAG
     after_success:
     - docker push $DOCKER_REPO/single-user
