@@ -28,7 +28,7 @@ RUN pip install shortid \
         nbgitpuller
 
 # Overwrite cartopy with branch to fix matplotlib 3.0 compat
-RUN pip install git+https://github.com/QuLogic/cartopy.git@mpl3
+# RUN pip install git+https://github.com/QuLogic/cartopy.git@mpl3
 
 
 # Modified OWSLib
