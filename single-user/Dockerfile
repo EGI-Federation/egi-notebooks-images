@@ -1,8 +1,9 @@
 FROM jupyter/datascience-notebook:03b897d05f16
 
 USER root
-RUN apt-get update && apt-get install -y graphviz vim
-RUN apt-get clean && \
+RUN apt-get update && \
+    apt-get install -y graphviz vim nodejs && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -25,6 +26,7 @@ RUN conda install -y r-plotly \
         cartopy \
         ipyleaflet \
         ipywidgets \
+        ipympl \
         jmespath
 
 RUN pip install shortid \
