@@ -38,8 +38,19 @@ RUN pip install shortid \
 
 RUN jupyter labextension install jupyter-leaflet
 
-# Allow sudo access ?
+# Python 2 support
+
+RUN conda create --quiet --yes -p $CONDA_DIR/envs/python2 python=2.7 ipython ipykernel kernda && \
+    conda clean -tipsy
+
 USER root
+
+# Create a global kernelspec in the image and modify it so that it properly activates
+# the python2 conda environment.
+RUN $CONDA_DIR/envs/python2/bin/python -m ipykernel install && \
+    $CONDA_DIR/envs/python2/bin/kernda -o -y /usr/local/share/jupyter/kernels/python2/kernel.json
+
+# Allow sudo access
 RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-jovyan
 
 USER $NB_UID
