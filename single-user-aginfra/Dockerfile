@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:03b897d05f16
+FROM jupyter/datascience-notebook:14fdfbf9cfc1
 
 USER root
 RUN apt-get update && apt-get install -y graphviz vim
