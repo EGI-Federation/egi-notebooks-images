@@ -15,6 +15,8 @@ RUN pip3 install git+https://github.com/enolfc/egispawner
 # TODO(enolfc): this can break quite easily, should find a better way
 COPY login.html /usr/local/share/jupyterhub/templates/login.html
 COPY 401.html /usr/local/share/jupyterhub/templates/401.html
+# Again not the best, but we need a better message than "Forbidden"
+COPY 401.html /usr/local/share/jupyterhub/templates/403.html
 
 COPY egi-notebooks.png /usr/local/share/jupyterhub/static/images/jupyter.png
 
