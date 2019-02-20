@@ -21,7 +21,14 @@
 </style>
 {% endblock %}
 
-{% block login_widget %}
+{% block nav_bar_right_items %}
+<li>
+  <span id="user_guide">
+  <a role="button" class="navbar-btn btn-sm btn btn-egi" href="https://wiki.egi.eu/wiki/EGI_Notebooks">
+      <i aria-hidden="true" class="fa fa-book"></i> User Guide</a>
+  </span>
+</li>
+
 {% endblock %}
 
 {% block main %}
@@ -38,9 +45,8 @@
 	computations and rich media output.
 	</p>
     <p>
-    Individual users with a valid <a href="https://aai.egi.eu">Check-in</a> account
-    can directly login by clicking on the button below. The notebooks are limited to 1 CPU,
-    1GB RAM and 10GB of persistent storage per user.
+    Individual users can directly login by clicking the button below. The notebooks are
+    limited to 1 CPU, 1GB RAM and 10GB of persistent storage per user.
     </p>
     <div class="spacer-sm"></div>
 	<p class="text-center">
@@ -52,8 +58,8 @@
    <p>
    User communities/advanced users can have their customised EGI Notebooks service
    instance. EGI offers consultancy and support, as well as can operate the setup.
-   Order via the <a href="https://marketplace.egi.eu/44-notebooks-beta">Marketplace</a>
-   to make an arrangement.
+   Order a <a href="https://marketplace.egi.eu/notebooks-beta/78-community-notebooks.html">community
+   notebooks instance via the Marketplace</a>.
     </p>
     <p>The service uses resources from the following providers of the EGI Federation:</p>
     <div class="row">
