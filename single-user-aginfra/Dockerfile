@@ -22,11 +22,9 @@ RUN conda install -y r-plotly \
         cartopy \
         ipyleaflet \
         ipywidgets \
-        beakerx \
         xgboost \
         lightgbm \
         catboost
-
 
 RUN pip install shortid \
         nbgitpuller \

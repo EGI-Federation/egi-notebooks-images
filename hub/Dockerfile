@@ -3,7 +3,7 @@ FROM jupyterhub/k8s-hub:0.8-5a5d822
 
 # install d4science auth plugin for using the service in D4Science
 USER root
-RUN pip3 install git+https://github.com/enolfc/d4scienceauth.git@v0.3
+RUN pip3 install git+https://github.com/enolfc/d4scienceauth.git
 
 # install oauthenticator with EGI Check-in, with refresh
 RUN pip3 install git+https://github.com/enolfc/oauthenticator@checkin-0.1
