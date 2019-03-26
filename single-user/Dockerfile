@@ -21,7 +21,8 @@ RUN conda install -y --quiet \
     lxml \
     geojson \
     proj4 \
-    pydap \
+    pydap==3.2.1 \
+    cftime \
     xarray \
     cartopy \
     ipyleaflet \
