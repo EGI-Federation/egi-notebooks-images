@@ -14,6 +14,8 @@ jobs:
     - docker tag $DOCKER_REPO/single-user-aginfra $DOCKER_REPO/single-user-aginfra:$TAG
     - docker build -t $DOCKER_REPO/hub hub
     - docker tag $DOCKER_REPO/hub $DOCKER_REPO/hub:$TAG
+    - docker build -t $DOCKER_REPO/d4science-storage d4science-storage
+    - docker tag $DOCKER_REPO/d4science-storage $DOCKER_REPO/d4science-storage:$TAG
     after_success:
     - docker push $DOCKER_REPO/single-user
     - docker push $DOCKER_REPO/single-user:$TAG
@@ -21,6 +23,8 @@ jobs:
     - docker push $DOCKER_REPO/single-user-aginfra:$TAG
     - docker push $DOCKER_REPO/hub
     - docker push $DOCKER_REPO/hub:$TAG
+    - docker push $DOCKER_REPO/d4science-storage
+    - docker push $DOCKER_REPO/d4science-storage:$TAG
 env:
   global:
   - DOCKER_REPO=eginotebooks
