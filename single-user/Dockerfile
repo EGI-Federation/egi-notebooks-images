@@ -2,7 +2,11 @@ FROM jupyter/datascience-notebook:a330137134e7
 
 USER root
 RUN apt-get update \
-    && apt-get install -y graphviz vim nodejs \
+    && apt-get install -y \
+        graphviz \
+        vim \
+        nodejs \
+        octave \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -30,7 +34,6 @@ RUN conda install -y --quiet \
         ipympl \
         jmespath \
         octave_kernel \
-        textinfo \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
