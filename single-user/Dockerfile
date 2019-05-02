@@ -35,13 +35,15 @@ RUN conda install -y --quiet \
         jmespath \
         octave_kernel \
         simplegeneric \
+    && conda remove rpy2 \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 # packages not in conda?
 RUN pip install shortid \
-                nbgitpuller
+                nbgitpuller \
+                rpy2
 
 RUN jupyter labextension install jupyter-leaflet
 
