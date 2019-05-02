@@ -34,6 +34,7 @@ RUN conda install -y --quiet \
         ipympl \
         jmespath \
         octave_kernel \
+        simplegeneric \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
