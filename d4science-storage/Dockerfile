@@ -4,7 +4,8 @@ RUN apt-get update \
     && apt-get install -y libfuse2 fuse \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl http://maven.research-infrastructures.eu/nexus/service/local/repositories/gcube-snapshots/content/org/gcube/data-access/sh-fuse-integration/1.0.0-SNAPSHOT/sh-fuse-integration-1.0.0-20190312.161452-1-jar-with-dependencies.jar > /sh-fuse-integration-1.0.0-20190312.161452-1-jar-with-dependencies.jar
+RUN curl https://data.d4science.org/shub/E_eTB4a3hhZ1ZBbHEweFdPN3FtQXFraW1kQy8zb0FxTkMwSHhEVG1TcVVtWGJnRjJKdWh3aXBWYWxwUmRVQlNjdA== > \
+ /sh-fuse-integration-jar-with-dependencies.jar
 
 COPY mount.sh /mount.sh
 
