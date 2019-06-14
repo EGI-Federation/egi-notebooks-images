@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:a330137134e7
+FROM jupyter/datascience-notebook:d4cbf2f80a2a
 
 USER root
 RUN apt-get update \
@@ -29,6 +29,7 @@ RUN conda install -y r-plotly \
         xgboost \
         lightgbm \
         catboost \
+        numpy \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
