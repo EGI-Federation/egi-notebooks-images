@@ -8,6 +8,7 @@ jobs:
     - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else git
       rev-parse --short HEAD; fi)
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build -t $DOCKER_REPO/base base
     - docker build -t $DOCKER_REPO/single-user single-user
     - docker tag $DOCKER_REPO/single-user $DOCKER_REPO/single-user:$TAG
     - docker build -t $DOCKER_REPO/single-user-aginfra single-user-aginfra
