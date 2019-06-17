@@ -26,10 +26,11 @@ RUN conda install -y r-plotly \
         cartopy \
         ipyleaflet \
         ipywidgets \
+        beakerx \
         xgboost \
         lightgbm \
         catboost \
-        numpy \
+    && conda update --all \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
