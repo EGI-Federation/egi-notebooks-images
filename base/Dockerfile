@@ -26,12 +26,11 @@ RUN conda install -y --quiet \
         lxml \
         geojson \
         proj4 \
-        pydap==3.2.1 \
+        pydap \
         xarray \
         cartopy \
         ipyleaflet \
         ipywidgets \
-    && conda update --all \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
