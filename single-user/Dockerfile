@@ -32,8 +32,11 @@ RUN conda install -y --quiet \
 
 # packages not in conda
 RUN pip install rpy2 \
-                onedata-fs \
-                git+https://github.com/onedata/onedatafs-jupyter.pip
+                git+https://github.com/onedata/fs-onedatafs \
+                git+https://github.com/onedata/onedatafs-jupyter
+
+# don't look here :)
+RUN cp -a /usr/lib/python3.6/dist-packages/onedatafs /opt/conda/lib/python3.7/site-packages/
 
 USER $NB_UID
 RUN rmdir work
