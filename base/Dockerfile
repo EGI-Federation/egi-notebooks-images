@@ -37,7 +37,9 @@ RUN conda install -y --quiet \
     && fix-permissions /home/$NB_USER
 
 # packages not in conda?
+# TODO(enolfc): move the egi-hub-addons to a better place
 RUN pip install shortid \
-                nbgitpuller
+                nbgitpuller \
+                git+https://github.com/enolfc/egi-hub-addons
 
 RUN jupyter labextension install jupyter-leaflet
