@@ -5,15 +5,31 @@ RUN apt-get update \
     && apt-get install -y \
         nodejs \
         octave \
-        curl \
-        gnupg2 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# onedata
-RUN curl -sSL http://packages.onedata.org/onedata.gpg.key | apt-key add - \
-    && echo "deb [arch=amd64] http://packages.onedata.org/apt/ubuntu/1802 bionic main" > /etc/apt/sources.list.d/onedata.list \
-    && apt-get update && apt-get install -y python3-onedatafs \
+        libboost-python1.65.1 \
+        glusterfs-common \
+        libboost-context1.65.1 \
+        libboost-filesystem1.65.1 \
+        libboost-program-options1.65.1 \
+        libboost-system1.65.1 \
+        libboost-thread1.65.1 \
+        libc6 \
+        libcurl4 \
+        libdouble-conversion1 \
+        libevent-2.1-6 \
+        libfuse2 \
+        libgcc1 \
+        libgoogle-glog0v5 \
+        libpocofoundation50 \
+        libpoconet50 \
+        libpocoxml50 \
+        libprotobuf10 \
+        librados2 \
+        libradosstriper1 \
+        libsodium23 \
+        libssl1.1 \
+        libstdc++6 \
+        libtbb2 \
+        zlib1g \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -33,10 +49,8 @@ RUN conda install -y --quiet \
 # packages not in conda
 RUN pip install rpy2 \
                 git+https://github.com/onedata/fs-onedatafs \
-                git+https://github.com/onedata/onedatafs-jupyter
-
-# don't look here :)
-RUN cp -a /usr/lib/python3.6/dist-packages/onedatafs /opt/conda/lib/python3.7/site-packages/
+                git+https://github.com/onedata/onedatafs-jupyter \
+                git+https://github.com/enolfc/onedatafs.git
 
 USER $NB_UID
 RUN rmdir work
