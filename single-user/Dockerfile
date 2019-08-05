@@ -48,7 +48,7 @@ RUN conda install -y --quiet \
 
 # packages not in conda
 RUN pip install rpy2 \
-                git+https://github.com/onedata/fs-onedatafs \
+                git+https://github.com/enolfc/fs-onedatafs@cast_int \
                 git+https://github.com/onedata/onedatafs-jupyter \
                 git+https://github.com/enolfc/onedatafs.git
 
