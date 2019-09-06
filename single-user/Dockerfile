@@ -48,7 +48,7 @@ RUN conda install -y --quiet \
 
 # packages not in conda
 RUN pip install rpy2 \
-                git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.1 \
+                git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.2 \
                 git+https://github.com/enolfc/fs-onedatafs.git@notebooks \
                 git+https://github.com/enolfc/onedatafs.git \
                 git+https://github.com/onedata/onedatafs-jupyter.git
