@@ -55,3 +55,5 @@ RUN pip install rpy2 \
 
 USER $NB_UID
 RUN rmdir work
+
+RUN jupyter lab build
