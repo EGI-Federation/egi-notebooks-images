@@ -51,7 +51,8 @@ RUN pip install rpy2 \
                 git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
                 git+https://github.com/enolfc/fs-onedatafs.git@notebooks \
                 git+https://github.com/enolfc/onedatafs.git \
-                git+https://github.com/onedata/onedatafs-jupyter.git
+                git+https://github.com/onedata/onedatafs-jupyter.git \
+                jupyterlab-git
 
 USER $NB_UID
 RUN rmdir work
