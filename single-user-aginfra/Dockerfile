@@ -19,4 +19,5 @@ RUN pip install shortid \
         sentinelhub \
         git+https://github.com/geopython/OWSLib.git
 
-RUN jupyter labextension disable @jupyterlab/hub-extension
+RUN jupyter labextension disable @jupyterlab/hub-extension \
+    && jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
