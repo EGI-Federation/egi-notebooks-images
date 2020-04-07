@@ -1,8 +1,6 @@
-FROM jupyter/datascience-notebook:1386e2046833
+FROM jupyter/datascience-notebook:hub-1.1.0
 
 USER root
-
-RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-jovyan
 
 RUN apt-get update \
     && apt-get install -y \
