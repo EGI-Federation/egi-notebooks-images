@@ -12,6 +12,7 @@ RUN apt-get update \
         libboost-program-options1.65.1 \
         libboost-system1.65.1 \
         libboost-thread1.65.1 \
+        libboost-regex1.65.1 \
         libc6 \
         libcurl4 \
         libdouble-conversion1 \
