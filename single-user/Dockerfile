@@ -38,16 +38,17 @@ USER $NB_UID
 
 RUN conda config --add channels bioconda \
     && conda install -y --quiet \
+        biopython \
+        blast \
+        clustalw \
+        emboss \
+    && conda install -y --quiet \
         cftime \
         ipympl \
         jmespath \
         octave_kernel \
         simplegeneric \
         fs \
-        biopython \
-        blast \
-        clustalw \
-        emboss \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
