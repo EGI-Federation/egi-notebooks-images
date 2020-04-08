@@ -42,14 +42,12 @@ RUN conda install -y --quiet \
         octave_kernel \
         simplegeneric \
         fs \
-    && conda remove rpy2 \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 # packages not in conda
-RUN pip install rpy2 \
-                git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
+RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
                 git+https://github.com/enolfc/fs-onedatafs.git@notebooks \
                 git+https://github.com/enolfc/onedatafs@19.02.01 \
                 git+https://github.com/onedata/onedatafs-jupyter.git \
