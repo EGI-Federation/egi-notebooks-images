@@ -51,9 +51,5 @@ RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3
                 git+https://github.com/enolfc/fs-onedatafs.git@notebooks \
                 git+https://github.com/enolfc/onedatafs@19.02.01 \
                 git+https://github.com/onedata/onedatafs-jupyter.git \
-                jupyterlab-git
 
-USER $NB_UID
 RUN rmdir work
-
-RUN jupyter lab build
