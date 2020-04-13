@@ -31,7 +31,7 @@ RUN conda install -y --quiet \
         'ipyleaflet=0.12.3' \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER \
+    && fix-permissions /home/$NB_USER
 
 # packages not in conda?
 # TODO(enolfc): move the egi-hub-addons to a better place
