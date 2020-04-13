@@ -39,4 +39,4 @@ RUN pip install shortid \
                 nbgitpuller \
                 git+https://github.com/enolfc/egi-hub-addons
 
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
+RUN jupyter labextension install --debug @jupyter-widgets/jupyterlab-manager jupyter-leaflet
