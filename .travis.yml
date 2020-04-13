@@ -14,8 +14,6 @@ jobs:
     - docker tag $DOCKER_REPO/single-user-aginfra $DOCKER_REPO/single-user-aginfra:$TAG
     - docker build -t $DOCKER_REPO/d4science-storage d4science-storage
     - docker tag $DOCKER_REPO/d4science-storage $DOCKER_REPO/d4science-storage:$TAG
-    - docker build -t $DOCKER_REPO/single-user-labss single-user-labss
-    - docker tag $DOCKER_REPO/single-user-labss $DOCKER_REPO/single-user-labss:$TAG
     after_success:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $DOCKER_REPO/single-user
@@ -24,8 +22,6 @@ jobs:
     - docker push $DOCKER_REPO/single-user-aginfra:$TAG
     - docker push $DOCKER_REPO/d4science-storage
     - docker push $DOCKER_REPO/d4science-storage:$TAG
-    - docker push $DOCKER_REPO/single-user-labss
-    - docker push $DOCKER_REPO/single-user-labss:$TAG
 env:
   global:
   - DOCKER_REPO=eginotebooks
