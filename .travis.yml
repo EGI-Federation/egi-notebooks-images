@@ -7,8 +7,8 @@ jobs:
     script:
     - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else git
       rev-parse --short HEAD; fi)
-    - travis_wait 20 docker build -t $DOCKER_REPO/base base
-    - travis_wait 40 docker build -t $DOCKER_REPO/single-user single-user
+    - docker build -t $DOCKER_REPO/base base
+    - docker build -t $DOCKER_REPO/single-user single-user
     - docker tag $DOCKER_REPO/single-user $DOCKER_REPO/single-user:$TAG
     - docker build -t $DOCKER_REPO/single-user-aginfra single-user-aginfra
     - docker tag $DOCKER_REPO/single-user-aginfra $DOCKER_REPO/single-user-aginfra:$TAG
