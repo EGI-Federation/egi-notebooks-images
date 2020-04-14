@@ -1,8 +1,8 @@
 FROM eginotebooks/base
 
 USER root
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt-get -qq update \
+    && apt-get -qq install -y \
         nodejs \
         octave \
         libboost-python1.65.1 \
@@ -31,16 +31,13 @@ RUN apt-get update \
         libstdc++6 \
         libtbb2 \
         zlib1g \
-    && apt-get clean \
+    && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/*
 
 USER $NB_UID
 
-COPY env.yml /tmp/env.yml
 
-# RUN conda env update -f /tmp/env.yml --prune
-
-RUN conda install -y --quiet \
+RUN mamba install -y --quiet \
         'cftime=1.1.1.2' \
         'ipympl=0.5.6' \
         'jmespath=0.9.5' \
@@ -48,12 +45,12 @@ RUN conda install -y --quiet \
         'fs=2.4.11' \
     && conda clean -tipsy
 
-#RUN conda config --add channels bioconda \
-#    && conda install -y --quiet \
-#        biopython \
-#        blast \
-#        clustalw \
-#        emboss
+RUN conda config --add channels bioconda \
+    && mamba install -y --quiet \
+        biopython \
+        blast \
+        clustalw \
+        emboss
 
 # packages not in conda
 RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
