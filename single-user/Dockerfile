@@ -38,7 +38,6 @@ USER $NB_UID
 
 COPY env.yml /tmp/env.yml
 
-
 # RUN conda env update -f /tmp/env.yml --prune
 
 RUN conda install -y --quiet \
