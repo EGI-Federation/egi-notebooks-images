@@ -38,11 +38,11 @@ USER $NB_UID
 
 
 RUN mamba install -y --quiet \
-        'cftime=1.1.1.2' \
-        'ipympl=0.5.6' \
-        'jmespath=0.9.5' \
-        'octave_kernel=0.31.1' \
-        'fs=2.4.11' \
+        cftime \
+        ipympl \
+        jmespath \
+        octave_kernel \
+        fs \
     && conda clean -tipsy
 
 RUN conda config --add channels bioconda \
