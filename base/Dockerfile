@@ -17,11 +17,7 @@ USER $NB_UID
 
 COPY env.yml /tmp/env.yml
 
-RUN conda install -y pycryptosat \
-    && conda config --set sat_solver pycryptosat \
-    && conda env update -f /tmp/env.yml --prune \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+RUN conda env update -f /tmp/env.yml --prune \
+    && conda clean -tipsy
 
-RUN jupyter labextension install --debug @jupyter-widgets/jupyterlab-manager jupyter-leaflet
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet

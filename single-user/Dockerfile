@@ -36,22 +36,25 @@ RUN apt-get update \
 
 USER $NB_UID
 
-RUN conda config --add channels bioconda \
-    && conda install -y --quiet \
-        biopython \
-        blast \
-        clustalw \
-        emboss \
-    && conda install -y --quiet \
-        cftime \
-        ipympl \
-        jmespath \
-        octave_kernel \
-        simplegeneric \
-        fs \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+COPY env.yml /tmp/env.yml
+
+
+# RUN conda env update -f /tmp/env.yml --prune
+
+RUN conda install -y --quiet \
+        'cftime=1.1.1.2' \
+        'ipympl=0.5.6' \
+        'jmespath=0.9.5' \
+        'octave_kernel=0.31.1' \
+        'fs=2.4.11' \
+    && conda clean -tipsy
+
+#RUN conda config --add channels bioconda \
+#    && conda install -y --quiet \
+#        biopython \
+#        blast \
+#        clustalw \
+#        emboss
 
 # packages not in conda
 RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
