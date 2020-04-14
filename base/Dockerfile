@@ -1,8 +1,6 @@
-FROM jupyter/datascience-notebook:1386e2046833
+FROM jupyter/datascience-notebook:hub-1.1.0
 
 USER root
-
-RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-jovyan
 
 RUN apt-get update \
     && apt-get install -y \
@@ -15,14 +13,16 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
          -o /usr/local/bin/retry && chmod +x /usr/local/bin/retry
 
 USER $NB_UID
-RUN conda install -y --quiet \
+
+# install mamba which goes way faster than conda
+RUN conda install mamba -y --quiet -c conda-forge \
+    && mamba install -y -q \
         r-plotly \
         r-gdata \
         rdflib \
         prov \
         graphviz \
         pydot \
-        xlrd \
         lxml \
         geojson \
         proj4 \
@@ -30,15 +30,10 @@ RUN conda install -y --quiet \
         xarray \
         cartopy \
         ipyleaflet \
-        ipywidgets \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && conda clean -tipsy
 
-# packages not in conda?
-# TODO(enolfc): move the egi-hub-addons to a better place
 RUN pip install shortid \
                 nbgitpuller \
                 git+https://github.com/enolfc/egi-hub-addons
 
-RUN jupyter labextension install jupyter-leaflet
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet

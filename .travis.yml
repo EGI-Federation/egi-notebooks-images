@@ -7,7 +7,6 @@ jobs:
     script:
     - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else git
       rev-parse --short HEAD; fi)
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t $DOCKER_REPO/base base
     - docker build -t $DOCKER_REPO/single-user single-user
     - docker tag $DOCKER_REPO/single-user $DOCKER_REPO/single-user:$TAG
@@ -15,19 +14,14 @@ jobs:
     - docker tag $DOCKER_REPO/single-user-aginfra $DOCKER_REPO/single-user-aginfra:$TAG
     - docker build -t $DOCKER_REPO/d4science-storage d4science-storage
     - docker tag $DOCKER_REPO/d4science-storage $DOCKER_REPO/d4science-storage:$TAG
-    - docker build -t $DOCKER_REPO/single-user-labss single-user-labss
-    - docker tag $DOCKER_REPO/single-user-labss $DOCKER_REPO/single-user-labss:$TAG
     after_success:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $DOCKER_REPO/single-user
     - docker push $DOCKER_REPO/single-user:$TAG
     - docker push $DOCKER_REPO/single-user-aginfra
     - docker push $DOCKER_REPO/single-user-aginfra:$TAG
     - docker push $DOCKER_REPO/d4science-storage
     - docker push $DOCKER_REPO/d4science-storage:$TAG
-    - docker push $DOCKER_REPO/single-user-labss
-    - docker push $DOCKER_REPO/single-user-labss:$TAG
 env:
   global:
   - DOCKER_REPO=eginotebooks
-  - secure: DYypjJv2TZdbIh1R/SDR9J3/bNiFT9L7GJhrP+Wwbi7n5Pzn2TI+FUF76KDkmi9922tEBmTReLlm2sO7HyS5VyVZmgVlM2V/BQL6nXLai1caJ7UtHu9+harqwMTu2KL/dFzZfSMJ+MiuTBYPUNpnMyUIPjvBFOWDPC/VxYbgLrIPWidw1TekqYOe1X1wYvtk+fqmTpNbyAh6t0Duhmy+z8NcyazWkMyb69l0q5Zq4Rw62XZoRn31aka4yslk5cflAyRV4AuOiYc2u7d/cbvAmpy87taztiL6WoHyswAHso1o4n6tBF2uOSGhOgu0eiA+TCFBf474ODcwbbtmqVfRe22tlRd0axMs9jJvlHSiFgC8VZd6Xgggld4MIHDGzQcB/nrnTX2hVTlf2n1jkEZPxj637/4iasBphp09F7idqzs1eNaodstJ/bMen9p46+g68B7Rx3E5yiUIaVg3Zqu7kNb/TI3r8/GpWqCDZCYdwuH7BaJlmB9bbCsN6jbSL8qWRcR6RfTZ6T4R53mw0dTrjpuMTolFrkNHa2MJJL5qcjs6Oc8+pucU8dDGFC31ZrIAKcoBfJhS163Ku+vzu3ETD4J497ODnAsYu9HRpRiumQBF/IqNuAEc7JRnV6V1ReKxb33poTA6Hnm9+5poBGXAzWSdFUfS4YZumzvbIO8i/kE=
-  - secure: Ld0IFkfbLbd0SHymoQnHNJjmdgjuyhXQmwS+0ujRVoMlCUvVsO+SOrTZ+9KNxP8k01FCbcDOIjZ9vxnZZ1OcTjPyhL7PJr2xbXP7fRKnSWnGRbyOG/NIehP14PgZbVtH3zjV4Ao0fFdmmu0w9mV5cErW8vG0F5PrvQ1ceTcl0dzOS5lhjxn9pk7SEnxVDXcFx3K7tOMnjoGQN+XpLVlIkdvCdE1MpFv3mKfNQplqVVDUaHqbVxDAMsp17/iVEGdnZs05RA8yOQSgonVBJnS8ExoA0ncCUam5eN8Ar9FBFczPjPgdoZuv8CpmrfSHOwGBI9MeF83CfzjhPT5Yu6CfJ8p+Ck/7vFot41iMyxKza/l2DgOYnHnHycKDjGvtRm8bMlQpYhLXtxcYy4YAJs02MyjJLy4A9VlcW7MqY4oNt7ZX2CPqbUd2gbQUawRoKYbpFV0P3s0zMjSPb6idVkMMsfK1vim60dgyaUzZ3r9vQAa5H8pCnSTj3fgYL/g3Wi39IR3djbO/RWRmUzTQvfCMVT5+XJNyOYK39O2CUwSpTuaMoBg+z+9xStVPusRzEenYQocR0qMQEquT5/YAroSTY3ZKGJEFt9gN39xmHDiKylwzOGh55xNfbLjpoqg1aXsc7zb88UJMZJnH89hrRGMEtZ+ywsmaaTDQPqS51ttRG60=
