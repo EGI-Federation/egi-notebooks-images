@@ -56,6 +56,7 @@ RUN conda config --add channels bioconda \
 RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
                 git+https://github.com/onedata/fs-onedatafs.git@feature/VFS-6264-fix-onedatafs-h5py-support \
                 git+https://github.com/enolfc/onedatafs@19.02.1 \
-                git+https://github.com/onedata/onedatafs-jupyter.git@19.02.1
+                git+https://github.com/onedata/onedatafs-jupyter.git@19.02.1 \
+                h5glance
 
 RUN rmdir work
