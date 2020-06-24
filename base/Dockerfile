@@ -32,7 +32,7 @@ RUN conda install mamba -y --quiet -c conda-forge \
         xarray \
         cartopy \
         ipyleaflet \
-    && conda clean -tipsy
+    && conda clean --all
 
 RUN pip install shortid \
                 nbgitpuller \
