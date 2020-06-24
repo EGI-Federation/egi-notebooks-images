@@ -16,6 +16,7 @@ RUN mamba install -y --quiet \
         jmespath \
         octave_kernel \
         fs \
+    && mamba install -y --quiet pytorch torchvision -c pytorch \
     && conda clean -tipsy
 
 RUN conda config --add channels bioconda \
