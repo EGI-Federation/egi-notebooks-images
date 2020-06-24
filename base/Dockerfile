@@ -1,4 +1,6 @@
-FROM jupyter/datascience-notebook:hub-1.1.0
+# 04f7f60d34a6 is hub-1.1.0 on 2020-06-24
+# Using that to ensure the image remains the same
+FROM jupyter/datascience-notebook:04f7f60d34a6
 
 USER root
 
