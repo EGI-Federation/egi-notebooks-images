@@ -10,8 +10,8 @@ jobs:
     - docker build -t $DOCKER_REPO/base base
     - docker build -t $DOCKER_REPO/single-user single-user
     - docker tag $DOCKER_REPO/single-user $DOCKER_REPO/single-user:$TAG
-    - docker build -t $DOCKER_REPO/single-user-aginfra single-user-aginfra
-    - docker tag $DOCKER_REPO/single-user-aginfra $DOCKER_REPO/single-user-aginfra:$TAG
+    - docker build -t $DOCKER_REPO/single-user-d4science single-user-d4science
+    - docker tag $DOCKER_REPO/single-user-d4science $DOCKER_REPO/single-user-d4science:$TAG
     - docker build -t $DOCKER_REPO/d4science-storage d4science-storage
     - docker tag $DOCKER_REPO/d4science-storage $DOCKER_REPO/d4science-storage:$TAG
     after_success:
@@ -20,8 +20,8 @@ jobs:
     - docker push $DOCKER_REPO/base:$TAG
     - docker push $DOCKER_REPO/single-user
     - docker push $DOCKER_REPO/single-user:$TAG
-    - docker push $DOCKER_REPO/single-user-aginfra
-    - docker push $DOCKER_REPO/single-user-aginfra:$TAG
+    - docker push $DOCKER_REPO/single-user-d4science
+    - docker push $DOCKER_REPO/single-user-d4science:$TAG
     - docker push $DOCKER_REPO/d4science-storage
     - docker push $DOCKER_REPO/d4science-storage:$TAG
 env:
