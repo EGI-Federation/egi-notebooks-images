@@ -7,10 +7,11 @@ jobs:
     script:
     - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else git
       rev-parse --short HEAD; fi)
-    - docker build -t $DOCKER_REPO/base base
-    - docker build -t $DOCKER_REPO/single-user single-user
+    - travis_wait 20 docker build -t $DOCKER_REPO/base base
+    - docker tag $DOCKER_REPO/base $DOCKER_REPO/base:$TAG
+    - travis_wait 20 docker build -t $DOCKER_REPO/single-user single-user
     - docker tag $DOCKER_REPO/single-user $DOCKER_REPO/single-user:$TAG
-    - docker build -t $DOCKER_REPO/single-user-d4science single-user-d4science
+    - travis_wait 20 docker build -t $DOCKER_REPO/single-user-d4science single-user-d4science
     - docker tag $DOCKER_REPO/single-user-d4science $DOCKER_REPO/single-user-d4science:$TAG
     - docker build -t $DOCKER_REPO/d4science-storage d4science-storage
     - docker tag $DOCKER_REPO/d4science-storage $DOCKER_REPO/d4science-storage:$TAG
