@@ -15,6 +15,8 @@ RUN pip install shortid \
         nbgitpuller \
         rdp \
         sentinelhub \
+        import_ipynb \
+        netCDF4 \
         git+https://github.com/geopython/OWSLib.git
 
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
