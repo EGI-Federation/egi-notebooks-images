@@ -6,6 +6,7 @@ RUN mamba install -y --quiet \
         lightgbm \
         catboost \
         netcdf4 \
+        argopy \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
@@ -17,6 +18,7 @@ RUN pip install shortid \
         rdp \
         sentinelhub \
         import_ipynb \
+        pyxpcm \
         git+https://github.com/geopython/OWSLib.git
 
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
