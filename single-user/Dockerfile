@@ -6,7 +6,23 @@ RUN mamba install -y --quiet \
         jmespath \
         octave_kernel \
 	octave \
-    && mamba install -y --quiet pytorch torchvision -c pytorch \
+	psycopg2 \
+	boto3 \
+	folium \
+	tensorflow \
+	tqdm \
+	lxml \
+	pymongo \
+	rasterstats \
+	geopandas \
+	ipywidgets \
+	matplotlib \
+	scipy \
+	lightgbm \
+	eo-learn \
+	plotly \
+	graphviz \
+    && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai\
     && conda clean --all
 
 RUN conda config --add channels bioconda \
@@ -19,6 +35,8 @@ RUN conda config --add channels bioconda \
 
 # packages not in conda
 RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
-                h5glance
+                h5glance \
+		nbtop \
+		tflearn
 
 RUN rmdir work
