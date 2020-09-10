@@ -27,7 +27,6 @@ RUN conda install mamba -y --quiet -c conda-forge \
         pydot \
         lxml \
         geojson \
-        proj4 \
         pydap \
         xarray \
         cartopy \
