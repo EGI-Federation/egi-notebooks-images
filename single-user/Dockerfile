@@ -4,8 +4,6 @@ RUN mamba install -y --quiet \
         cftime \
         ipympl \
         jmespath \
-        octave_kernel \
-	octave \
 	psycopg2 \
 	boto3 \
 	folium \
@@ -22,7 +20,7 @@ RUN mamba install -y --quiet \
 	eo-learn \
 	plotly \
 	graphviz \
-    && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai\
+    && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai \
     && conda clean --all
 
 RUN conda config --add channels bioconda \
