@@ -20,8 +20,6 @@ jobs:
     deploy:
       provider: script
       script: bash deploy.sh $DOCKER_REPO $TAG
-      on:
-        tags: true
 env:
   global:
   - DOCKER_REPO=eginotebooks
