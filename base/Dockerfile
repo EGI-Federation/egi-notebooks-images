@@ -1,6 +1,6 @@
-# 04f7f60d34a6 is hub-1.1.0 on 2020-06-24
+# 6d42503c684f has python3.8 needed for samesite setting of cookies
 # Using that to ensure the image remains the same
-FROM jupyter/datascience-notebook:04f7f60d34a6
+FROM jupyter/datascience-notebook:6d42503c684f
 
 USER root
 
@@ -27,7 +27,6 @@ RUN conda install mamba -y --quiet -c conda-forge \
         pydot \
         lxml \
         geojson \
-        proj4 \
         pydap \
         xarray \
         cartopy \
@@ -35,7 +34,6 @@ RUN conda install mamba -y --quiet -c conda-forge \
     && conda clean --all
 
 RUN pip install shortid \
-                nbgitpuller \
-                git+https://github.com/enolfc/egi-hub-addons
+                nbgitpuller
 
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
