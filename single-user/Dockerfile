@@ -45,6 +45,15 @@ RUN mamba create --name octave -y --quiet octave octave_kernel \
     && jupyter kernelspec install $SITE_PACKAGES/octave_kernel --name octave --prefix /opt/conda \
     && conda clean --all
 
+# DIRAC
+RUN mamba create --name dirac -y --quiet -c conda-forge ipython dirac-grid python=2.7 pypy2.7 \
+    && mkdir -p  /etc/dirac \
+    && conda clean --all
+
+COPY dirac.cfg /etc/dirac/dirac.cfg
+
+ENV DIRACSYSCONFIG=/etc/dirac/dirac.cfg
+
 # packages not in conda
 RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
                 h5glance \
