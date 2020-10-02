@@ -42,7 +42,8 @@ RUN mamba create --name octave -y --quiet octave octave_kernel \
        | jq ".argv[0] = \"$OCTAVE_PYTHON\"" \
        | jq -c '. + { "env": { "PATH": "'$OCTAVE_PATH'", "OCTAVE_HOME": "'$OCTAVE_HOME'" }}' > /tmp/kernel.json \
     && mv /tmp/kernel.json $SITE_PACKAGES/octave_kernel/kernel.json \
-    && jupyter kernelspec install $SITE_PACKAGES/octave_kernel --name octave --prefix /opt/conda
+    && jupyter kernelspec install $SITE_PACKAGES/octave_kernel --name octave --prefix /opt/conda \
+    && conda clean --all
 
 # packages not in conda
 RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
