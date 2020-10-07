@@ -48,12 +48,13 @@ RUN mamba create --name octave -y --quiet octave octave_kernel \
 # DIRAC
 
 USER root
-RUN curl http://repository.egi.eu/sw/production/cas/1/current/repo-files/egi-trustanchors.list \
-         -o /etc/apt/sources.list.d/egi-trustanchors.list \
+RUN apt-get update \
+    && apt-get install -y gnupg \
+    && curl http://repository.egi.eu/sw/production/cas/1/current/repo-files/egi-trustanchors.list \
+            -o /etc/apt/sources.list.d/egi-trustanchors.list \
     && curl https://dl.igtf.net/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
     && apt-get update \
-    && apt-get install -y \
-         ca-policy-egi-core \
+    && apt-get install -y ca-policy-egi-core \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
