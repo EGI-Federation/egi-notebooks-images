@@ -45,12 +45,25 @@ RUN mamba create --name octave -y --quiet octave octave_kernel \
     && jupyter kernelspec install $SITE_PACKAGES/octave_kernel --name octave --prefix /opt/conda \
     && conda clean --all
 
+USER ROOT
+RUN curl http://repository.egi.eu/sw/production/cas/1/current/repo-files/egi-trustanchors.list \
+         -o /etc/apt/sources.list.d/egi-trustanchors.list \
+    && curl https://dl.igtf.net/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
+    && apt-get update \
+    && apt-get install -y \
+         ca-policy-egi-core \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p  /etc/dirac
+COPY dirac.cfg /etc/dirac/dirac.cfg
+
+USER $NB_UID
+
 # DIRAC
 RUN mamba create --name dirac -y --quiet -c conda-forge ipython dirac-grid python=2.7 pypy2.7 \
-    && mkdir -p  /etc/dirac \
     && conda clean --all
 
-COPY dirac.cfg /etc/dirac/dirac.cfg
 
 ENV DIRACSYSCONFIG=/etc/dirac/dirac.cfg
 
