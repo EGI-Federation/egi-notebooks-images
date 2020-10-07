@@ -47,7 +47,7 @@ RUN mamba create --name octave -y --quiet octave octave_kernel \
 
 # DIRAC
 
-USER ROOT
+USER root
 RUN curl http://repository.egi.eu/sw/production/cas/1/current/repo-files/egi-trustanchors.list \
          -o /etc/apt/sources.list.d/egi-trustanchors.list \
     && curl https://dl.igtf.net/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
