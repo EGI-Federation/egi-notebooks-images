@@ -7,6 +7,7 @@ RUN mamba install -y --quiet \
         catboost \
         netcdf4 \
         argopy \
+        aiohttp \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
