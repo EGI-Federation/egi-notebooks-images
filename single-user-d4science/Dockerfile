@@ -18,7 +18,7 @@ RUN pip install shortid \
         rdp \
         sentinelhub \
         import_ipynb \
-        pyxpcm \
+        git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git
 
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
