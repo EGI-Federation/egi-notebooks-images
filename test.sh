@@ -9,7 +9,7 @@ for img in $IMGS ; do
     for f in $img/tests/*.ipynb; do
         if [ -e "$f" ]; then
             docker run -v $PWD/$img/tests:/tests $DOCKER_REPO/$img \
-                jupyter nbconvert --to rst --execute --stdout /tests/$(basename $f)
+                jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst --execute --stdout /tests/$(basename $f)
         else
             true
         fi
