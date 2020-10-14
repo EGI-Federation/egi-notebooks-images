@@ -6,7 +6,6 @@ RUN mamba install -y --quiet \
         lightgbm \
         catboost \
         netcdf4 \
-        argopy \
         aiohttp \
     && conda clean -tipsy
 
@@ -20,6 +19,7 @@ RUN pip install shortid \
         sentinelhub \
         import_ipynb \
         git+https://github.com/obidam/pyxpcm.git \
-        git+https://github.com/geopython/OWSLib.git
+        git+https://github.com/geopython/OWSLib.git \
+        git+https://github.com/euroargodev/argopy.git@master
 
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
