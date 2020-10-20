@@ -7,6 +7,7 @@ RUN mamba install -y --quiet \
         catboost \
         netcdf4 \
         aiohttp \
+        scikit-learn==0.22.1 \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
