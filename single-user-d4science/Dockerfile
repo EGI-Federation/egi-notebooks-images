@@ -18,8 +18,10 @@ RUN pip install shortid \
         rdp \
         sentinelhub \
         import_ipynb \
+        nbresuse \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master
 
+RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
