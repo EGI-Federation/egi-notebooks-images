@@ -7,6 +7,7 @@ RUN mamba install -y --quiet \
         catboost \
         netcdf4 \
         aiohttp \
+        graph-tool \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
@@ -19,6 +20,8 @@ RUN pip install shortid \
         sentinelhub \
         import_ipynb \
         nbresuse \
+	ndlib \
+        cdlib[C] \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master
