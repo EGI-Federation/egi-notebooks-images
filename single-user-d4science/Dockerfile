@@ -8,6 +8,7 @@ RUN mamba install -y --quiet \
         netcdf4 \
         aiohttp \
         graph-tool \
+        scikit-learn==0.22.1 \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
@@ -20,7 +21,7 @@ RUN pip install shortid \
         sentinelhub \
         import_ipynb \
         nbresuse \
-	ndlib \
+	      ndlib \
         cdlib[C] \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \

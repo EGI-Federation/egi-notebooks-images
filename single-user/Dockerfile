@@ -55,6 +55,7 @@ RUN apt-get update \
     && curl https://dl.igtf.net/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
     && apt-get update \
     && apt-get install -y ca-policy-egi-core \
+    && apt-get install -y git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -67,6 +68,13 @@ USER $NB_UID
 RUN mamba create --name dirac -y --quiet -c conda-forge ipython dirac-grid python=2.7 pypy2.7 ipykernel \
     && $(conda run -n dirac /bin/bash -c "which python") -m ipykernel install --prefix /tmp --name DIRAC \
     && jupyter kernelspec install /tmp/share/jupyter/kernels/dirac/ --name DIRAC --prefix /opt/conda \
+    && git clone -b rel-v7r2-pre16_tokens --single-branch https://github.com/TaykYoku/DIRAC.git /tmp/share/DIRAC \
+    && mv /tmp/share/DIRAC/FrameworkSystem/private/testNotebookAuth.py /opt/conda/envs/dirac/lib/python2.7/site-packages/DIRAC/FrameworkSystem/private/ \
+    && mv /tmp/share/DIRAC/FrameworkSystem/scripts/dirac-notebook-proxy-init.py /opt/conda/envs/dirac/bin/ \
+    && cp /opt/conda/envs/dirac/bin/dirac-notebook-proxy-init.py /opt/conda/envs/dirac/scripts/dirac-notebook-proxy-init \
+    && cp /opt/conda/envs/dirac/bin/dirac-notebook-proxy-init.py /opt/conda/envs/dirac/bin/dirac-notebook-proxy-init \
+    && chmod +x /opt/conda/envs/dirac/scripts/dirac-notebook-proxy-init \
+    && chmod +x /opt/conda/envs/dirac/bin/dirac-notebook-proxy-init \
     && rm -rf /tmp/share \
     && conda clean --all
 
