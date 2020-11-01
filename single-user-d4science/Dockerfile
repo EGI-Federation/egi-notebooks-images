@@ -8,6 +8,7 @@ RUN mamba install -y --quiet \
         netcdf4 \
         aiohttp \
         graph-tool \
+        scikit-learn==0.22.1 \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
