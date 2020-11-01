@@ -21,6 +21,7 @@ RUN pip install shortid \
         import_ipynb \
         nbresuse \
 	ndlib \
+        shuffle-graph==1.1.2 \
         cdlib[C] \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
