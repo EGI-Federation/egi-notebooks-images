@@ -7,6 +7,7 @@ RUN mamba install -y --quiet \
         catboost \
         netcdf4 \
         aiohttp \
+        graph-tool \
         scikit-learn==0.22.1 \
     && conda clean -tipsy
 
@@ -20,6 +21,9 @@ RUN pip install shortid \
         sentinelhub \
         import_ipynb \
         nbresuse \
+	  ndlib \
+        shuffle-graph==1.1.2 \
+        cdlib[C] \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master
