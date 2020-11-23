@@ -22,7 +22,7 @@ RUN pip install shortid \
         import_ipynb \
         nbresuse \
 	  ndlib \
-	motuclient \
+	  motuclient \
         shuffle-graph==1.1.2 \
         cdlib[C] \
         git+https://github.com/obidam/pyxpcm.git \
