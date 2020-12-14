@@ -16,6 +16,7 @@ RUN conda create --quiet --yes -n java8 \
     && conda clean -tipsy
 
 RUN pip install shortid \
+        bicm \
         nbgitpuller \
         rdp \
         sentinelhub \
