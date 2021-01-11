@@ -5,6 +5,7 @@ jobs:
   include:
   - stage: build docker images
     script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else git
       rev-parse --short HEAD; fi)
     - travis_wait 20 docker build -t $DOCKER_REPO/base base
