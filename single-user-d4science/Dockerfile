@@ -24,8 +24,8 @@ RUN pip install shortid \
         sentinelhub \
         import_ipynb \
         nbresuse \
-	ndlib \
-	motuclient \
+        ndlib \
+        motuclient \
         shuffle-graph==1.1.2 \
         cdlib[C] \
         git+https://github.com/obidam/pyxpcm.git \
