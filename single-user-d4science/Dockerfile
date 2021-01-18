@@ -1,6 +1,7 @@
 FROM eginotebooks/base
 
 RUN mamba install -y --quiet \
+        basemap \
         beakerx \
         xgboost \
         lightgbm \
