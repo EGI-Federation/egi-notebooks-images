@@ -20,7 +20,7 @@ jobs:
     - bash test.sh
     deploy:
       provider: script
-      script: travis_wait 20 bash deploy.sh $DOCKER_REPO $TAG
+      script: bash deploy.sh $DOCKER_REPO $TAG
 env:
   global:
   - DOCKER_REPO=eginotebooks
