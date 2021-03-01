@@ -41,7 +41,13 @@ RUN pip install shortid \
         cdlib[C] \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
-        git+https://github.com/euroargodev/argopy.git@master
+        git+https://github.com/euroargodev/argopy.git@master \
+        NEMtropy \
+        folium==0.11.0 \
+        geopy==2.0.0 \
+        hvplot==0.6.0 \
+        intake==0.6.0 \
+        intake-esm==2020.8.15
 
 RUN julia -e "using Pkg; Pkg.pin(\"IJulia\"); pkg\"add https://github.com/gher-ulg/DIVAndNN.jl\"; pkg\"add JSON PyCall PyPlot DIVAnd Glob DataStructures NCDatasets\""
 
