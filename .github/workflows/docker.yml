@@ -36,7 +36,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          file: cloud-info/Dockerfile
 
   user-image:
     name: Build and push images
@@ -78,7 +77,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          file: cloud-info/Dockerfile
       - uses: addnab/docker-run-action@v2
         with:
           image: eginotebooks/${{ matrix.image }}
