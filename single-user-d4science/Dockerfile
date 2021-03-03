@@ -6,6 +6,8 @@ RUN apt-get update \
     && apt-get install -y \
         nco \
         cdo \
+        gdal-bin \
+        libgdal-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -27,6 +29,9 @@ RUN conda create --quiet --yes -n java8 \
     && mamba install -n java8 --yes openjdk=8 \
     && conda clean -tipsy
 
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
+
 RUN pip install shortid \
         bicm \
         nbgitpuller \
@@ -37,8 +42,8 @@ RUN pip install shortid \
         nbresuse \
         ndlib \
         motuclient \
-        shuffle-graph==1.1.2 \
-        cdlib[C] \
+        panel==0.9.* \
+        cdlib[C]==0.2.0 \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master \
@@ -47,7 +52,8 @@ RUN pip install shortid \
         geopy==2.0.0 \
         hvplot==0.6.0 \
         intake==0.6.0 \
-        intake-esm==2020.8.15
+        intake-esm==2020.8.15 \
+        GDAL==3.0.4 #need to match the version of gdal installed
 
 RUN julia -e "using Pkg; Pkg.pin(\"IJulia\"); pkg\"add https://github.com/gher-ulg/DIVAndNN.jl\"; pkg\"add JSON PyCall PyPlot DIVAnd Glob DataStructures NCDatasets\""
 
