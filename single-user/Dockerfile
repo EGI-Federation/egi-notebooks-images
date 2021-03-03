@@ -1,4 +1,6 @@
-FROM eginotebooks/base
+ARG BASE_TAG=latest
+
+FROM eginotebooks/base:BASE_TAG
 
 RUN mamba install -y --quiet \
         cftime \
