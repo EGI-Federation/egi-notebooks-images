@@ -9,13 +9,6 @@ jobs:
   base-image:
     name: Build and push base image
     runs-on: ubuntu-latest
-    services:
-      registry:
-        image: registry:2
-        ports:
-        - 5000:5000
-        volumes:
-        - /tmp/registry:/var/lib/registry
 
     steps:
       - name: Checkout
@@ -38,6 +31,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.event_name != 'pull_request'
+      - name: Poor's man docker registry
+        # idea taken from https://github.com/cdalvaro/docker-salt-master/blob/1b862039dc0acd709e972d3619c57b9ef614d6b5/.github/workflows/build-and-test.yml
+        run: |
+          docker run -d -p 5000:5000 -v /tmp/registry:/var/lib/registry --name registry registry:2
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -51,7 +48,7 @@ jobs:
           context: base
           tags: localhost:5000/eginotebooks/base
           labels: ${{ steps.docker_meta.outputs.labels }}
-      - name: Upload docker artifact
+      - name: Upload docker registry
         uses: actions/upload-artifact@v2
         with:
           name: registry-data
@@ -61,13 +58,6 @@ jobs:
     name: Build and push images
     runs-on: ubuntu-latest
     needs: base-image
-    services:
-      registry:
-        image: registry:2
-        ports:
-        - 5000:5000
-        volumes:
-        - /tmp/registry:/var/lib/registry
 
     strategy:
       matrix:
@@ -79,11 +69,6 @@ jobs:
         - d4science-storage
 
     steps:
-      - name: Download base image
-        uses: actions/download-artifact@v2
-        with:
-          name: registry-data
-          path: /tmp/registry
       - name: Checkout
         uses: actions/checkout@v2
       - name: Docker meta
@@ -98,6 +83,14 @@ jobs:
         uses: docker/setup-buildx-action@v1
         with:
           driver-opts: network=host
+      - name: Download registry files
+        uses: actions/download-artifact@v2
+        with:
+          name: registry-data
+          path: /tmp/registry
+      - name: Poor's man docker registry
+        run: |
+          docker run -d -p 5000:5000 -v /tmp/registry:/var/lib/registry --name registry registry:2
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
