@@ -1,6 +1,6 @@
-ARG BASE_TAG=latest
+ARG BASE_IMAGE=eginotebooks/base:latest
 
-FROM eginotebooks/base:BASE_TAG
+FROM $BASE_IMAGE
 
 RUN mamba install -y --quiet \
         cftime \
