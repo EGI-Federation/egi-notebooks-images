@@ -23,8 +23,6 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        with:
-          driver-opts: network=host
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -38,18 +36,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-      - name: Build for next jobs
-        uses: docker/build-push-action@v2
-        with:
-          context: base
-          tags: eginotebooks/base:build
-          labels: ${{ steps.docker_meta.outputs.labels }}
-          outputs: type=docker,dest=/tmp/baseimage.tar
-      - name: Upload docker artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: base-image
-          path: /tmp/baseimage.tar
 
   user-image:
     name: Build and push images
@@ -84,18 +70,14 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+      # this is not very efficient, we are building the same stuff over and over :(
+      - name: Build base image 
+        uses: docker/build-push-action@v2
         with:
-          driver-opts: network=host
-      - name: Download base image
-        uses: actions/download-artifact@v2
-        with:
-          name: base-image
-          path: /tmp
-      - name: Load Docker image
-        run: |
-          docker load --input /tmp/baseimage.tar
-          docker tag eginotebooks/base:build localhost:5000/eginotebooks/base:build
-          docker push localhost:5000/eginotebooks/base:build
+          context: base
+          push: false
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -109,7 +91,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          build-args: BASE_IMAGE=localhost:5000/eginotebooks/base:build
       - name: Build and push to local registry
         uses: docker/build-push-action@v2
         with:
