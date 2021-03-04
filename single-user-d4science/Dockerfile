@@ -7,7 +7,7 @@ RUN apt-get update \
         nco \
         cdo \
         gdal-bin \
-        libgdal-dev \
+        libgdal-dev=3.0.4+dfsg-1build3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
