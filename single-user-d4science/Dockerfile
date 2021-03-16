@@ -53,6 +53,10 @@ RUN pip install shortid \
         hvplot==0.6.0 \
         intake==0.6.0 \
         intake-esm==2020.8.15 \
+        hda \
+        seaborn==0.11.0 \
+        zarr==2.5.0 \
+        holoviews \
         GDAL==3.0.4 #need to match the version of gdal installed
 
 RUN julia -e "using Pkg; Pkg.pin(\"IJulia\"); pkg\"add https://github.com/gher-ulg/DIVAndNN.jl\"; pkg\"add JSON PyCall PyPlot DIVAnd Glob DataStructures NCDatasets\""
