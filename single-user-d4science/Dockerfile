@@ -23,6 +23,7 @@ RUN mamba install -y --quiet \
         aiohttp \
         graph-tool \
         scikit-learn==0.22.1 \
+        scikit-mobility \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
