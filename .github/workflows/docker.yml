@@ -85,7 +85,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.event_name != 'pull_request'
       - name: Space left
-        runs: |
+        run: |
           df -h
       - name: Build
         uses: docker/build-push-action@v2
