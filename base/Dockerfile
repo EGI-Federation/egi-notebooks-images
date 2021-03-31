@@ -1,6 +1,6 @@
 # 6d42503c684f has python3.8 needed for samesite setting of cookies
 # Using that to ensure the image remains the same
-FROM jupyter/datascience-notebook:6d42503c684f
+FROM jupyter/datascience-notebook:4d9c9bd9ced0
 
 USER root
 
@@ -17,9 +17,7 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 
 USER $NB_UID
 
-# install mamba which goes way faster than conda
-RUN conda install mamba -y --quiet -c conda-forge \
-    && mamba install -y -q \
+RUN mamba install -y -q \
         r-plotly \
         r-gdata \
         rdflib \
