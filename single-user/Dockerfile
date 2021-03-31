@@ -23,7 +23,6 @@ RUN mamba install -y --quiet \
 	plotly \
 	graphviz \
 	jq \
-    && mamba install -y --quiet pytorch torchvision torchaudio cpuonly fastai -c pytorch -c fastai \
     && mamba install -y --quiet tensorflow -c anaconda \
     && conda clean --all
 
