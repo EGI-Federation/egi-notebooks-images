@@ -52,10 +52,10 @@ jobs:
       matrix:
         image:
         - single-user
-          #- single-user-d4science
-          #- single-user-panosc
-          # - single-user-r-d4science
-          #- d4science-storage
+        - single-user-d4science
+        - single-user-panosc
+        - single-user-r-d4science
+        - d4science-storage
 
     steps:
       - name: Checkout

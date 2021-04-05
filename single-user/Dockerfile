@@ -23,7 +23,6 @@ RUN mamba install -y --quiet \
 	plotly \
 	graphviz \
 	jq \
-    && mamba install -y --quiet tensorflow -c anaconda \
     && conda clean --all
 
 RUN conda config --add channels bioconda \
