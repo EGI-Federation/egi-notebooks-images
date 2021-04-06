@@ -52,12 +52,19 @@ jobs:
         - d4science-storage
 
     steps:
-      - name: Maximize build disk space
-        uses: easimon/maximize-build-space@v4
+      #      - name: Maximize build disk space
+      #  uses: easimon/maximize-build-space@v4
         # with:
           #remove-dotnet: 'true'
           #remove-android: 'true'
           #remove-haskell: 'true'
+      - name: try to make space
+        run: |
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          df -h
       - name: Checkout
         uses: actions/checkout@v2
       - name: Docker meta
