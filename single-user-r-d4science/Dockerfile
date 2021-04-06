@@ -26,7 +26,8 @@ RUN Rscript  -e "remotes::install_github('eblondel/geoflow', dependencies = c('D
 
 RUN Rscript  -e "install.packages(c('geometa','ows4R','geonapi','geosapi'), repos = c('http://cran.r-project.org'))"
 
-RUN pip install shortid \
+RUN pip install --no-cache-dir \
+	shortid \
         nbgitpuller \
         import_ipynb \
         nbresuse 

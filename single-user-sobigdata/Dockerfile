@@ -21,7 +21,7 @@ RUN mamba install -y --quiet \
 RUN  mamba install -y pytorch==1.6.0  torchtext torchvision -c pytorch \
    && conda clean --all
 
-RUN pip install \
+RUN pip install --no-cache-dir \
         import_ipynb \
         nbresuse \
         opencv-python \

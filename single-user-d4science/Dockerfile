@@ -35,7 +35,8 @@ RUN conda create --quiet --yes -n java8 \
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
 
-RUN pip install shortid \
+RUN pip install --no-cache-dir \
+        shortid \
         bicm \
         nbgitpuller \
         rdp \

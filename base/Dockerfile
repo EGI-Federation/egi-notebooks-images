@@ -32,7 +32,8 @@ RUN mamba install -y -q \
         ipyleaflet \
     && conda clean --all
 
-RUN pip install shortid \
+RUN pip install --no-cache-dir \
+		shortid \
                 nbgitpuller
 
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
