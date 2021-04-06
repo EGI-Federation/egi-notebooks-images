@@ -5,7 +5,7 @@ FROM jupyter/datascience-notebook:4d9c9bd9ced0
 USER root
 
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get install --no-install-recommends -y \
         graphviz \
         vim \
         openssh-client \
