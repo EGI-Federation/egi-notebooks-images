@@ -108,7 +108,7 @@ jobs:
           df -h
       - uses: addnab/docker-run-action@v2
         with:
-          image: eginotebooks/${{ matrix.image }}:${{ steps.docker_meta.outputs.tags }}
+          image: ${{ steps.docker_meta.outputs.tags }}
           options: -v ${{ github.workspace }}/${{ matrix.name }}:/tests
           run: |
             for f in /tests/*.ipynb; do
