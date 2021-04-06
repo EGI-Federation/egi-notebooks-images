@@ -1,4 +1,6 @@
-FROM eginotebooks/base
+ARG BASE_IMAGE=eginotebooks/base:latest
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE
 
 RUN mamba install -y --quiet \
         pyspark \

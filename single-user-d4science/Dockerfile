@@ -1,9 +1,11 @@
-FROM eginotebooks/base
+ARG BASE_IMAGE=eginotebooks/base:latest
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE
 
 USER root
 
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get install --no-install-recommends -y \
         nco \
         cdo \
         gdal-bin \
