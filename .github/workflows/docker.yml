@@ -47,7 +47,6 @@ jobs:
         ports:
           - 5000:5000
 
-
     strategy:
       matrix:
         image:
@@ -61,8 +60,6 @@ jobs:
       - name: is registry running
         run: |
           curl localhost:5000
-          ps aux
-          false
       - name: Checkout
         uses: actions/checkout@v2
       - name: Docker meta
