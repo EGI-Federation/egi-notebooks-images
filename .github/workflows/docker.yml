@@ -52,6 +52,12 @@ jobs:
         - d4science-storage
 
     steps:
+      - name: Maximize build disk space
+        uses: easimon/maximize-build-space@v4
+        with:
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Docker meta
@@ -66,6 +72,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       # this is not very efficient, we are building the same stuff over and over :(
+      - name: Space left
+        run: |
+          df -h
       - name: Build base image 
         uses: docker/build-push-action@v2
         with:
@@ -79,12 +88,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.event_name != 'pull_request'
-      - name: Space left
-        run: |
-          df -h
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          df -h
       - name: Build
         uses: docker/build-push-action@v2
         with:
@@ -93,6 +96,9 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: true
+      - name: Space left
+        run: |
+          df -h
 #      - uses: addnab/docker-run-action@v2
 #        with:
 #          image: eginotebooks/${{ matrix.image }}:${{ steps.docker_meta.outputs.tags }}
