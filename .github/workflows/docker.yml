@@ -93,15 +93,15 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: true
-      - uses: addnab/docker-run-action@v2
-        with:
-          image: eginotebooks/${{ matrix.image }}:${{ steps.docker_meta.outputs.tags }}
-          options: -v ${{ github.workspace }}/${{ matrix.name }}:/tests
-          run: |
-            for f in /tests/*.ipynb; do
-              if [ -e "$f" ]; then
-                jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst --execute --stdout /tests/$(basename $f)
-              else
-                true
-              fi
-            done
+#      - uses: addnab/docker-run-action@v2
+#        with:
+#          image: eginotebooks/${{ matrix.image }}:${{ steps.docker_meta.outputs.tags }}
+#          options: -v ${{ github.workspace }}/${{ matrix.name }}:/tests
+#          run: |
+#            for f in /tests/*.ipynb; do
+#              if [ -e "$f" ]; then
+#                jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst --execute --stdout /tests/$(basename $f)
+#              else
+#                true
+#              fi
+#            done
