@@ -52,9 +52,6 @@ jobs:
         - d4science-storage
 
     steps:
-      - name: is registry running
-        run: |
-          curl localhost:5000
       - name: Checkout
         uses: actions/checkout@v2
       - name: Docker meta
