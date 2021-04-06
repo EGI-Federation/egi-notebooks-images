@@ -55,8 +55,9 @@ jobs:
       - name: Maximize build disk space
         uses: easimon/maximize-build-space@v4
         with:
-          remove-android: 'true'
-          remove-haskell: 'true'
+          #remove-dotnet: 'true'
+          #remove-android: 'true'
+          #remove-haskell: 'true'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Docker meta
