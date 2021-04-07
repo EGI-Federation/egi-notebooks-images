@@ -28,14 +28,6 @@ RUN mamba install -y --quiet \
     && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai \
     && conda clean --all
 
-RUN conda config --add channels bioconda \
-    && mamba install -y --quiet \
-        biopython \
-        blast \
-        clustalw \
-        emboss \
-    && conda clean --all
-
 # Octave, install on a different environment
 RUN mamba create --name octave -y --quiet octave octave_kernel \
     && OCTAVE_PYTHON=$(conda run -n octave /bin/bash -c "which python") \
@@ -46,6 +38,14 @@ RUN mamba create --name octave -y --quiet octave octave_kernel \
        | jq -c '. + { "env": { "PATH": "'"$OCTAVE_PATH"'", "OCTAVE_HOME": "'"$OCTAVE_HOME"'" }}' > /tmp/kernel.json \
     && mv /tmp/kernel.json "$SITE_PACKAGES/octave_kernel/kernel.json" \
     && jupyter kernelspec install "$SITE_PACKAGES/octave_kernel" --name octave --prefix /opt/conda \
+    && conda clean --all
+
+RUN conda config --add channels bioconda \
+    && mamba install -y --quiet \
+        biopython \
+        blast \
+        clustalw \
+        emboss \
     && conda clean --all
 
 # DIRAC
