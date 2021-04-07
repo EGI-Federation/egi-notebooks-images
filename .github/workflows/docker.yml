@@ -95,13 +95,14 @@ jobs:
       - uses: addnab/docker-run-action@v2
         with:
           image: ${{ steps.docker_meta.outputs.tags }}
-          options: -v ${{ github.workspace }}/${{ matrix.name }}:/data
+          options: -v ${{ github.workspace }}/${{ matrix.image }}:/image-data
           run: |
             echo "hello"
-            ls /data
-            for f in /data/tests/*.ipynb; do
+            ls /image-data
+            for f in /image-data/tests/*.ipynb; do
               if [ -e "$f" ]; then
-                jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst --execute --stdout /data/tests/$(basename $f)
+                echo "TESTING $f"
+                jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst --execute --stdout /image-data/tests/$(basename $f)
               else
                 true
               fi
