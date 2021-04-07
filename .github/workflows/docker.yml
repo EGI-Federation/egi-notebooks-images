@@ -1,0 +1,139 @@
+---
+name: Build and push containers
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  base-image:
+    name: Build and push base image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v2
+        with:
+          images: eginotebooks/base
+          tags: |
+            type=sha
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: github.event_name != 'pull_request'
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: base
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+
+  d4science-storage-image:
+    name: Build and push d4science storage image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v2
+        with:
+          images: eginotebooks/d4science-storage
+          tags: |
+            type=sha
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: github.event_name != 'pull_request'
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: base
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+
+  user-images:
+    name: Build and push images
+    runs-on: ubuntu-latest
+    needs: base-image
+
+    strategy:
+      matrix:
+        image:
+        - single-user
+        - single-user-d4science
+        - single-user-panosc
+        - single-user-r-d4science
+
+    steps:
+      - name: try to make free space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v2
+        with:
+          images: eginotebooks/${{ matrix.image }}
+          tags: |
+            type=sha
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      # this is not very efficient, we are building the same stuff over and over :(
+      - name: Build base image 
+        uses: docker/build-push-action@v2
+        with:
+          context: base
+          push: false
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: github.event_name != 'pull_request'
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.image }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+          load: true
+      - uses: addnab/docker-run-action@v2
+        with:
+          image: ${{ steps.docker_meta.outputs.tags }}
+          options: -v ${{ github.workspace }}/${{ matrix.image }}:/image-data
+          run: |
+            for f in /image-data/tests/*.ipynb; do
+              if [ -e "$f" ]; then
+                jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst \
+                       --execute --stdout $f || exit 1
+              else
+                true
+              fi
+            done

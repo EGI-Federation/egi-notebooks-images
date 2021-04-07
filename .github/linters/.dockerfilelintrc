@@ -1,0 +1,4 @@
+rules:
+  missing_tag: off
+  apt-get_recommends: off # this will be detected by hadolint
+

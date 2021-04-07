@@ -1,4 +1,8 @@
-FROM eginotebooks/base
+ARG BASE_IMAGE=eginotebooks/base:latest
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN mamba install -y --quiet \
         cftime \
@@ -24,6 +28,18 @@ RUN mamba install -y --quiet \
     && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai \
     && conda clean --all
 
+# Octave, install on a different environment
+RUN mamba create --name octave -y --quiet octave octave_kernel \
+    && OCTAVE_PYTHON=$(conda run -n octave /bin/bash -c "which python") \
+    && OCTAVE_PATH=$(conda run -n octave /bin/bash -c "echo \$PATH") \
+    && OCTAVE_HOME=$(conda run -n octave /bin/bash -c "echo \$OCTAVE_HOME") \
+    && SITE_PACKAGES=$($OCTAVE_PYTHON -c 'import site; print(site.getsitepackages().pop())') \
+    && jq ".argv[0] = \"$OCTAVE_PYTHON\""  < "$SITE_PACKAGES/octave_kernel/kernel.json" \
+       | jq -c '. + { "env": { "PATH": "'"$OCTAVE_PATH"'", "OCTAVE_HOME": "'"$OCTAVE_HOME"'" }}' > /tmp/kernel.json \
+    && mv /tmp/kernel.json "$SITE_PACKAGES/octave_kernel/kernel.json" \
+    && jupyter kernelspec install "$SITE_PACKAGES/octave_kernel" --name octave --prefix /opt/conda \
+    && conda clean --all
+
 RUN conda config --add channels bioconda \
     && mamba install -y --quiet \
         biopython \
@@ -32,30 +48,17 @@ RUN conda config --add channels bioconda \
         emboss \
     && conda clean --all
 
-# Octave, install on a different environment
-RUN mamba create --name octave -y --quiet octave octave_kernel \
-    && OCTAVE_PYTHON=$(conda run -n octave /bin/bash -c "which python") \
-    && OCTAVE_PATH=$(conda run -n octave /bin/bash -c "echo \$PATH") \
-    && OCTAVE_HOME=$(conda run -n octave /bin/bash -c "echo \$OCTAVE_HOME") \
-    && SITE_PACKAGES=$($OCTAVE_PYTHON -c 'import site; print(site.getsitepackages().pop())') \
-    && cat $SITE_PACKAGES/octave_kernel/kernel.json \
-       | jq ".argv[0] = \"$OCTAVE_PYTHON\"" \
-       | jq -c '. + { "env": { "PATH": "'$OCTAVE_PATH'", "OCTAVE_HOME": "'$OCTAVE_HOME'" }}' > /tmp/kernel.json \
-    && mv /tmp/kernel.json $SITE_PACKAGES/octave_kernel/kernel.json \
-    && jupyter kernelspec install $SITE_PACKAGES/octave_kernel --name octave --prefix /opt/conda \
-    && conda clean --all
-
 # DIRAC
-
 USER root
+# CAs do require install-recommends :(
+# hadolint ignore=DL3015
 RUN apt-get update \
-    && apt-get install -y gnupg \
+    && apt-get install --no-install-recommends -y gnupg git \
     && curl http://repository.egi.eu/sw/production/cas/1/current/repo-files/egi-trustanchors.list \
             -o /etc/apt/sources.list.d/egi-trustanchors.list \
     && curl https://dl.igtf.net/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
     && apt-get update \
     && apt-get install -y ca-policy-egi-core \
-    && apt-get install -y git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -80,9 +83,10 @@ RUN mamba create --name dirac -y --quiet -c conda-forge ipython dirac-grid pytho
 
 
 # packages not in conda
-RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
-                h5glance \
-		nbtop \
-		tflearn
+RUN pip install --no-cache-dir \
+        git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
+        h5glance \
+        nbtop \
+        tflearn
 
 RUN rmdir work

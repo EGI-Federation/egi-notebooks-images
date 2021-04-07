@@ -5,4 +5,4 @@ CONTEXT="/d4science.research-infrastructures.eu"
 
 echo "Mounting filesystem at $MNTPATH"
 
-java -jar $FUSE_JAR $GCUBE_TOKEN $CONTEXT $MNTPATH
+java -jar "$FUSE_JAR" "$GCUBE_TOKEN" "$CONTEXT" "$MNTPATH"
