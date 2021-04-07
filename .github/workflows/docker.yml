@@ -124,7 +124,7 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: true
-      - uses: addnab/docker-run-action@v2
+      - uses: addnab/docker-run-action@v3
         with:
           image: ${{ steps.docker_meta.outputs.tags }}
           options: -v ${{ github.workspace }}/${{ matrix.image }}:/image-data
