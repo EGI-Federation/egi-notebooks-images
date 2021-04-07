@@ -1,4 +1,6 @@
-FROM eginotebooks/base
+ARG BASE_IMAGE=eginotebooks/base:latest
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE
 
 RUN mamba install -y --quiet \
         pyspark \
@@ -19,7 +21,7 @@ RUN mamba install -y --quiet \
 RUN  mamba install -y pytorch==1.6.0  torchtext torchvision -c pytorch \
    && conda clean --all
 
-RUN pip install \
+RUN pip install --no-cache-dir \
         import_ipynb \
         nbresuse \
         opencv-python \

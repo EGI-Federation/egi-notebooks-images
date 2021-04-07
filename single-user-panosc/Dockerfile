@@ -6,11 +6,10 @@ RUN mamba install -y  -c onedata protobuf=3.13 fs.onedatafs && conda clean --all
 
 
 # packages not in conda
-RUN pip install git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
-                h5glance \
-		nbtop \
-		tflearn \
-                shortid \
-                nbgitpuller 
+RUN pip install --no-cache-dir \
+        git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
+        h5glance \
+        nbtop \
+        tflearn
 
 RUN rmdir work

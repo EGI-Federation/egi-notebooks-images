@@ -5,7 +5,7 @@ FROM jupyter/datascience-notebook:6d42503c684f
 USER root
 
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get install --no-install-recommends -y \
         graphviz \
         vim \
         openssh-client \
@@ -34,7 +34,8 @@ RUN conda install mamba -y --quiet -c conda-forge \
         ipyleaflet \
     && conda clean --all
 
-RUN pip install shortid \
-                nbgitpuller
+RUN pip install --no-cache-dir \
+        shortid \
+        nbgitpuller
 
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
