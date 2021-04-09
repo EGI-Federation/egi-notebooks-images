@@ -16,6 +16,7 @@ RUN mamba install -y --quiet \
         keras \
         selenium \
         tweepy \
+        openjdk=8 \
    && conda clean --all
 
 RUN  mamba install -y pytorch==1.6.0  torchtext torchvision -c pytorch \
@@ -28,6 +29,5 @@ RUN pip install --no-cache-dir \
         simpletransformers \
         shuffle-graph 
 
-
-#RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
-#RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
+RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
+RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
