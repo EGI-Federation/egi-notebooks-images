@@ -18,6 +18,7 @@ jobs:
         image:
         - base
         - d4science-storage
+        - oneclient-sidecar
 
     steps:
       - name: Checkout
