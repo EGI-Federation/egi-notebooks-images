@@ -26,6 +26,9 @@ RUN mamba install -y --quiet \
         graph-tool \
         scikit-learn==0.22.1 \
         scikit-mobility \
+        dask-jobqueue \
+        fs \
+        rasterio \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
