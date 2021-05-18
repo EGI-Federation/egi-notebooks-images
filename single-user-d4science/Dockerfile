@@ -29,6 +29,7 @@ RUN mamba install -y --quiet \
         dask-jobqueue \
         fs \
         rasterio \
+        contextily \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
