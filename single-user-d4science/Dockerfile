@@ -30,6 +30,8 @@ RUN mamba install -y --quiet \
         fs \
         rasterio \
         contextily \
+        nb_conda_kernels \
+        nb_conda \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
