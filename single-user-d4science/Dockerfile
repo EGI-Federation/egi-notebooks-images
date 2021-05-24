@@ -69,5 +69,5 @@ RUN pip install --no-cache-dir \
 
 RUN julia -e "using Pkg; Pkg.pin(\"IJulia\"); pkg\"add https://github.com/gher-ulg/DIVAndNN.jl\"; pkg\"add JSON PyCall PyPlot DIVAnd Glob DataStructures NCDatasets\""
 
-#RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
-#RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
+RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
+RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
