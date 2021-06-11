@@ -31,5 +31,3 @@ RUN Rscript  -e "install.packages(c('geometa','ows4R','geonapi','geosapi'), repo
 RUN pip install --no-cache-dir \
         import_ipynb \
         nbresuse 
-
-RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
