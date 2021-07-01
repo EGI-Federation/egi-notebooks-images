@@ -9,6 +9,7 @@ RUN apt-get update \
         nco \
         cdo \
         gdal-bin \
+        cmake \
         libgdal-dev=3.0.4+dfsg-1build3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -51,7 +52,9 @@ RUN pip install --no-cache-dir \
         ndlib \
         motuclient \
         panel==0.9.* \
-        cdlib[C]==0.2.0 \
+        cdlib[C]==0.2.3 \
+        cython \
+        node_conformity \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master \
