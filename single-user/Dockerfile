@@ -26,6 +26,7 @@ RUN mamba install -y --quiet \
 	graphviz \
 	jq \
     && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai \
+    && mamba install -y --quiet fedcloudclient -c enolfc \
     && conda clean --all
 
 # Octave, install on a different environment
