@@ -50,6 +50,9 @@ jobs:
   base-image:
     name: Build base image
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     outputs:
       base: ${{ steps.docker_meta_base.outputs.tags }}
       base-conda: ${{ steps.docker_meta_base_conda.outputs.tags }}
@@ -61,14 +64,14 @@ jobs:
         id: docker_meta_base
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/egi-federation/notebooks-base
+          images: ghcr.io/${{ github.repository_owner }}/notebooks-base
           tags: |
             type=sha
       - name: Docker meta
         id: docker_meta_conda
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/egi-federation/notebooks-base-conda
+          images: ghcr.io/${{ github.repository_owner }}/notebooks-base-conda
           tags: |
             type=sha
       - name: Set up QEMU
@@ -78,9 +81,9 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-        if: github.event_name != 'pull_request'
+          username: ${{ github.actor }}
+          registry: ghcr.io
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
