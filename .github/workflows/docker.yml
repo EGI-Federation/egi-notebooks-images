@@ -111,9 +111,9 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: ${{ github.event_name == 'pull_request' }}
-          build-args:
-          - BASE_IMAGE=eginotebooks/base:build
-          - BASE_IMAGE_CONDA=eginotebooks/base-conda:build
+          build-args: |
+            BASE_IMAGE=eginotebooks/base:build
+            BASE_IMAGE_CONDA=eginotebooks/base-conda:build
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{ steps.docker_meta.outputs.tags }}
