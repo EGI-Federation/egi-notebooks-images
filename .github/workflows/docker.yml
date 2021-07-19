@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       base: ${{ steps.docker_meta_base.outputs.tags }}
-      base-conda: ${{ steps.docker_meta_base_conda.outputs.tags }}
+      base_conda: ${{ steps.docker_meta_base_conda.outputs.tags }}
 
     steps:
       - name: Checkout
@@ -65,7 +65,7 @@ jobs:
           tags: |
             type=sha
       - name: Docker meta
-        id: docker_meta_conda
+        id: docker_meta_base_conda
         uses: docker/metadata-action@v3
         with:
           images: ghcr.io/${{ github.repository_owner }}/notebooks-base-conda
@@ -75,7 +75,7 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Build and push
+      - name: Build base
         uses: docker/build-push-action@v2
         with:
           context: base 
@@ -83,7 +83,7 @@ jobs:
           labels: ${{ steps.docker_meta_base.outputs.labels }}
           target: base
           outputs: type=docker,dest=/tmp/base.tar
-      - name: Build and push + conda
+      - name: Build base + conda
         uses: docker/build-push-action@v2
         with:
           context: base
@@ -155,7 +155,7 @@ jobs:
           load: ${{ github.event_name == 'pull_request' }}
           build-args: |
             BASE_IMAGE=${{ needs.base-image.outputs.base }}
-            BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base-conda }}
+            BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }}
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{ steps.docker_meta.outputs.tags }}
