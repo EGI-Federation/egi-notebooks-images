@@ -16,7 +16,6 @@ jobs:
     strategy:
       matrix:
         image:
-        - base
         - d4science-storage
         - oneclient-sidecar
 
@@ -87,7 +86,16 @@ jobs:
         with:
           context: base
           push: false
-          tags: ${{ steps.docker_meta.outputs.tags }}
+          tags: eginotebooks/base:build
+          labels: ${{ steps.docker_meta.outputs.labels }}
+          target: base
+      # Also build the one with conda
+      - name: Build base image
+        uses: docker/build-push-action@v2
+        with:
+          context: base
+          push: false
+          tags: eginotebooks/base-conda:build
           labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -103,6 +111,9 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: ${{ github.event_name == 'pull_request' }}
+          build-args:
+          - BASE_IMAGE=eginotebooks/base:build
+          - BASE_IMAGE_CONDA=eginotebooks/base-conda:build
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{ steps.docker_meta.outputs.tags }}

@@ -1,8 +1,37 @@
 ARG BASE_IMAGE=eginotebooks/base:latest
+ARG BASE_IMAGE_CONDA=eginotebooks/base-conda:latest
 # hadolint ignore=DL3006
-FROM $BASE_IMAGE
+FROM $BASE_IMAGE as base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# DIRAC
+USER root
+# CAs do require install-recommends :(
+# hadolint ignore=DL3015
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y gnupg git \
+    && curl http://repository.egi.eu/sw/production/cas/1/current/repo-files/egi-trustanchors.list \
+            -o /etc/apt/sources.list.d/egi-trustanchors.list \
+    && curl https://dl.igtf.net/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
+    && apt-get update \
+    && apt-get install -y ca-policy-egi-core \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p  /etc/dirac
+COPY dirac.cfg /etc/dirac/dirac.cfg
+ENV DIRACSYSCONFIG=/etc/dirac/dirac.cfg
+
+USER $NB_UID
+
+# Second stage: conda
+FROM $BASE_IMAGE_CONDA as conda
+
+FROM base
+
+# Get the conda stuff
+COPY --from=conda /opt /opt
 
 RUN mamba install -y --quiet \
         cftime \
@@ -49,26 +78,6 @@ RUN conda config --add channels bioconda \
         emboss \
     && conda clean --all
 
-# DIRAC
-USER root
-# CAs do require install-recommends :(
-# hadolint ignore=DL3015
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y gnupg git \
-    && curl http://repository.egi.eu/sw/production/cas/1/current/repo-files/egi-trustanchors.list \
-            -o /etc/apt/sources.list.d/egi-trustanchors.list \
-    && curl https://dl.igtf.net/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
-    && apt-get update \
-    && apt-get install -y ca-policy-egi-core \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p  /etc/dirac
-COPY dirac.cfg /etc/dirac/dirac.cfg
-ENV DIRACSYSCONFIG=/etc/dirac/dirac.cfg
-
-USER $NB_UID
-
 RUN mamba create --name dirac -y --quiet -c conda-forge ipython dirac-grid python=2.7 pypy2.7 ipykernel \
     && $(conda run -n dirac /bin/bash -c "which python") -m ipykernel install --prefix /tmp --name DIRAC \
     && jupyter kernelspec install /tmp/share/jupyter/kernels/dirac/ --name DIRAC --prefix /opt/conda \
@@ -82,12 +91,9 @@ RUN mamba create --name dirac -y --quiet -c conda-forge ipython dirac-grid pytho
     && rm -rf /tmp/share \
     && conda clean --all
 
-
 # packages not in conda
 RUN pip install --no-cache-dir \
         git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
         h5glance \
         nbtop \
         tflearn
-
-RUN rmdir work
