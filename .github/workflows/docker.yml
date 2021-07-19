@@ -79,7 +79,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: base 
-          push: true 
           tags: ${{ steps.docker_meta_base.outputs.tags }}
           labels: ${{ steps.docker_meta_base.outputs.labels }}
           target: base
@@ -88,7 +87,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: base
-          push: true
           tags: ${{ steps.docker_meta_base_conda.outputs.tags }}
           labels: ${{ steps.docker_meta_base_conda.outputs.labels }}
           outputs: type=docker,dest=/tmp/base-conda.tar
