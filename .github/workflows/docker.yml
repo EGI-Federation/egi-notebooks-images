@@ -132,6 +132,13 @@ jobs:
           images: eginotebooks/${{ matrix.image }}
           tags: |
             type=sha
+      - name: Docker meta
+        id: docker_meta_conda
+        uses: docker/metadata-action@v3
+        with:
+          images: eginotebooks/${{ matrix.image }}-conda
+          tags: |
+            type=sha
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -148,7 +155,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.event_name != 'pull_request'
-      - name: Build
+      - name: Build full image
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.image }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta_conda.outputs.tags }}
+          labels: ${{ steps.docker_meta_conda.outputs.labels }}
+          load: ${{ github.event_name == 'pull_request' }}
+          build-args: |
+            BASE_IMAGE=${{ needs.base-image.outputs.base }}
+            BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }}
+      - name: Build basic image
         uses: docker/build-push-action@v2
         with:
           context: ${{ matrix.image }}
@@ -156,12 +174,13 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: ${{ github.event_name == 'pull_request' }}
+          target: base
           build-args: |
             BASE_IMAGE=${{ needs.base-image.outputs.base }}
             BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }}
       - uses: addnab/docker-run-action@v3
         with:
-          image: ${{ steps.docker_meta.outputs.tags }}
+          image: ${{ steps.docker_meta_conda.outputs.tags }}
           options: -v ${{ github.workspace }}/${{ matrix.image }}:/image-data
           run: |
             for f in /image-data/tests/*.ipynb; do
