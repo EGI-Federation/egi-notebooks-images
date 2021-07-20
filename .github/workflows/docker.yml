@@ -155,29 +155,28 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.event_name != 'pull_request'
+      # Unfortunately I haven't been able to load an prebuilt image here
+      # so not using the build-push-action from docker
       - name: Build full image
-        uses: docker/build-push-action@v2
-        with:
-          context: ${{ matrix.image }}
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.docker_meta_conda.outputs.tags }}
-          labels: ${{ steps.docker_meta_conda.outputs.labels }}
-          load: ${{ github.event_name == 'pull_request' }}
-          build-args: |
-            BASE_IMAGE=${{ needs.base-image.outputs.base }}
-            BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }}
-      - name: Build basic image
-        uses: docker/build-push-action@v2
-        with:
-          context: ${{ matrix.image }}
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
-          load: ${{ github.event_name == 'pull_request' }}
-          target: base
-          build-args: |
-            BASE_IMAGE=${{ needs.base-image.outputs.base }}
-            BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }}
+        run: |
+          docker build \
+            --build-arg BASE_IMAGE=${{ needs.base-image.outputs.base }}
+            --build-arg BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }}
+            {{ join(steps.docker_meta_conda.outputs.tags, ' --tag ') }}
+            {{ join(steps.docker_meta_conda.outputs.label, ' --label') }}
+            ${{ matrix.image }}
+#      - name: Build basic image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: ${{ matrix.image }}
+#          push: ${{ github.event_name != 'pull_request' }}
+#          tags: ${{ steps.docker_meta.outputs.tags }}
+#          labels: ${{ steps.docker_meta.outputs.labels }}
+#          load: ${{ github.event_name == 'pull_request' }}
+#          target: base
+#          build-args: |
+#            BASE_IMAGE=${{ needs.base-image.outputs.base }}
+#            BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }}
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{ steps.docker_meta_conda.outputs.tags }}
