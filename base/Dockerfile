@@ -1,6 +1,6 @@
-# 6d42503c684f has python3.8 needed for samesite setting of cookies
+# notebook-6.4.0 has python3.9
 # Using that to ensure the image remains the same
-FROM jupyter/datascience-notebook:6d42503c684f as base
+FROM jupyter/datascience-notebook:notebook-6.4.0 as base
 
 # First state deals with the non-conda related stuff
 USER root
