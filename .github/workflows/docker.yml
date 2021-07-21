@@ -50,9 +50,6 @@ jobs:
   base-image:
     name: Build base image
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
     outputs:
       base: ${{ steps.docker_meta_base.outputs.tags }}
       base_conda: ${{ steps.docker_meta_base_conda.outputs.tags }}
@@ -64,26 +61,20 @@ jobs:
         id: docker_meta_base
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/${{ github.repository_owner }}/notebooks-base
+          images: ${{ github.repository_owner }}/notebooks-base
           tags: |
             type=sha
       - name: Docker meta
         id: docker_meta_base_conda
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/${{ github.repository_owner }}/notebooks-base-conda
-          tags: |
+          images: ${{ github.repository_owner }}/notebooks-base-conda
+          tags:
             type=sha
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Login to GitHub container registry
-        uses: docker/login-action@v1
-        with:
-          username: ${{ github.actor }}
-          registry: ghcr.io
-          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build base
         uses: docker/build-push-action@v2
         with:
@@ -91,22 +82,24 @@ jobs:
           tags: ${{ steps.docker_meta_base.outputs.tags }}
           labels: ${{ steps.docker_meta_base.outputs.labels }}
           target: base
-          push: true
+          outputs: type=docker,dest=/tmp/base.tar
       - name: Build base + conda
         uses: docker/build-push-action@v2
         with:
           context: base
           tags: ${{ steps.docker_meta_base_conda.outputs.tags }}
           labels: ${{ steps.docker_meta_base_conda.outputs.labels }}
-          push: true
+          outputs: type=docker,dest=/tmp/base-conda.tar
+      - name: Upload docker image as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: images
+          path: /tmp/base*.tar
 
   user-images:
     name: Build and push images
     runs-on: ubuntu-latest
     needs: base-image
-    permissions:
-      packages: read
-      contents: read
 
     strategy:
       matrix:
@@ -143,12 +136,16 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Login to GitHub container registry
-        uses: docker/login-action@v1
+      - name: Get previous build base
+        uses: actions/download-artifact@v2
         with:
-          username: ${{ github.actor }}
-          registry: ghcr.io
-          password: ${{ secrets.GITHUB_TOKEN }}
+          name: images
+          path: /tmp
+      - name: Load Docker images
+        run: |
+          docker load --input /tmp/base.tar
+          docker load --input /tmp/base-conda.tar
+          docker image ls -a
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -160,10 +157,10 @@ jobs:
       - name: Build full image
         run: |
           docker build \
-            --build-arg BASE_IMAGE=${{ needs.base-image.outputs.base }}
-            --build-arg BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }}
-            {{ join(steps.docker_meta_conda.outputs.tags, ' --tag ') }}
-            {{ join(steps.docker_meta_conda.outputs.label, ' --label') }}
+            --build-arg BASE_IMAGE=${{ needs.base-image.outputs.base }} \
+            --build-arg BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }} \
+            ${{ join(steps.docker_meta_conda.outputs.tags, ' --tag ') }} \
+            ${{ join(steps.docker_meta_conda.outputs.label, ' --label ') }} \
             ${{ matrix.image }}
 #      - name: Build basic image
 #        uses: docker/build-push-action@v2
