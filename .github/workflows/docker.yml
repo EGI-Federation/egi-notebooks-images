@@ -147,7 +147,8 @@ jobs:
         run: |
           docker load --input /tmp/base.tar
           docker load --input /tmp/base-conda.tar
-          docker image ls -a
+          # we are so scarce on storage that this needs to be cleared
+          rm -rf /tmp/base-*.tar
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
