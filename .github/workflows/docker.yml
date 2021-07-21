@@ -160,7 +160,7 @@ jobs:
             --build-arg BASE_IMAGE=${{ needs.base-image.outputs.base }} \
             --build-arg BASE_IMAGE_CONDA=${{ needs.base-image.outputs.base_conda }} \
             ${{ join(steps.docker_meta_conda.outputs.tags, ' --tag ') }} \
-            ${{ join(steps.docker_meta_conda.outputs.label, ' --label ') }} \
+            ${{ join(steps.docker_meta_conda.outputs.labels, ' --label ') }} \
             ${{ matrix.image }}
 #      - name: Build basic image
 #        uses: docker/build-push-action@v2
