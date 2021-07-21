@@ -80,8 +80,9 @@ jobs:
       - name: Test
         run: |
           echo \
+            ${{ toJSON(steps.docker_meta_base.outputs.json) }} \
             ${{ toJSON(steps.docker_meta_base.outputs) }} \
-            ${{ join(steps.docker_meta_base.outputs.json.tags, '--tag ') }} \
+            ${{ join(toJSON(steps.docker_meta_base.outputs.json), '--tag ') }} \
             ${{ join(steps.docker_meta_base.outputs.json.labels, '--label ') }} \
             hello
 #      - name: Build base
