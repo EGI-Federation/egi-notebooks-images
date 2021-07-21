@@ -76,7 +76,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Test
-        runs: |
+        run: |
           echo \
             ${{ join(steps.docker_meta_base.outputs.tags, '--tag ') }} \
             ${{ join(steps.docker_meta_base.outputs.labels, '--label ') }} \
