@@ -78,6 +78,7 @@ jobs:
       - name: Test
         run: |
           echo \
+            ${{ steps.docker_meta_base.outputs.json.tags }} \
             ${{ join(steps.docker_meta_base.outputs.json.tags, '--tag ') }} \
             ${{ join(steps.docker_meta_base.outputs.json.labels, '--label ') }} \
             hello
