@@ -61,14 +61,16 @@ jobs:
         id: docker_meta_base
         uses: docker/metadata-action@v3
         with:
-          images: ${{ github.repository_owner }}/notebooks-base
+        #  images: ${{ github.repository_owner }}/notebooks-base
+          images: enolfc/notebooks-base
           tags: |
             type=sha
       - name: Docker meta
         id: docker_meta_base_conda
         uses: docker/metadata-action@v3
         with:
-          images: ${{ github.repository_owner }}/notebooks-base-conda
+        #  images: ${{ github.repository_owner }}/notebooks-base-conda
+          images: enolfc/notebooks-base-conda
           tags:
             type=sha
       - name: Set up QEMU
@@ -78,7 +80,7 @@ jobs:
       - name: Test
         run: |
           echo \
-            ${{ steps.docker_meta_base.outputs.json.tags }} \
+            ${{ steps.docker_meta_base.outputs }} \
             ${{ join(steps.docker_meta_base.outputs.json.tags, '--tag ') }} \
             ${{ join(steps.docker_meta_base.outputs.json.labels, '--label ') }} \
             hello
