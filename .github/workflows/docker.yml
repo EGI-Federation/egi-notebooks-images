@@ -78,8 +78,8 @@ jobs:
       - name: Test
         run: |
           echo \
-            ${{ join(steps.docker_meta_base.outputs.tags, '--tag ') }} \
-            ${{ join(steps.docker_meta_base.outputs.labels, '--label ') }} \
+            ${{ join(steps.docker_meta_base.outputs.json.tags, '--tag ') }} \
+            ${{ join(steps.docker_meta_base.outputs.json.labels, '--label ') }} \
             hello
 #      - name: Build base
 #        uses: docker/build-push-action@v2
