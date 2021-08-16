@@ -1,6 +1,6 @@
 # 6d42503c684f has python3.8 needed for samesite setting of cookies
 # Using that to ensure the image remains the same
-FROM jupyter/datascience-notebook:6d42503c684f
+FROM jupyter/datascience-notebook:70178b8e48d7
 
 USER root
 
