@@ -142,15 +142,15 @@ jobs:
         run: |
           docker build \
             --build-arg BASE_IMAGE=${{ needs.base-image.outputs.base }} \
-            --tag ${{ steps.docker_meta_conda.outputs.tags }} \
+            --tag ${{ steps.docker_meta.outputs.tags }} \
             ${{ matrix.image }}
       - name: Push full image
         run: |
-          docker push ${{ steps.docker_meta_conda.outputs.tags }}
+          docker push ${{ steps.docker_meta.outputs.tags }}
         if: ${{ github.event_name != 'pull_request' }}
       - uses: addnab/docker-run-action@v3
         with:
-          image: ${{ steps.docker_meta_conda.outputs.tags }}
+          image: ${{ steps.docker_meta.outputs.tags }}
           options: -v ${{ github.workspace }}/${{ matrix.image }}:/image-data
           run: |
             for f in /image-data/tests/*.ipynb; do
