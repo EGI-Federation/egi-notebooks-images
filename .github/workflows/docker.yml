@@ -104,6 +104,7 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: ${{ github.event_name == 'pull_request' }}
+          build-args: BASE_IMAGE=${{ steps.docker_meta.outputs.labels }}
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{ steps.docker_meta.outputs.tags }}
