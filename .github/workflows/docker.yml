@@ -136,7 +136,7 @@ jobs:
           docker build \
             --build-arg BASE_IMAGE=${{ needs.base-image.outputs.base }} \
             --tag ${{ steps.docker_meta.outputs.tags }} \
-            --tag eginotebooks/${{ matrix.image }}:latest
+            --tag eginotebooks/${{ matrix.image }}:latest \
             ${{ matrix.image }}
       - name: Push full image
         run: |
