@@ -1,6 +1,6 @@
-# 6d42503c684f has python3.8 needed for samesite setting of cookies
-# Using that to ensure the image remains the same
-FROM jupyter/datascience-notebook:70178b8e48d7
+# 59c973d16bca has python3.8.8
+# Using that to ensure the image remains the same 
+FROM jupyter/datascience-notebook:59c973d16bca
 
 USER root
 
@@ -33,6 +33,8 @@ RUN conda install mamba -y --quiet -c conda-forge \
         xarray \
         cartopy \
         ipyleaflet \
+        jupyterlab==3.1.4 \
+        notebook==6.4.1 \
     && conda clean --all
 
 RUN pip install --no-cache-dir \
