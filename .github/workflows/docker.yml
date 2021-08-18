@@ -98,7 +98,7 @@ jobs:
           push: false
           tags: ${{ steps.docker_meta_base.outputs.tags }}
           labels: ${{ steps.docker_meta_base.outputs.labels }}
-          load: true
+          cache-to: type=local,dest=/tmp/cache
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -113,6 +113,7 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: ${{ github.event_name == 'pull_request' }}
+          cache-from: type=local,src=/tmp/cache
           build-args: |
             BASE_IMAGE=${{ steps.docker_meta_base.outputs.tags }}
       - uses: addnab/docker-run-action@v3
