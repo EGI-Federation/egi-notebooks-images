@@ -156,4 +156,3 @@ jobs:
                 true
               fi
             done
-        if: github.event_name != 'pull_request'
