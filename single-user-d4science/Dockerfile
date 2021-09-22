@@ -68,6 +68,7 @@ RUN pip install --no-cache-dir \
         seaborn==0.11.0 \
         zarr==2.5.0 \
         holoviews \
+        networksns \
         GDAL==3.0.4 #need to match the version of gdal installed
 
 RUN julia -e "using Pkg; Pkg.pin(\"IJulia\"); pkg\"add https://github.com/gher-ulg/DIVAndNN.jl\"; pkg\"add JSON PyCall PyPlot DIVAnd Glob DataStructures NCDatasets\""
