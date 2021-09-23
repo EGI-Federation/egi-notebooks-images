@@ -35,6 +35,7 @@ RUN conda install mamba -y --quiet -c conda-forge \
         ipyleaflet \
         jupyterlab==3.1.4 \
         notebook==6.4.1 \
+        nbclassic==0.2.8 \
     && conda clean --all
 
 RUN pip install --no-cache-dir \
