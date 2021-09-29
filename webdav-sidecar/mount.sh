@@ -25,6 +25,6 @@ do_umount () {
 trap "do_umount" INT
 trap "do_umount" TERM 
 
-while [ true ]; do
+while true ; do
     sleep 30
 done
