@@ -16,6 +16,4 @@ RUN adduser -u $JOVYAN_UID -g $JOVYAN_GRP -D jovyan
 
 COPY mount.sh /usr/local/bin/
 
-RUN chmod 777 /usr/local/bin/mount.sh
-
 CMD [ "tini", "-g", "--", "mount.sh" ]
