@@ -55,4 +55,7 @@ RUN pip install --no-cache-dir \
         nbtop \
         tflearn
 
+# Avoid a broken extension to show up
+RUN jupyter labextension disable @pyviz/jupyterlab_pyviz
+
 RUN rmdir work
