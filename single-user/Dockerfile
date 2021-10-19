@@ -59,7 +59,7 @@ RUN pip install --no-cache-dir \
 # python3.7, install on a different environment
 RUN mamba create --name python3.7 -y --quiet -c conda-forge ipython python=3.7 ipykernel \
     && $(conda run -n python3.7 /bin/bash -c "which python") -m ipykernel install --prefix /tmp --name Python-3.7 \
-    && jupyter kernelspec install /tmp/share/jupyter/kernels/python3.7/ --name Python-3.7 --prefix /opt/conda \
+    && jupyter kernelspec install /tmp/share/jupyter/kernels/python-3.7/ --name Python-3.7 --prefix /opt/conda \
     && rm -rwf /tmp/share \
     && conda clean --all
 
