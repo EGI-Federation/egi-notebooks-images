@@ -34,8 +34,8 @@ RUN mamba install -y --quiet \
 USER root
 
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
-        octave octave-signal \
+    && apt-get install --install-recommends -y \
+        octave octave-signal gnuplot\
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
