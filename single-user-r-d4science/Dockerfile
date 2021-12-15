@@ -26,8 +26,9 @@ RUN mamba install -y --quiet \
 
 RUN Rscript  -e "remotes::install_github('eblondel/geoflow', dependencies = c('Depends', 'Imports'))"
 
-RUN Rscript  -e "install.packages(c('geometa','ows4R','geonapi','geosapi'), repos = c('http://cran.r-project.org'))"
+RUN Rscript  -e "install.packages(c('geometa','ows4R','geonapi','geosapi','raster','virtualspecies','abind','feather','reticulate','mvrsquared','RPostgreSQL','Shinybusy'), repos = c('http://cran.r-project.org'))"
 
 RUN pip install --no-cache-dir \
         import_ipynb \
-        nbresuse 
+        nbresuse \
+        git+https://github.com/andrea-manzi/mbtr.git
