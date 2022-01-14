@@ -92,6 +92,7 @@ jobs:
         - single-user
         - single-user-d4science
         - single-user-r-d4science
+        - single-user-panosc
         - single-user-sobigdata
 
     steps:
