@@ -1,8 +1,8 @@
-FROM jupyter/minimal-notebook:ubuntu-18.04
+FROM jupyter/minimal-notebook:ubuntu-20.04
 
 USER $NB_UID
 RUN conda install mamba -y --quiet -c conda-forge 
-RUN mamba install -y  -c onedata protobuf=3.13 fs.onedatafs && conda clean --all
+RUN mamba install -y -c onedata -c conda-forge fs.onedatafs && conda clean --all
 
 
 # packages not in conda
