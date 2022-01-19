@@ -58,6 +58,7 @@ RUN pip install --no-cache-dir \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master \
+	git+https://github.com/guglielmocola/RetweetCascade.git \
         NEMtropy \
         folium==0.11.0 \
         geopy==2.0.0 \
