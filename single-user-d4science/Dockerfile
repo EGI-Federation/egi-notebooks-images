@@ -58,7 +58,7 @@ RUN pip install --no-cache-dir \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master \
-	git+https://github.com/guglielmocola/RetweetCascade.git \
+	git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
         NEMtropy \
         folium==0.11.0 \
         geopy==2.0.0 \
@@ -72,7 +72,13 @@ RUN pip install --no-cache-dir \
         networksns \
         GDAL==3.0.4 #need to match the version of gdal installed
 
-RUN julia -e "using Pkg; Pkg.pin(\"IJulia\"); pkg\"add https://github.com/gher-ulg/DIVAndNN.jl\"; pkg\"add JSON PyCall PyPlot DIVAnd Glob DataStructures NCDatasets\""
+# Julia Updates and packages installations
+# See https://support.d4science.org/issues/22065
+RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
+    && julia --eval "using Pkg; Pkg.update()" \
+    && julia --eval 'using Pkg; Pkg.add(["Images","VideoIO"])' \
+    && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
+    && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "DIVAnd", "Glob", "DataStructures", "NCDatasets"])'
 
 RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
