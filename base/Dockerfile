@@ -49,7 +49,6 @@ RUN rm -rf /etc/julia && mkdir /etc/julia && \
     chown "${NB_USER}" "${JULIA_PKGDIR}" && \
     fix-permissions "${JULIA_PKGDIR}"
 
-
 USER $NB_UID
 
 # install mamba which goes way faster than conda
