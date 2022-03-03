@@ -42,6 +42,7 @@ RUN conda create --quiet --yes -n java8 \
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
 
+# Pinned networkx to 2.6.3 as 2.7 makes networksns fail
 RUN pip install --no-cache-dir \
         bicm \
         rdp \
@@ -69,6 +70,7 @@ RUN pip install --no-cache-dir \
         seaborn==0.11.0 \
         zarr==2.5.0 \
         holoviews \
+        networkx==2.6.3 \
         networksns \
         GDAL==3.0.4 #need to match the version of gdal installed
 
