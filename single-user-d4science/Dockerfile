@@ -33,6 +33,7 @@ RUN mamba install -y --quiet \
         contextily \
         nb_conda_kernels \
         nb_conda \
+        pyophidia \
     && conda clean -tipsy
 
 RUN conda create --quiet --yes -n java8 \
