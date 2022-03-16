@@ -41,7 +41,7 @@ RUN apt-get update \
 
 USER $NB_UID
 
-RUN mamba install -y --quiet octave_kernel \
+RUN mamba install -y --quiet octave_kernel=0.32.0 \
     && SITE_PACKAGES=$(python -c 'import site; print(site.getsitepackages().pop())') \
     && jupyter kernelspec install "$SITE_PACKAGES/octave_kernel" --name octave --prefix /opt/conda \
     && conda clean --all
