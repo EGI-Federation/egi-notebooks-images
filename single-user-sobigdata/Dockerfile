@@ -27,7 +27,8 @@ RUN pip install --no-cache-dir \
         nbresuse \
         opencv-python \
         simpletransformers \
-        shuffle-graph 
+        shuffle-graph \
+        fast-forward-indexes
 
 RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
