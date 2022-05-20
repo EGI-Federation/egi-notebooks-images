@@ -18,6 +18,7 @@ jobs:
         image:
         - d4science-storage
         - oneclient-sidecar
+        - webdav-sidecar
 
     steps:
       - name: Checkout
