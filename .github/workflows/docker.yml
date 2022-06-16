@@ -19,13 +19,14 @@ jobs:
         - d4science-storage
         - oneclient-sidecar
         - single-user-eiscat
+        - webdav-sidecar
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: eginotebooks/${{ matrix.image }}
           tags: |
@@ -60,7 +61,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Docker meta
         id: docker_meta_base
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ github.repository_owner }}/notebooks-base
           tags: |
@@ -77,7 +78,7 @@ jobs:
           labels: ${{ steps.docker_meta_base.outputs.labels }}
           outputs: type=docker,dest=/tmp/base.tar
       - name: Upload docker image as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: images
           path: /tmp/base.tar
@@ -106,7 +107,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: eginotebooks/${{ matrix.image }}
           tags: |
@@ -114,7 +115,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Get previous build base
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: images
           path: /tmp
