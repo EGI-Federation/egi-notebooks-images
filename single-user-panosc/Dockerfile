@@ -1,5 +1,5 @@
 # onedata requires < py3.9
-FROM jupyter/minimal-notebook:python-3.9.13
+FROM jupyter/minimal-notebook:python-3.9.12
 
 USER $NB_UID
 RUN conda install mamba -y --quiet -c conda-forge 
