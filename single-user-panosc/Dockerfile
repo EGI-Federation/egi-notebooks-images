@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:ubuntu-20.04
+FROM jupyter/minimal-notebook:python-3.9.13
 
 USER $NB_UID
 RUN conda install mamba -y --quiet -c conda-forge 
