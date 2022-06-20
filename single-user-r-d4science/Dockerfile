@@ -10,7 +10,6 @@ RUN mamba install -y \
         r-vctrs \
         r-pillar \
         r-magrittr \
-    && mamba install -y \
         r-fansi \
         r-crayon \
         r-cli \
@@ -18,7 +17,6 @@ RUN mamba install -y \
         r-cpp11 \
         r-bh \
         r-tibble \
-    && mamba install -y \
         r-hms \
         r-jsonlite \
         r-zip \
