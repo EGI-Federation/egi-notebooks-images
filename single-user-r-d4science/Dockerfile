@@ -2,7 +2,7 @@ ARG BASE_IMAGE=eginotebooks/base:latest
 # hadolint ignore=DL3006
 FROM $BASE_IMAGE
 
-RUN mamba install -y --quiet \
+RUN mamba install -y \
         r-rpostgres \
         r-geojsonio \
         r-rlang  \
@@ -10,6 +10,7 @@ RUN mamba install -y --quiet \
         r-vctrs \
         r-pillar \
         r-magrittr \
+    && mamba install -y \
         r-fansi \
         r-crayon \
         r-cli \
@@ -17,6 +18,7 @@ RUN mamba install -y --quiet \
         r-cpp11 \
         r-bh \
         r-tibble \
+    && mamba install -y \
         r-hms \
         r-jsonlite \
         r-zip \
