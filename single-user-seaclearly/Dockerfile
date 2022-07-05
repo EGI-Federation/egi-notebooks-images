@@ -1,4 +1,6 @@
-FROM jupyter/datascience-notebook
+ARG BASE_IMAGE=eginotebooks/base:latest
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE
 
 USER root
 
