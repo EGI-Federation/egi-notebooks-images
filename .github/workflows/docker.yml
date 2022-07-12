@@ -93,7 +93,7 @@ jobs:
         image:
         - single-user
         - single-user-d4science
-        - single-user-r-d4science
+        - single-user-seaclearly
         - single-user-panosc
         - single-user-sobigdata
 
