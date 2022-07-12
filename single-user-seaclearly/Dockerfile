@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook
+FROM jupyter/datascience-notebook:59c973d16bca
 
 USER root
 
@@ -34,7 +34,8 @@ RUN conda install mamba -y --quiet -c conda-forge \
 	pytest \
  	nbval \
 	pykdtree \
-	zarr 
+	zarr \
+    && mamba update typing-extensions
 
 RUN pip install --no-cache-dir git+https://github.com/OceanParcels/parcels.git@master 
 
