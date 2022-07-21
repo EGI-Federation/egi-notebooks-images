@@ -15,21 +15,21 @@ USER $NB_UID
 
 RUN conda install mamba -y --quiet -c conda-forge \
     && mamba install -y -q \
-	torch \
-	torch-geometric \
-	pytorch-lightning \
-	tensorflow \
-	tensorboard \
-	wandb \
-	transformers \
-	datasets \
-	sentencepiece \
-	captum \
-	scikit-learn \
-	scipy \
-	numpy \
-	pandas \
-	matplotlib
+        tensorflow \
+        tensorboard \
+        wandb \
+        transformers \
+        datasets \
+        sentencepiece \
+        captum \
+        scikit-learn \
+        scipy \
+        numpy \
+        pandas \
+        matplotlib \
+        pytorch torchvision \
+        pytorch-lightning \
+    && mamba install -y -q pyg -c pyg
 
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
 RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
