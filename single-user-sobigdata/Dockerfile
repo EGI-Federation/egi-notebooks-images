@@ -69,7 +69,7 @@ RUN pip install --no-cache-dir \
         zarr==2.5.0 \
         holoviews \
         networkx==2.6.3 \
-        networksns \
+        networksns 
 
 # -------------------------------
 # SoBigData ++ specific libraries
