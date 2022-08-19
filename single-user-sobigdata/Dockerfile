@@ -17,9 +17,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         nco \
         cdo \
-        gdal-bin \
         cmake \
-        libgdal-dev=3.0.4+dfsg-1build3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -42,15 +40,7 @@ RUN mamba install -y --quiet \
         contextily \
         nb_conda_kernels \
         nb_conda \
-        pyophidia \
     && conda clean -tipsy
-
-RUN conda create --quiet --yes -n java8 \
-    && mamba install -n java8 --yes openjdk=8 \
-    && conda clean -tipsy
-
-ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
-ENV C_INCLUDE_PATH=/usr/include/gdal
 
 # Pinned networkx to 2.6.3 as 2.7 makes networksns fail
 RUN pip install --no-cache-dir \
@@ -65,9 +55,7 @@ RUN pip install --no-cache-dir \
         cdlib[C]==0.2.3 \
         cython \
         node_conformity \
-        git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
-        git+https://github.com/euroargodev/argopy.git@master \
         git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
         fast-forward-indexes \
         NEMtropy \
@@ -82,7 +70,6 @@ RUN pip install --no-cache-dir \
         holoviews \
         networkx==2.6.3 \
         networksns \
-        GDAL==3.0.4 #need to match the version of gdal installed
 
 # -------------------------------
 # SoBigData ++ specific libraries
@@ -101,6 +88,7 @@ RUN mamba install -y --quiet \
         keras \
         selenium \
         tweepy \
+        openjdk=8 \
    && conda clean --all
 
 RUN  mamba install -y pytorch==1.6.0  torchtext torchvision -c pytorch \
