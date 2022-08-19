@@ -56,7 +56,6 @@ ENV C_INCLUDE_PATH=/usr/include/gdal
 RUN pip install --no-cache-dir \
         bicm \
         rdp \
-        oceans \
         sentinelhub \
         import_ipynb \
         nbresuse \
@@ -84,14 +83,6 @@ RUN pip install --no-cache-dir \
         networkx==2.6.3 \
         networksns \
         GDAL==3.0.4 #need to match the version of gdal installed
-
-# Julia Updates and packages installations
-# See https://support.d4science.org/issues/22065
-RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
-    && julia --eval "using Pkg; Pkg.update()" \
-    && julia --eval 'using Pkg; Pkg.add(["Images","VideoIO"])' \
-    && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
-    && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "DIVAnd", "Glob", "DataStructures", "NCDatasets"])'
 
 # -------------------------------
 # SoBigData ++ specific libraries
