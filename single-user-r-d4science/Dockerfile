@@ -22,6 +22,8 @@ RUN mamba install -y --quiet \
         r-zip \
         udunits2  \
         r-rgdal \
+        r-pastecs \
+        r-factominer \
     && conda clean -tipsy
 
 RUN Rscript  -e "remotes::install_github('eblondel/geoflow', dependencies = c('Depends', 'Imports'))"
