@@ -7,6 +7,9 @@ RUN mamba install -y --quiet \
         r-geojsonio \
         r-rlang  \
         r-rcpp \
+    && conda clean -tipsy
+
+RUN mamba install -y --quiet \
         r-vctrs \
         r-pillar \
         r-magrittr \
@@ -16,6 +19,9 @@ RUN mamba install -y --quiet \
         r-dbi \
         r-cpp11 \
         r-bh \
+    && conda clean -tipsy
+
+RUN mamba install -y --quiet \
         r-tibble \
         r-hms \
         r-jsonlite \
