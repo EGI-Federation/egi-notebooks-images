@@ -97,6 +97,7 @@ jobs:
         - single-user-xaiss
         - single-user-panosc
         - single-user-sobigdata
+        - single-user-r-d4science
 
     steps:
       - name: try to make free space
