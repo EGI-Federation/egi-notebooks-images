@@ -70,7 +70,8 @@ RUN pip install --no-cache-dir \
         holoviews \
         networkx==2.6.3 \
         networksns \
-        eventclf
+        eventclf \
+        XAI-Library
 
 # -------------------------------
 # SoBigData ++ specific libraries
