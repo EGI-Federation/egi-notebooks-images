@@ -52,9 +52,9 @@ USER root
 RUN apt-get update \
     && apt-get install -y gdebi-core \
     && wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.07.2-576-amd64.deb \
-    && gdebi install -y rstudio-server-2022.07.2-576-amd64.deb \
+    && gdebi -n rstudio-server-2022.07.2-576-amd64.deb \
     && rm rstudio-server-2022.07.2-576-amd64.deb \
-    && apt-get remove -y gdeb \
+    && apt-get remove -y gdebi \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
