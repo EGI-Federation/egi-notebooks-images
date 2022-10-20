@@ -28,6 +28,7 @@ RUN mamba install -y --quiet \
     && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai \
     && conda clean --all
 
+
 # Octave, install on a different environment
 # Octave from conda won't build packages
 # see https://discourse.jupyter.org/t/installing-octave-packages-with-binder/4206
@@ -46,6 +47,24 @@ RUN mamba install -y --quiet octave_kernel=0.32.0 \
     && jupyter kernelspec install "$SITE_PACKAGES/octave_kernel" --name octave --prefix /opt/conda \
     && conda clean --all
 
+# Rstudio
+USER root
+RUN apt-get update \
+    && apt-get install -y gdebi-core \
+    && wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.07.2-576-amd64.deb \
+    && gdebi install -y rstudio-server-2022.07.2-576-amd64.deb \
+    && rm rstudio-server-2022.07.2-576-amd64.deb \
+    && apt-get remove -y gdeb \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+USER $NB_UID
+
+RUN mamba install -y --quiet \
+       -c conda-forge jupyter-rsession-proxy \
+    && conda clean --all
+
+# bioconda
 RUN conda config --add channels bioconda \
     && mamba install -y --quiet \
         biopython \
