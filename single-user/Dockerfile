@@ -26,8 +26,13 @@ RUN mamba install -y --quiet \
 	graphviz \
 	jq \
     && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai \
+    && mamba install -y --quiet dwave-ocean-sdk==5.5.0 amazon-braket-sdk==1.31.0 \
     && conda clean --all
 
+RUN pip install \
+	PennyLane==0.26.0 \
+	qiskit==0.38.0 \
+	qiskit-machine-learning==0.4.0
 
 # Octave, install on a different environment
 # Octave from conda won't build packages
