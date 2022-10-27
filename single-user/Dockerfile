@@ -4,6 +4,11 @@ FROM $BASE_IMAGE
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+RUN pip install \
+	PennyLane==0.26.0 \
+	qiskit==0.38.0 \
+	qiskit-machine-learning==0.4.0
+
 RUN mamba install -y --quiet \
         cftime \
         ipympl \
@@ -28,11 +33,6 @@ RUN mamba install -y --quiet \
     && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai \
     && mamba install -y --quiet dwave-ocean-sdk==5.5.0 amazon-braket-sdk==1.31.0 \
     && conda clean --all
-
-RUN pip install \
-	PennyLane==0.26.0 \
-	qiskit==0.38.0 \
-	qiskit-machine-learning==0.4.0
 
 # Octave, install on a different environment
 # Octave from conda won't build packages
