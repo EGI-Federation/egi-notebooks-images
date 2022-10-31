@@ -72,7 +72,8 @@ RUN pip install --no-cache-dir \
         networksns \
         eventclf \
         XAI-Library \
-        TwitterMonitor
+        TwitterMonitor \
+        convrewriting
 
 # -------------------------------
 # SoBigData ++ specific libraries
