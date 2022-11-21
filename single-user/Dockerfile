@@ -77,14 +77,12 @@ RUN pip install --no-cache-dir \
         git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
         h5glance \
         nbtop \
+	panel \
         tflearn
 
 # EMSO
 # python3.7, install on a different environment
 RUN mamba create --name python3.7 -y --quiet -c conda-forge ipython python=3.7 ipykernel libsndfile \
     && conda clean --all
-
-# Avoid a broken extension to show up
-RUN jupyter labextension disable @pyviz/jupyterlab_pyviz
 
 RUN rmdir work
