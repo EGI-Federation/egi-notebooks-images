@@ -1,5 +1,5 @@
-# bcf5fb15e7dc is python 3.10.6
-FROM jupyter/datascience-notebook:bcf5fb15e7dc
+# 2022-11-21 is python 3.10.6
+FROM jupyter/datascience-notebook:2022-11-21
 
 USER root
 
