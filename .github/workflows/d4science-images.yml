@@ -1,5 +1,5 @@
 ---
-name: Build and push containers
+name: Build and push d4science containers
 
 on:
   push:

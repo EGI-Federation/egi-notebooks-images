@@ -1,5 +1,5 @@
 ---
-name: Build and push containers
+name: Build and push EGI containers
 
 on:
   push:
