@@ -32,7 +32,7 @@ jobs:
       - name: Build base
         uses: docker/build-push-action@v3
         with:
-          context: base-d4science
+          context: d4science-base
           tags: ${{ steps.docker_meta_base.outputs.tags }}
           labels: ${{ steps.docker_meta_base.outputs.labels }}
           outputs: type=docker,dest=/tmp/base.tar
