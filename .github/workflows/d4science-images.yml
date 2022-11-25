@@ -16,6 +16,11 @@ jobs:
       base: ${{ steps.docker_meta_base.outputs.tags }}
 
     steps:
+      - name: try to make free space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
       - name: Checkout
         uses: actions/checkout@v3
       - name: Docker meta
