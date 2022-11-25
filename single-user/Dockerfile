@@ -28,7 +28,8 @@ RUN mamba install -y --quiet \
 	nb_conda_kernels \
     && conda clean --all
 
-RUN mamba install -y --quiet pytorch torchvision torchaudio cpuonly fastai -c pytorch -c fastai \
+RUN mamba install -y --quiet pytorch torchvision torchaudio cpuonly -c pytorch \
+    && mamba install -y --quiet fastai -c fastai \
     && conda clean --all
 
 
