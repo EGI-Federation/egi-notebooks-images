@@ -26,7 +26,9 @@ RUN mamba install -y --quiet \
 	graphviz \
 	jq \
 	nb_conda_kernels \
-    && mamba install -y --quiet pytorch torchvision torchaudio cpuonly fastai -c pytorch -c fastai \
+    && conda clean --all
+
+RUN mamba install -y --quiet pytorch torchvision torchaudio cpuonly fastai -c pytorch -c fastai \
     && conda clean --all
 
 
