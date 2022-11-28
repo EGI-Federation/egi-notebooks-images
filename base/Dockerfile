@@ -44,3 +44,7 @@ RUN pip install --no-cache-dir \
         nbgitpuller
 
 WORKDIR "${HOME}"
+
+RUN NODE_OPTIONS="--openssl-legacy-provider" \
+    jupyter labextension install \
+        @jupyter-widgets/jupyterlab-manager jupyter-leaflet
