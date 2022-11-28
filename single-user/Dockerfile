@@ -28,10 +28,11 @@ RUN mamba install -y --quiet \
 	nb_conda_kernels \
     && conda clean --all
 
-RUN mamba install -y --quiet pytorch torchvision torchaudio cpuonly -c pytorch \
+# See https://github.com/mamba-org/mamba/issues/336
+# pytorch is not installing properly with mamba
+RUN conda install -y --quiet pytorch torchvision torchaudio cpuonly -c pytorch \
     && mamba install -y --quiet fastai -c fastai \
     && conda clean --all
-
 
 # Octave, install on a different environment
 # Octave from conda won't build packages
