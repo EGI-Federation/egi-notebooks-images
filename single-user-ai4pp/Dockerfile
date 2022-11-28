@@ -26,7 +26,7 @@ RUN mamba install -y --quiet \
 	graphviz \
 	jq \
         jupyterlab-git \
-    && conda install -y --quiet pytorch torchvision cuda80 -c pytorch \
+    && conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch \
     && mamba install -y --quiet fastai mlflow -c fastai \
     && conda clean --all
 
