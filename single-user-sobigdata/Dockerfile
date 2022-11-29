@@ -56,7 +56,7 @@ RUN pip install --no-cache-dir \
         cython \
         node_conformity \
         git+https://github.com/geopython/OWSLib.git \
-        git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
+        git+https://github.com/guglielmocola/RetweetCascade.git \
         fast-forward-indexes \
         NEMtropy \
         folium==0.11.0 \
@@ -72,7 +72,8 @@ RUN pip install --no-cache-dir \
         networksns \
         eventclf \
         XAI-Library \
-        TwitterMonitor
+        convrewriting \
+        git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git
 
 # -------------------------------
 # SoBigData ++ specific libraries
