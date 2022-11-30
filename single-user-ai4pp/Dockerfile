@@ -26,7 +26,8 @@ RUN mamba install -y --quiet \
 	graphviz \
 	jq \
         jupyterlab-git \
-    && mamba install -y --quiet pytorch torchvision fastai mlflow -c pytorch -c fastai \
+    && mamba install pytorch==1.12.1=*cuda* torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch \
+    && mamba install -y --quiet fastai mlflow -c fastai \
     && conda clean --all
 
 # Octave, install on a different environment

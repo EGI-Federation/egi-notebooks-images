@@ -25,10 +25,14 @@ RUN mamba install -y --quiet \
 	plotly \
 	graphviz \
 	jq \
-        nb_conda_kernels \
-    && mamba install -y --quiet pytorch torchvision fastai -c pytorch -c fastai \
+	nb_conda_kernels \
     && conda clean --all
 
+# See https://github.com/mamba-org/mamba/issues/336
+# pytorch is not installing properly with mamba
+RUN conda install -y --quiet pytorch torchvision torchaudio cpuonly -c pytorch \
+    && mamba install -y --quiet fastai -c fastai \
+    && conda clean --all
 
 # Octave, install on a different environment
 # Octave from conda won't build packages
@@ -50,7 +54,7 @@ RUN mamba install -y --quiet octave_kernel=0.32.0 \
 USER root
 RUN apt-get update \
     && apt-get install -y gdebi-core \
-    && wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.07.2-576-amd64.deb \
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.2-576-amd64.deb \
     && gdebi -n rstudio-server-2022.07.2-576-amd64.deb \
     && rm rstudio-server-2022.07.2-576-amd64.deb \
     && apt-get remove -y gdebi \
