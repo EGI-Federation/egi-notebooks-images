@@ -1,4 +1,4 @@
-FROM onedata/oneclient:20.02.15
+FROM onedata/oneclient:20.02.19
 
 RUN useradd -m -u 1000 -g 100 jovyan
 
