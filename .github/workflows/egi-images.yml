@@ -52,6 +52,7 @@ jobs:
         image:
         - single-user
         - single-user-panosc
+        - single-user-ai4pp
 
     steps:
       - name: try to make free space
