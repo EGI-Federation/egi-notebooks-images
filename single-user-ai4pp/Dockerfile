@@ -6,8 +6,14 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN mamba install -y --quiet \
 	nb_conda_kernels \
-	cudatoolkit \
+	cudatoolkit=11.4.2 \
 	cudnn \
+        matplotlib \
+        lightgbm \
+        eo-learn \
+        plotly \
+        graphviz \
+        jq \
     && conda clean --all
 
 # Octave, install on a different environment
@@ -51,12 +57,6 @@ RUN pip install --no-cache-dir \
 	panel \
 	jupyterlab-git \
 	jupyterlab-github \
-	graphviz \
-	jq \
-	eo-learn \
-	plotly \
-	lightgbm \
-	matplotlib \
 	mlflow \
 	fastai \
 	papermill \
@@ -68,5 +68,7 @@ RUN pip install --no-cache-dir \
 	torchvision==0.13.1+cu113 \
 	torchaudio==0.12.1 \
 	--extra-index-url https://download.pytorch.org/whl/cu113 	
+
+ENV LD_LIBRARY_PATH="${CONDA_DIR}/lib:${LD_LIBRARY_PATH}"
 
 RUN rmdir work
