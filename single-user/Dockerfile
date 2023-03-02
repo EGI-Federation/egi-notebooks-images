@@ -37,7 +37,7 @@ RUN mamba install -y --quiet \
 
 # See https://github.com/mamba-org/mamba/issues/336
 # pytorch is not installing properly with mamba
-RUN conda install -y --quiet pytorch torchvision torchaudio cpuonly -c pytorch \
+RUN mamba install -y pytorch torchvision torchaudio cpuonly -c pytorch -c anaconda -c conda-forge \
     && mamba install -y --quiet fastai -c fastai \
     && conda clean --all
 
