@@ -73,7 +73,8 @@ RUN pip install --no-cache-dir \
         eventclf \
         XAI-Library \
         convrewriting \
-        git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git
+        git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git \
+        pygm
 
 # -------------------------------
 # SoBigData ++ specific libraries
