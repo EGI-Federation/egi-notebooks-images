@@ -69,7 +69,7 @@ RUN conda install mamba -y --quiet -c conda-forge \
         jupyterlab==3.1.4 \
         notebook==6.4.1 \
         nbclassic==0.2.8 \
-        jupyter-server-proxy \
+        jupyter-server-proxy==3.2.2 \
         jinja2==3.0.3 \
     && conda clean --all
 
