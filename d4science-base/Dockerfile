@@ -70,12 +70,11 @@ RUN conda install mamba -y --quiet -c conda-forge \
         notebook==6.4.1 \
         nbclassic==0.2.8 \
         jupyter-server-proxy==3.2.2 \
+        nbgitpuller \
         jinja2==3.0.3 \
     && conda clean --all
 
-RUN pip install --no-cache-dir \
-        shortid \
-        nbgitpuller
+RUN pip install --no-cache-dir shortid
 
 # Add Julia packages.
 # Install IJulia as jovyan and then move the kernelspec out
