@@ -7,7 +7,7 @@
 #                        __/ |                                  
 #                       |___/      
 
-ARG BASE_IMAGE=eginotebooks/base:latest
+ARG BASE_IMAGE=eginotebooks/d4science-base:latest
 # hadolint ignore=DL3006
 FROM $BASE_IMAGE
 
@@ -74,7 +74,8 @@ RUN pip install --no-cache-dir \
         XAI-Library \
         convrewriting \
         git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git \
-        pygm
+        pygm \
+        structify-net
 
 # -------------------------------
 # SoBigData ++ specific libraries
