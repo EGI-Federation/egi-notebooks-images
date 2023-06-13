@@ -17,82 +17,9 @@ RUN apt-get update \
 
 USER $NB_UID
 
-#RUN mamba install -y --quiet \
-#        basemap \
-#        beakerx \
-#        xgboost \
-#        lightgbm \
-#        catboost \
-#        netcdf4 \
-#        aiohttp \
-#        graph-tool \
-#        scikit-learn==0.22.1 \
-#        scikit-mobility \
-#        dask-jobqueue \
-#        fs \
-#        rasterio \
-#        contextily \
-#        nb_conda_kernels \
-#        nb_conda \
-#    && conda clean -tipsy
-#
-# Pinned networkx to 2.6.3 as 2.7 makes networksns fail
-#RUN pip install --no-cache-dir \
-#        bicm \
-#        rdp \
-#        sentinelhub \
-#        import_ipynb \
-#        nbresuse \
-#        ndlib \
-#        motuclient \
-#        panel==0.9.* \
-#        cdlib[C]==0.2.3 \
-#        cython \
-#        node_conformity \
-#        git+https://github.com/geopython/OWSLib.git \
-#        git+https://github.com/guglielmocola/RetweetCascade.git \
-#        fast-forward-indexes \
-#        NEMtropy \
-#        folium==0.11.0 \
-#        geopy==2.0.0 \
-#        hvplot==0.6.0 \
-#        intake==0.6.0 \
-#        intake-esm==2020.8.15 \
-#        hda \
-#        seaborn==0.11.0 \
-#        zarr==2.5.0 \
-#        holoviews \
-#        networkx==2.6.3 \
-#        networksns \
-#        eventclf \
-#        XAI-Library \
-#        convrewriting \
-#        git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git \
-#        pygm \
-#        structify-net
-
 # -------------------------------
 # Scientomatic specific libraries
 # -------------------------------
-#RUN mamba install -y --quiet \
-#        pyspark \
-#        pyfim \
-#        pyclustering \
-#        transformers \
-#        rtree \
-#        geopandas \
-#        nltk \
-#        pydotplus \
-#        plotly \
-#        graphviz \
-#        keras \
-#        selenium \
-#        tweepy \
-#        openjdk=8 \
-#   && conda clean --all
-#
-#RUN  mamba install -y pytorch==1.6.0  torchtext torchvision -c pytorch \
-#   && conda clean --all
 
 RUN mamba install -y --quiet \
         libmambapy
@@ -131,9 +58,6 @@ RUN pip install --no-cache-dir \
         cloudpickle \
         colorama \
         comm \
-#        conda==23.3.1 \
-#        conda-package-handling \
-#        conda_package_streaming \
         contextily==1.3.0 \
         contourpy \
         coverage==7.2.5 \
@@ -182,25 +106,8 @@ RUN pip install --no-cache-dir \
         jsonpatch \
         jsonpointer==2.0 \
         jsonschema \
-#        jupyter-events \
-#        jupyter-server-mathjax \
-#        jupyter-telemetry \
-#        jupyter-ydoc \
-#        jupyter_client \
-#        jupyter_core \
-#        jupyter_server \
-#        jupyter_server_fileid \
-#        jupyter_server_terminals \
-#        jupyter_server_ydoc \
-#        jupyterhub \
-#        jupyterlab \
-#        jupyterlab-git \
-#        jupyterlab-pygments \
-#        jupyterlab-widgets \
-#        jupyterlab_server \
         kiwisolver \
         lazy_loader \
-#        llvmlite==0.39.1 \
         locket \
         lz4 \
         Mako \
@@ -256,7 +163,6 @@ RUN pip install --no-cache-dir \
         pycodestyle==2.10.0 \
         pycosat \
         pycparser \
-#        pycurl==7.45.1 \
         pyflakes==3.0.1 \
         Pygments \
         PyJWT \
@@ -326,7 +232,6 @@ RUN pip install --no-cache-dir \
         zipp \
         zstandard==0.19.0
 
-        
 # -------------------------------
 
 RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor

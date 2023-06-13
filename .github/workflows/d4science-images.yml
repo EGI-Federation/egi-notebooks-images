@@ -60,6 +60,7 @@ jobs:
         - single-user-xaiss
         - single-user-sobigdata
         - single-user-r-d4science
+        - single-user-scientometrics-d4science
 
     steps:
       - name: try to make free space
