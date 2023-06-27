@@ -104,7 +104,12 @@ RUN pip install --no-cache-dir \
         import_ipynb \
         opencv-python \
         simpletransformers \
-        shuffle-graph 
+        shuffle-graph \
+        privlib \
+        ash_model \
+        cdlib==0.3.0 \
+        bayanpy \
+        dynetx==0.3.2
 # -------------------------------
 
 RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
