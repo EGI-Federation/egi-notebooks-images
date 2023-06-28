@@ -22,7 +22,10 @@ USER $NB_UID
 # -------------------------------
 
 RUN mamba install -y --quiet \
-        libmambapy
+        libmambapy \
+        pyspark \
+        openjdk=8 \
+   && conda clean --all
 
 RUN pip install --no-cache-dir \
         affine==2.4.0 \
@@ -171,7 +174,6 @@ RUN pip install --no-cache-dir \
         pyproj==3.5.0 \
         pyrsistent \
         PySocks \
-        pyspark==3.4.0 \
         python-dateutil \
         python-dotenv==1.0.0 \
         python-json-logger \
