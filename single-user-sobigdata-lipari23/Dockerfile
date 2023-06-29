@@ -137,7 +137,8 @@ RUN pip install --no-cache-dir \
         dgl \
         IPython
 
-RUN pip torch \
+RUN pip install --no-cache-dir \
+        torch \
         torchvision \
         torchaudio \
         --index-url https://download.pytorch.org/whl/cpu
