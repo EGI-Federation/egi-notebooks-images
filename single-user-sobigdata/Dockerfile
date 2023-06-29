@@ -18,6 +18,7 @@ RUN apt-get update \
         nco \
         cdo \
         cmake \
+        g++ \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -32,7 +33,7 @@ RUN mamba install -y --quiet \
         netcdf4 \
         aiohttp \
         graph-tool \
-        scikit-learn==0.22.1 \
+        scikit-learn \
         scikit-mobility \
         dask-jobqueue \
         fs \
@@ -104,8 +105,14 @@ RUN pip install --no-cache-dir \
         import_ipynb \
         opencv-python \
         simpletransformers \
-        shuffle-graph 
+        shuffle-graph \
+        privlib \
+        ash_model \
+        cdlib==0.3.0 \
+        bayanpy \
+        dynetx==0.3.2
+
 # -------------------------------
 
-RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
-RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
+#RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
+#RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
