@@ -62,6 +62,7 @@ jobs:
         - single-user-r-d4science
         - single-user-3d-d4science
         - single-user-scientometrics-d4science
+        - single-user-sobigdata-lipari23
 
     steps:
       - name: try to make free space
