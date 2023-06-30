@@ -85,8 +85,8 @@ RUN pip install --no-cache-dir \
 RUN mamba install -y --quiet \
         pyspark \
         pyfim \
-        pyclustering \
-        transformers \
+        #pyclustering \
+        #transformers \
         rtree \
         geopandas \
         nltk \
