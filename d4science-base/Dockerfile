@@ -1,6 +1,5 @@
-# 59c973d16bca has python3.8.8
-# Using that to ensure the image remains the same 
-FROM jupyter/datascience-notebook:59c973d16bca
+# Updated to 3.10
+FROM jupyter/datascience-notebook:2022-11-21
 ARG julia_version="1.7.1"
 
 USER root
