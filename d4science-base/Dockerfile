@@ -91,4 +91,5 @@ RUN /usr/local/bin/julia -e 'import Pkg; Pkg.update()' && \
 
 WORKDIR "${HOME}"
 
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
+RUN NODE_OPTIONS="--openssl-legacy-provider" \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
