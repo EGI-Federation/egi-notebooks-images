@@ -43,7 +43,7 @@ RUN mamba install -y --quiet \
         contextily \
         nb_conda_kernels \
         nb_conda \
-    && conda clean -tipsy
+    && conda clean --all
 
 # Pinned networkx to 2.6.3 as 2.7 makes networksns fail
 RUN pip install --no-cache-dir \
