@@ -8,7 +8,6 @@
 #                       |___/      
 
 ARG BASE_IMAGE=eginotebooks/d4science-base:latest
-
 FROM $BASE_IMAGE
 
 USER root
