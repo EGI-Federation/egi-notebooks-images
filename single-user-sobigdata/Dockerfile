@@ -24,6 +24,8 @@ RUN apt-get update \
 
 USER $NB_UID
 
+ARG SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
+
 RUN mamba install -y --quiet \
         basemap \
         beakerx \
