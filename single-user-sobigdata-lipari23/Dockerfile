@@ -20,6 +20,8 @@ ARG SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
 # SoBigData Lipari Summer School 2023 (https://sobigdata23.liparischool.it)
 # -------------------------------
 
+RUN mamba install -y protobuf==4.23.3
+
 RUN pip install --no-cache-dir \
         tensorflow \
         exmol \
