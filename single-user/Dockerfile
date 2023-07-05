@@ -33,6 +33,7 @@ RUN mamba install -y --quiet \
 	nb_conda_kernels \
   dwave-ocean-sdk==5.5.0 \
   amazon-braket-sdk==1.31.0 \
+	elyra \
     && conda clean --all
 
 # See https://github.com/mamba-org/mamba/issues/336
@@ -95,5 +96,7 @@ RUN pip install --no-cache-dir \
 # python3.7, install on a different environment
 RUN mamba create --name python3.7 -y --quiet -c conda-forge ipython python=3.7 ipykernel libsndfile \
     && conda clean --all
+
+RUN jupyter lab build
 
 RUN rmdir work
