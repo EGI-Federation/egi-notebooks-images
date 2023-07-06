@@ -18,9 +18,7 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 
 USER $NB_UID
 
-# install mamba which goes way faster than conda
-RUN conda install mamba -y --quiet -c conda-forge \
-    && mamba install -y -q \
+RUN mamba install -y -q \
         r-plotly \
         r-gdata \
         rdflib \
