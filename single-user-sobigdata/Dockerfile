@@ -1,11 +1,11 @@
-#   _____       ____  _       _____        _                    
-#  / ____|     |  _ \(_)     |  __ \      | |         _     _   
-# | (___   ___ | |_) |_  __ _| |  | | __ _| |_ __ _ _| |_ _| |_ 
+#   _____       ____  _       _____        _
+#  / ____|     |  _ \(_)     |  __ \      | |         _     _
+# | (___   ___ | |_) |_  __ _| |  | | __ _| |_ __ _ _| |_ _| |_
 #  \___ \ / _ \|  _ <| |/ _` | |  | |/ _` | __/ _` |_   _|_   _|
-#  ____) | (_) | |_) | | (_| | |__| | (_| | || (_| | |_|   |_|  
-# |_____/ \___/|____/|_|\__, |_____/ \__,_|\__\__,_|            
-#                        __/ |                                  
-#                       |___/      
+#  ____) | (_) | |_) | | (_| | |__| | (_| | || (_| | |_|   |_|
+# |_____/ \___/|____/|_|\__, |_____/ \__,_|\__\__,_|
+#                        __/ |
+#                       |___/
 
 ARG BASE_IMAGE=eginotebooks/d4science-base:latest
 # hadolint ignore=DL3006
@@ -43,7 +43,7 @@ RUN mamba install -y --quiet \
         contextily \
         nb_conda_kernels \
         nb_conda \
-    && conda clean -tipsy
+    && conda clean -tipy
 
 # Pinned networkx to 2.6.3 as 2.7 makes networksns fail
 RUN pip install --no-cache-dir \
@@ -85,8 +85,6 @@ RUN pip install --no-cache-dir \
 # -------------------------------
 RUN mamba install -y --quiet \
         pyspark \
-        pyfim \
-        pyclustering \
         transformers \
         rtree \
         geopandas \
@@ -100,10 +98,15 @@ RUN mamba install -y --quiet \
         openjdk=8 \
    && conda clean --all
 
-RUN  mamba install -y pytorch==1.6.0  torchtext torchvision -c pytorch \
-   && conda clean --all
+RUN pip install --no-cache-dir \
+        torch \
+        torchvision \
+        torchaudio \
+        --index-url https://download.pytorch.org/whl/cpu
 
 RUN pip install --no-cache-dir \
+        pyfim \
+        pyclustering \
         import_ipynb \
         opencv-python \
         simpletransformers \
@@ -115,6 +118,7 @@ RUN pip install --no-cache-dir \
         dynetx==0.3.2
 
 # -------------------------------
-
-#RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
-#RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
+# JupyterLab extensions
+# -------------------------------
+RUN pip install --no-cache-dir jupyterlab-topbar
+RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file

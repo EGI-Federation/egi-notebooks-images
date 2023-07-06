@@ -34,11 +34,11 @@ RUN mamba install -y --quiet \
         nb_conda_kernels \
         nb_conda \
         pyophidia \
-    && conda clean -tipsy
+    && conda clean -tipy
 
 RUN conda create --quiet --yes -n java8 \
     && mamba install -n java8 --yes openjdk=8 \
-    && conda clean -tipsy
+    && conda clean -tipy
 
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal

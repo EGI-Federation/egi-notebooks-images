@@ -7,7 +7,7 @@ RUN mamba install -y --quiet \
         r-geojsonio \
         r-rlang  \
         r-rcpp \
-    && conda clean -tipsy
+    && conda clean -tipy
 
 RUN mamba install -y --quiet \
         r-vctrs \
@@ -19,7 +19,7 @@ RUN mamba install -y --quiet \
         r-dbi \
         r-cpp11 \
         r-bh \
-    && conda clean -tipsy
+    && conda clean -tipy
 
 RUN mamba install -y --quiet \
         r-tibble \
@@ -30,7 +30,7 @@ RUN mamba install -y --quiet \
         r-rgdal \
         r-pastecs \
         r-factominer \
-    && conda clean -tipsy
+    && conda clean -tipy
 
 RUN Rscript  -e "remotes::install_github('eblondel/geoflow', dependencies = c('Depends', 'Imports'))"
 
