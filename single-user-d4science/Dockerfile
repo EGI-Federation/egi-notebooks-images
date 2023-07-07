@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=eginotebooks/base:latest
+ARG BASE_IMAGE=eginotebooks/d4science-base:latest
 # hadolint ignore=DL3006
 FROM $BASE_IMAGE
 
@@ -10,7 +10,7 @@ RUN apt-get update \
         cdo \
         gdal-bin \
         cmake \
-        libgdal-dev=3.0.4+dfsg-1build3 \
+        libgdal-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -25,7 +25,7 @@ RUN mamba install -y --quiet \
         netcdf4 \
         aiohttp \
         graph-tool \
-        scikit-learn==0.22.1 \
+        scikit-learn \
         scikit-mobility \
         dask-jobqueue \
         fs \
@@ -74,7 +74,7 @@ RUN pip install --no-cache-dir \
         holoviews \
         networkx==2.6.3 \
         networksns \
-        GDAL==3.0.4 #need to match the version of gdal installed
+        GDAL==$(gdal --version) #need to match the version of gdal installed
 
 # Julia Updates and packages installations
 # See https://support.d4science.org/issues/22065
