@@ -74,7 +74,7 @@ RUN pip install --no-cache-dir \
         holoviews \
         networkx==2.6.3 \
         networksns \
-        GDAL==$(gdal --version) #need to match the version of gdal installed
+        GDAL==$(gdal-config --version) #need to match the version of gdal installed
 
 # Julia Updates and packages installations
 # See https://support.d4science.org/issues/22065
