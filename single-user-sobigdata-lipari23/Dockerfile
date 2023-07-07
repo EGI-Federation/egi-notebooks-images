@@ -1,11 +1,4 @@
-#   _____       ____  _       _____        _
-#  / ____|     |  _ \(_)     |  __ \      | |
-# | (___   ___ | |_) |_  __ _| |  | | __ _| |_ __ _ _| |_ _| |_
-#  \___ \ / _ \|  _ <| |/ _` | |  | |/ _` | __/ _` |_   _|_   _|
-#  ____) | (_) | |_) | | (_| | |__| | (_| | || (_| | |_|   |_|
-# |_____/ \___/|____/|_|\__, |_____/ \__,_|\__\__,_|
-#                        __/ |
-#                       |___/
+# SoBigData Lipari Summer School 2023 (https://sobigdata23.liparischool.it)
 
 ARG BASE_IMAGE=eginotebooks/d4science-base:latest
 
@@ -15,9 +8,8 @@ USER $NB_UID
 
 ARG SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
 
-
 # -------------------------------
-# SoBigData Lipari Summer School 2023 (https://sobigdata23.liparischool.it)
+# SoBigData Lipari Summer School 2023
 # -------------------------------
 
 RUN pip install --no-cache-dir \
@@ -38,7 +30,9 @@ RUN pip install --no-cache-dir \
         typing-extensions \
         torch_geometric \
         dgl \
-        IPython
+        IPython \
+        networkx==2.6.3 \
+        networksns
 
 RUN pip install --no-cache-dir \
         torch \
@@ -47,6 +41,7 @@ RUN pip install --no-cache-dir \
         --index-url https://download.pytorch.org/whl/cpu
 
 RUN mamba install -y protobuf==4.23.3
+
 # -------------------------------
 
 RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
