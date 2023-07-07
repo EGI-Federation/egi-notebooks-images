@@ -47,7 +47,11 @@ RUN pip install --no-cache-dir \
         --index-url https://download.pytorch.org/whl/cpu
 
 RUN mamba install -y protobuf==4.23.3
-# -------------------------------
 
-RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
+# -------------------------------
+# Jupyter lab extensions
+# -------------------------------
+RUN pip install --no-cache-dir \
+    jupyterlab-topbar \
+    jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
