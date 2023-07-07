@@ -55,13 +55,13 @@ jobs:
     strategy:
       matrix:
         image:
-        #- single-user-d4science
-        # - single-user-seaclearly
-        #- single-user-xaiss
-        #- single-user-sobigdata
-        #- single-user-r-d4science
-        #- single-user-3d-d4science
-        #- single-user-scientometrics-d4science
+        - single-user-d4science
+         - single-user-seaclearly
+        - single-user-xaiss
+        - single-user-sobigdata
+        - single-user-r-d4science
+        - single-user-3d-d4science
+        - single-user-scientometrics-d4science
         - single-user-sobigdata-lipari23
 
     steps:
