@@ -115,7 +115,10 @@ RUN pip install --no-cache-dir \
         ash_model \
         cdlib==0.3.0 \
         bayanpy \
-        dynetx==0.3.2
+        dynetx==0.3.2 \
+	geolet \
+	glocalx \
+	triplex
 
 # -------------------------------
 # JupyterLab extensions
