@@ -9,18 +9,23 @@ on:
   pull_request:
 
 jobs:
+  detect-changes:
+    uses: ./.github/workflows/build-list.yml
+    with:
+      images: |
+        "d4science-storage/Dockerfile"
+        "oneclient-sidecar/Dockerfile"
+        "single-user-eiscat/Dockerfile"
+        "webdav-sidecar/Dockerfile"
+
   sidecar-images:
     name: Build and push independent images
+    needs: detect-changes
+    if: fromJson(needs.detect-changes.outputs.matrix).image
     runs-on: ubuntu-latest
 
     strategy:
-      matrix:
-        image:
-        - d4science-storage
-        - oneclient-sidecar
-        - single-user-eiscat
-        - webdav-sidecar
-
+      matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
