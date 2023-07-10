@@ -84,5 +84,10 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
     && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
     && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "DIVAnd", "Glob", "DataStructures", "NCDatasets"])'
 
-RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
+# -------------------------------
+# JupyterLab extensions
+# -------------------------------
+RUN pip install --no-cache-dir \
+    jupyterlab-topbar \
+    jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
