@@ -235,6 +235,9 @@ RUN pip install --no-cache-dir \
         zstandard==0.19.0
 
 # -------------------------------
-
-RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
+# Jupyter lab extensions
+# -------------------------------
+RUN pip install --no-cache-dir \
+    jupyterlab-topbar \
+    jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file

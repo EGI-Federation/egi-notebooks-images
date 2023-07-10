@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=eginotebooks/base:latest
+ARG BASE_IMAGE=eginotebooks/d4science-base:latest
 # hadolint ignore=DL3006
 FROM $BASE_IMAGE
 
@@ -10,7 +10,7 @@ RUN apt-get update \
         cdo \
         gdal-bin \
         cmake \
-        libgdal-dev=3.0.4+dfsg-1build3 \
+        libgdal-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -25,7 +25,7 @@ RUN mamba install -y --quiet \
         netcdf4 \
         aiohttp \
         graph-tool \
-        scikit-learn==0.22.1 \
+        scikit-learn \
         scikit-mobility \
         dask-jobqueue \
         fs \
@@ -34,11 +34,11 @@ RUN mamba install -y --quiet \
         nb_conda_kernels \
         nb_conda \
         pyophidia \
-    && conda clean -tipsy
+    && conda clean -tipy
 
 RUN conda create --quiet --yes -n java8 \
     && mamba install -n java8 --yes openjdk=8 \
-    && conda clean -tipsy
+    && conda clean -tipy
 
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
@@ -74,7 +74,7 @@ RUN pip install --no-cache-dir \
         holoviews \
         networkx==2.6.3 \
         networksns \
-        GDAL==3.0.4 #need to match the version of gdal installed
+        GDAL==$(gdal-config --version) #need to match the version of gdal installed
 
 # Julia Updates and packages installations
 # See https://support.d4science.org/issues/22065
@@ -84,5 +84,10 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
     && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
     && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "DIVAnd", "Glob", "DataStructures", "NCDatasets"])'
 
-RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
+# -------------------------------
+# JupyterLab extensions
+# -------------------------------
+RUN pip install --no-cache-dir \
+    jupyterlab-topbar \
+    jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
