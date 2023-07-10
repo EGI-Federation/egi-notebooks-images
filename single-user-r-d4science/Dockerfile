@@ -38,5 +38,6 @@ RUN Rscript  -e "install.packages(c('geometa','ows4R','geonapi','geosapi','raste
 
 RUN pip install --no-cache-dir \
         import_ipynb \
-        nbresuse \
-        git+https://github.com/andrea-manzi/mbtr.git
+        nbresuse 
+	# leave this out for now
+        # git+https://github.com/andrea-manzi/mbtr.git
