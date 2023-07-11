@@ -31,8 +31,8 @@ RUN mamba install -y --quiet \
 	graphviz \
 	jq \
 	nb_conda_kernels \
-  dwave-ocean-sdk==5.5.0 \
-  amazon-braket-sdk==1.31.0 \
+        dwave-ocean-sdk==5.5.0 \
+        amazon-braket-sdk==1.31.0 \
 	elyra \
     && conda clean --all
 
