@@ -26,6 +26,10 @@ jobs:
       matrix: ${{ steps.build.outputs.matrix }}
       build-base: ${{ steps.build.outputs.build-base}}
     steps:
+      - name: Get source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Change list
         id: change-list
         uses: tj-actions/changed-files@v37
