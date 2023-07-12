@@ -17,6 +17,7 @@ jobs:
       images: |
         "single-user-d4science/Dockerfile"
         "single-user-sobigdata/Dockerfile"
+        "single-user-3d-d4science/Dockerfile"
         "single-user-r-d4science/Dockerfile"
         "single-user-scientometrics-d4science/Dockerfile"
         "single-user-sobigdata-lipari23/Dockerfile"
