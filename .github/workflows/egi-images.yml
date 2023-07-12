@@ -5,12 +5,23 @@ on:
   push:
     # only pushes on master so we don't push intermediate results to dockerhub
     branches:
-    - master
+      - master
   pull_request:
 
 jobs:
+  detect-changes:
+    uses: ./.github/workflows/build-list.yml
+    with:
+      base: base/Dockerfile
+      images: |
+        "single-user/Dockerfile"
+        "single-user-panosc/Dockerfile"
+        "single-user-ai4pp/Dockerfile"
+
   base-image:
     name: Build base image
+    needs: detect-changes 
+    if: needs.detect-changes.outputs.build-base == 1
     runs-on: ubuntu-latest
     outputs:
       base: ${{ steps.docker_meta_base.outputs.tags }}
@@ -45,14 +56,10 @@ jobs:
   user-images:
     name: Build and push images
     runs-on: ubuntu-latest
-    needs: base-image
+    needs: [base-image, detect-changes]
 
     strategy:
-      matrix:
-        image:
-        - single-user
-        - single-user-panosc
-        - single-user-ai4pp
+      matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
 
     steps:
       - name: try to make free space

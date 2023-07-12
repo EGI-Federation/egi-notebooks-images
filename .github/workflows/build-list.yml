@@ -1,0 +1,65 @@
+---
+name: Detect which images to build
+
+on:
+  workflow_call:
+    inputs:
+      base:
+        required: false
+        type: string
+      images:
+        required: true
+        type: string
+    outputs:
+      build-base:
+        description: "Whether base needs to be built or not"
+        value: ${{ jobs.detect-changes.outputs.build-base }}
+      matrix:
+        description: "List of images to build"
+        value: ${{ jobs.detect-changes.outputs.matrix }}
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      # see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#example-using-contexts-to-create-matrices 
+      matrix: ${{ steps.build.outputs.matrix }}
+      build-base: ${{ steps.build.outputs.build-base}}
+    steps:
+      - name: Change list
+        id: change-list
+        uses: tj-actions/changed-files@v37
+      - name: Check what needs to be built 
+        id: build
+        run: |
+          set -x
+          read -r -a changes <<< "${{ steps.change-list.outputs.all_changed_files }}"
+          base="${{ inputs.base }}"
+          images=(${{ inputs.images }})
+          build_base=0
+          build_images=()
+          if [[ "$base" != "" ]]; then
+              for c in "${changes[@]}"; do  
+                  if [[ "$c" == "$base" ]]; then
+                    build_base=1
+                    break 
+                  fi
+              done 
+          fi
+          for img in "${images[@]}"; do
+              if [[ "$build_base" = 1  ]]; then 
+                  build_images+=("$(dirname "$img")")
+                  continue
+              fi
+              for c in "${changes[@]}"; do  
+                  if [[ "$c" == "$img" ]]; then
+                    build_images+=("$(dirname "$img")")
+                    break 
+                  fi
+              done 
+          done
+          if [[ -n "${build_images[*]}" ]]; then
+              build_base=1
+          fi
+          echo "matrix=$(jq -c -n --arg inarr "${build_images[*]}" '{ image: $inarr | split(" ") }')" >> "$GITHUB_OUTPUT"
+          echo "build-base=$build_base" >> "$GITHUB_OUTPUT"
