@@ -21,11 +21,12 @@ jobs:
   sidecar-images:
     name: Build and push independent images
     needs: detect-changes
-    if: fromJson(needs.detect-changes.outputs.matrix).image
+    if: toJson(fromJson(needs.detect-changes.outputs.matrix).image) != '[]'
     runs-on: ubuntu-latest
 
     strategy:
       matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
