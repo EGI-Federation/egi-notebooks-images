@@ -117,7 +117,6 @@ RUN pip install --no-cache-dir \
         bayanpy \
         dynetx==0.3.2 \
 	geolet \
-	glocalx \
 	triplex
 
 # -------------------------------
