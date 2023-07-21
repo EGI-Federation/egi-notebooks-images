@@ -116,8 +116,9 @@ RUN pip install --no-cache-dir \
         cdlib==0.3.0 \
         bayanpy \
         dynetx==0.3.2 \
-	geolet \
-	triplex
+        geolet \
+        triplex \
+        glocalx
 
 # -------------------------------
 # JupyterLab extensions
