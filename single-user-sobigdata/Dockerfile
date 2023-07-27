@@ -120,6 +120,12 @@ RUN pip install --no-cache-dir \
         triplex \
         glocalx
 
+RUN pip install --no-cache-dir \
+        -i https://test.pypi.org/pypi/ \
+	--extra-index-url https://pypi.org/simple \
+	anonymization-crisesURV \
+	antiDiscrimination-crisesURV
+
 # -------------------------------
 # JupyterLab extensions
 # -------------------------------
