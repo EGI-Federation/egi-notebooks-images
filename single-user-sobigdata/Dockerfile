@@ -118,7 +118,8 @@ RUN pip install --no-cache-dir \
         dynetx==0.3.2 \
         geolet \
         triplex \
-        glocalx
+        glocalx \
+        cliqs
 
 RUN pip install --no-cache-dir \
         -i https://test.pypi.org/pypi/ \
