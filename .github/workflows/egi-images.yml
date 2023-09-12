@@ -37,7 +37,7 @@ jobs:
           tags: |
             type=sha
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Build base
@@ -77,7 +77,7 @@ jobs:
           tags: |
             type=sha
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
       - name: Get previous build base
         uses: actions/download-artifact@v3
         with:
