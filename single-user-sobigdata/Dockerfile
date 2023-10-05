@@ -8,7 +8,7 @@
 #                       |___/
 
 ARG BASE_IMAGE=eginotebooks/d4science-base:latest
-# hadolint ignore=DL3006
+# hadolint ignore=DL3006 
 FROM $BASE_IMAGE
 
 USER root
