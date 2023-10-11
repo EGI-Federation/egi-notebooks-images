@@ -1,6 +1,6 @@
-# 4d70cf8da953 has python3.10.11
+# 7e1a19a8427f updates python and Julia
 # Using that to ensure the image remains the same
-FROM jupyter/datascience-notebook:4d70cf8da953
+FROM jupyter/datascience-notebook:7e1a19a8427f
 
 USER root
 
