@@ -17,8 +17,6 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 USER $NB_UID
 
 RUN mamba install -y -q \
-        r-plotly \
-        r-gdata \
         rdflib \
         prov \
         graphviz \
@@ -39,6 +37,8 @@ WORKDIR "${HOME}"
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
 
 RUN mamba install -y --quiet \
+        r-plotly \
+        r-gdata \
         r-rpostgres \
         r-geojsonio \
         r-rlang  \

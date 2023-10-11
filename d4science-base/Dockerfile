@@ -19,8 +19,6 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 USER $NB_UID
 
 RUN mamba install -y -q \
-        r-plotly \
-        r-gdata \
         rdflib \
         prov \
         graphviz \
