@@ -1,7 +1,7 @@
 # 4d70cf8da953 has python3.10.11
 # Using that to ensure the image remains the same
 FROM jupyter/datascience-notebook:4d70cf8da953
-ARG JULIA_VERSION="1.9.2"
+ARG julia_version="1.9.2"
 
 USER root
 
