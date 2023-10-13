@@ -18,7 +18,7 @@ USER $NB_UID
 
 RUN mamba install -y --quiet \
         basemap \
-        beakerx \
+#        beakerx \
         xgboost \
         lightgbm \
         catboost \
@@ -31,8 +31,8 @@ RUN mamba install -y --quiet \
         fs \
         rasterio \
         contextily \
-        nb_conda_kernels \
-        nb_conda \
+#        nb_conda_kernels \
+#        nb_conda \
         pyophidia \
     && conda clean -tipy
 
