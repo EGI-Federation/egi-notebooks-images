@@ -82,7 +82,8 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
     && julia --eval "using Pkg; Pkg.update()" \
     && julia --eval 'using Pkg; Pkg.add(["Images","VideoIO"])' \
     && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
-    && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "DIVAnd", "Glob", "DataStructures", "NCDatasets"])'
+    && julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.9")' \
+    && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])'
 
 # -------------------------------
 # JupyterLab extensions
