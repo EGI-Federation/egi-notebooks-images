@@ -119,7 +119,8 @@ RUN pip install --no-cache-dir \
         geolet \
         triplex \
         glocalx \
-        cliqs
+        cliqs \
+        quantum-distance-based-classifier
 
 RUN pip install --no-cache-dir \
         -i https://test.pypi.org/pypi/ \
