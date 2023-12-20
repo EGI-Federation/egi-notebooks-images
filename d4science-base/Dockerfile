@@ -11,7 +11,7 @@ RUN apt-get update \
         graphviz \
         vim \
         openssh-client \
-	libfuse3-3 fuse3 \
+	libfuse2 fuse \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
