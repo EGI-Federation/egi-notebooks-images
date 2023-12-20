@@ -11,11 +11,18 @@ RUN apt-get update \
         graphviz \
         vim \
         openssh-client \
+	libfuse3-3 fuse3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
          -o /usr/local/bin/retry && chmod +x /usr/local/bin/retry
+
+ARG FUSE_JAR=https://nexus.d4science.org/nexus/content/repositories/gcube-snapshots/org/gcube/data-access/sh-fuse-integration/1.2.0-SNAPSHOT/sh-fuse-integration-1.2.0-20210708.160531-5-jar-with-dependencies.jar
+
+RUN curl $FUSE_JAR > /sh-fuse-integration-jar-with-dependencies.jar
+
+COPY mount.sh /mount.sh
 
 # -----------------------------------------------------------------------------
 # Julia setup - we need a newer version than the one in the base
