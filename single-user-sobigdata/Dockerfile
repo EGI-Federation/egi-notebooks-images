@@ -120,7 +120,8 @@ RUN pip install --no-cache-dir \
         triplex \
         glocalx \
         cliqs \
-        quantum-distance-based-classifier
+        quantum-distance-based-classifier \
+        demv
 
 RUN pip install --no-cache-dir \
         -i https://test.pypi.org/pypi/ \
