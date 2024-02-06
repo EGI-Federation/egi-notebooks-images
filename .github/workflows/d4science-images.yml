@@ -21,6 +21,7 @@ jobs:
         "single-user-r-d4science/Dockerfile"
         "single-user-scientometrics-d4science/Dockerfile"
         "single-user-sobigdata-lipari23/Dockerfile"
+        "single-user-sobigdata-aaai24/Dockerfile"
 
   base-image:
     name: Build base image
