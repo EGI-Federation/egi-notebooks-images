@@ -39,7 +39,7 @@ RUN pip install --no-cache-dir \
         flufl.lock \
         jsonc-parser
 
-RUN conda install anaconda
+RUN conda update --all
 RUN conda update -n base -c defaults conda -y
 RUN conda create -n GRTL python=3.9 -y
 RUN conda activate GRTL
