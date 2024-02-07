@@ -1,6 +1,6 @@
 # SoBigData AAAI 2024 (https://github.com/aiim-research/GRETEL)
 
-ARG BASE_IMAGE=eginotebooks/base:latest
+ARG BASE_IMAGE=eginotebooks/d4science-base:latest
 
 FROM d4science-base:latest
 
