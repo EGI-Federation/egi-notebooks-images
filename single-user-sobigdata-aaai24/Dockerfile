@@ -39,11 +39,6 @@ RUN pip install --no-cache-dir \
         flufl.lock \
         jsonc-parser
 
-RUN conda update --all
-RUN conda update -n base -c defaults conda -y
-RUN conda create -n GRTL python=3.9 -y
-RUN conda activate GRTL
-
 RUN pip install --no-cache-dir \
         torch \
         torchvision \
@@ -51,6 +46,11 @@ RUN pip install --no-cache-dir \
         --index-url https://download.pytorch.org/whl/cpu
 
 RUN mamba install -y protobuf==4.23.3
+
+RUN conda update --all
+# RUN conda update -n base -c defaults conda -y
+RUN conda create -n GRTL python=3.9 -y
+RUN conda activate GRTL
 
 # -------------------------------
 # Jupyter lab extensions
