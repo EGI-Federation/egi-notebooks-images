@@ -2,7 +2,7 @@
 
 ARG BASE_IMAGE=eginotebooks/base:latest
 
-FROM $BASE_IMAGE
+FROM d4science-base:latest
 
 USER $NB_UID
 
@@ -47,13 +47,12 @@ RUN pip install --no-cache-dir \
 
 #RUN mamba install -y protobuf==4.23.3
 
-RUN conda update --all
-RUN conda update -n base -c defaults conda -y
-RUN conda create -n GRTL python=3.9 -y
-RUN conda init bash
+RUN mamba update --all
+RUN mamba update -n base -c defaults conda -y
+RUN mamba create -n GRTL python=3.9 -y
+RUN mamba init bash
 #RUN conda activate GRTL
 RUN echo "conda activate GRTL" >> ~/.bashrc
-#RUN cat ~/.bashrc
 
 # -------------------------------
 # Jupyter lab extensions
@@ -62,6 +61,3 @@ RUN pip install --no-cache-dir \
     jupyterlab-topbar \
     jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
-
-
-
