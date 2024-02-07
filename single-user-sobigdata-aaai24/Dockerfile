@@ -45,7 +45,7 @@ RUN pip install --no-cache-dir \
         torchaudio \
         --index-url https://download.pytorch.org/whl/cpu
 
-RUN mamba install -y protobuf==4.23.3
+#RUN mamba install -y protobuf==4.23.3
 
 RUN conda update --all
 # RUN conda update -n base -c defaults conda -y
