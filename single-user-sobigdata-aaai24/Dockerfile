@@ -1,6 +1,6 @@
 # SoBigData AAAI 2024 (https://github.com/aiim-research/GRETEL)
 
-ARG BASE_IMAGE=eginotebooks/d4science-base:latest
+ARG BASE_IMAGE=eginotebooks/base:latest
 
 FROM $BASE_IMAGE
 
@@ -48,9 +48,12 @@ RUN pip install --no-cache-dir \
 #RUN mamba install -y protobuf==4.23.3
 
 RUN conda update --all
-# RUN conda update -n base -c defaults conda -y
+RUN conda update -n base -c defaults conda -y
 RUN conda create -n GRTL python=3.9 -y
-RUN conda activate GRTL
+RUN conda init bash
+#RUN conda activate GRTL
+RUN echo "conda activate GRTL" >> ~/.bashrc
+#RUN cat ~/.bashrc
 
 # -------------------------------
 # Jupyter lab extensions
