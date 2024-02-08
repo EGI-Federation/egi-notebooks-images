@@ -2,7 +2,7 @@
 
 ARG BASE_IMAGE=eginotebooks/d4science-base:latest
 
-FROM d4science-base:latest
+FROM $BASE_IMAGE
 
 USER $NB_UID
 
