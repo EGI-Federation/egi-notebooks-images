@@ -61,6 +61,7 @@ jobs:
       - name: Build full image
         run: |
           docker build \
+            --build-arg BASE_IMAGE=${{ needs.base-image.outputs.base }} \
             --tag ${{ steps.docker_meta.outputs.tags }} \
             --tag eginotebooks/${{ matrix.image }}:latest \
             ${{ matrix.image }}
