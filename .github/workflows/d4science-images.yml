@@ -23,6 +23,45 @@ jobs:
         "single-user-sobigdata-lipari23/Dockerfile"
         "single-user-sobigdata-aaai24/Dockerfile"
 
+  base-image:
+    name: Build base image
+    needs: detect-changes 
+    if: needs.detect-changes.outputs.build-base == 1
+    runs-on: ubuntu-latest
+    outputs:
+      base: ${{ steps.docker_meta_base.outputs.tags }}
+    steps:
+      - name: try to make free space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Docker meta
+        id: docker_meta_base
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ github.repository_owner }}/notebooks-d4science-base
+          tags: |
+            type=sha
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build base
+        uses: docker/build-push-action@v5
+        with:
+          context: d4science-base
+          tags: ${{ steps.docker_meta_base.outputs.tags }}
+          labels: ${{ steps.docker_meta_base.outputs.labels }}
+          outputs: type=docker,dest=/tmp/base.tar
+      - name: Upload docker image as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: images
+          path: /tmp/base.tar
+
   user-images:
     name: Build and push images
     if: fromJson(needs.detect-changes.outputs.matrix).image
@@ -49,6 +88,16 @@ jobs:
             type=sha
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+      - name: Get previous build base
+        uses: actions/download-artifact@v4
+        with:
+          name: images
+          path: /tmp
+      - name: Load Docker images
+        run: |
+          docker load --input /tmp/base.tar
+          # we are so scarce on storage that this needs to be cleared
+          rm -rf /tmp/base.tar
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
