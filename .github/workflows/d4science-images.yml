@@ -26,7 +26,7 @@ jobs:
   user-images:
     name: Build and push images
     if: fromJson(needs.detect-changes.outputs.matrix).image
-    needs: [base-image, detect-changes]
+    needs: [detect-changes]
     runs-on: ubuntu-latest
 
     strategy:
