@@ -1,0 +1,114 @@
+name: sbd
+channels:
+ - conda-forge
+# new
+ - pytorch
+ - defaults
+dependencies:
+ # extended
+ - python 3.9.*
+ - cxx-compiler
+ # 1st mamba command
+ - basemap
+ - beakerx
+ - xgboost
+ - lightgbm
+ - catboost
+ - netcdf4
+ - aiohttp
+ - graph-tool
+ - scikit-learn
+ - scikit-mobility
+ - dask-jobqueue
+ - fs
+ - rasterio
+ - contextily
+ - nb_conda_kernels
+ - nb_conda
+ # 2nd mamba command
+ - pyspark
+ - transformers
+ - rtree
+ - geopandas
+ - nltk
+ - pydotplus
+ - plotly
+ - graphviz
+ - keras 2.15.0
+ - selenium
+ - tweepy
+ - openjdk=8
+ # new
+ - sentinelhub
+ - networkx
+ - nbresuse
+ - motuclient
+ - panel 0.9.*
+ - cython
+ - owslib
+ - folium 0.11.0
+ - geopy 2.0.0
+ - hvplot 0.6.0
+ - intake 0.6.0
+ - intake-esm 2020.8.15
+ - hda
+ - seaborn 0.11.0
+ - zarr 2.5.0
+ - holoviews
+ - pyfim
+ - pyclustering
+ - py-opencv
+ - jupyterlab-topbar
+ # https://pytorch.org/get-started/locally/#linux-anaconda
+ - cpuonly
+ - pytorch 1.13.1
+ - torchvision
+ - torchaudio
+ # d4science-base
+ - shortid
+ - rdflib
+ - prov
+ - pydot
+ - lxml
+ - geojson
+ - pydap
+ - xarray
+ - cartopy
+ - ipyleaflet
+ - nbgitpuller
+ - nomkl
+ - pip
+ - pip:
+   - bicm
+   - rdp
+   - import_ipynb
+   - ndlib
+   - cdlib==0.3.0
+   - node_conformity
+   - fast-forward-indexes
+   - NEMtropy
+   - networksns
+   - eventclf
+   - XAI-Library
+   - convrewriting
+# gcc needed
+# https://github.com/gvinciguerra/PyGM/issues/3
+   - pygm
+   - structify-net
+   - simpletransformers
+   - shuffle-graph
+# https://github.com/conda-forge/pyfim-feedstock/issues/14
+#   - privlib
+   - ash_model
+   - bayanpy
+   - dynetx==0.3.2
+   - geolet
+   - triplex
+   - glocalx
+# https://github.com/vitiugin/cliqs/pull/1
+#   - cliqs
+   - quantum-distance-based-classifier
+   - demv
+# do not work with conda-lock
+#   - git+https://github.com/guglielmocola/RetweetCascade.git
+#   - git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git
