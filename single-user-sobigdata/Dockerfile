@@ -1,135 +1,31 @@
-#   _____       ____  _       _____        _
-#  / ____|     |  _ \(_)     |  __ \      | |         _     _
-# | (___   ___ | |_) |_  __ _| |  | | __ _| |_ __ _ _| |_ _| |_
-#  \___ \ / _ \|  _ <| |/ _` | |  | |/ _` | __/ _` |_   _|_   _|
-#  ____) | (_) | |_) | | (_| | |__| | (_| | || (_| | |_|   |_|
-# |_____/ \___/|____/|_|\__, |_____/ \__,_|\__\__,_|
-#                        __/ |
-#                       |___/
-
-ARG BASE_IMAGE=eginotebooks/d4science-base:latest
-# hadolint ignore=DL3006
-FROM $BASE_IMAGE
+FROM quay.io/jupyter/minimal-notebook:x86_64-2024-02-12
 
 USER root
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-        nco \
-        cdo \
-        cmake \
-        g++ \
+        less \
+        openssh-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 USER $NB_UID
 
-ARG SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
+COPY conda-lock.yml /conda/conda-lock.yml
 
-RUN mamba install -y --quiet \
-        basemap \
-        beakerx \
-        xgboost \
-        lightgbm \
-        catboost \
-        netcdf4 \
-        aiohttp \
-        graph-tool \
-        scikit-learn \
-        scikit-mobility \
-        dask-jobqueue \
-        fs \
-        rasterio \
-        contextily \
-        nb_conda_kernels \
-        nb_conda \
-    && conda clean -tipy
-
-# Pinned networkx to 2.6.3 as 2.7 makes networksns fail
-RUN pip install --no-cache-dir \
-        bicm \
-        rdp \
-        sentinelhub \
-        import_ipynb \
-        nbresuse \
-        ndlib \
-        motuclient \
-        panel==0.9.* \
-        cdlib[C]==0.2.3 \
-        cython \
-        node_conformity \
-        git+https://github.com/geopython/OWSLib.git \
-        git+https://github.com/guglielmocola/RetweetCascade.git \
-        fast-forward-indexes \
-        NEMtropy \
-        folium==0.11.0 \
-        geopy==2.0.0 \
-        hvplot==0.6.0 \
-        intake==0.6.0 \
-        intake-esm==2020.8.15 \
-        hda \
-        seaborn==0.11.0 \
-        zarr==2.5.0 \
-        holoviews \
-        networkx==2.6.3 \
-        networksns \
-        eventclf \
-        XAI-Library \
-        convrewriting \
-        git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git \
-        pygm \
-        structify-net
-
-# -------------------------------
-# SoBigData ++ specific libraries
-# -------------------------------
-RUN mamba install -y --quiet \
-        pyspark \
-        transformers \
-        rtree \
-        geopandas \
-        nltk \
-        pydotplus \
-        plotly \
-        graphviz \
-        keras \
-        selenium \
-        tweepy \
-        openjdk=8 \
-   && conda clean --all
-
-RUN pip install --no-cache-dir \
-        torch \
-        torchvision \
-        torchaudio \
-        --index-url https://download.pytorch.org/whl/cpu
-
-RUN pip install --no-cache-dir \
-        pyfim \
-        pyclustering \
-        import_ipynb \
-        opencv-python \
-        simpletransformers \
-        shuffle-graph \
-        privlib \
-        ash_model \
-        cdlib==0.3.0 \
-        bayanpy \
-        dynetx==0.3.2 \
-        geolet \
-        triplex \
-        glocalx \
-        cliqs \
-        quantum-distance-based-classifier
-
-RUN pip install --no-cache-dir \
-        -i https://test.pypi.org/pypi/ \
-	--extra-index-url https://pypi.org/simple \
+RUN . /opt/conda/etc/profile.d/conda.sh && \
+    conda create --name lock -c conda-forge conda-lock --yes && \
+    conda activate lock && \
+    conda-lock install --mamba --copy --name sbd /conda/conda-lock.yml && \
+    conda activate sbd && \
+    pip install privlib && \
+    pip install git+https://github.com/guglielmocola/RetweetCascade.git && \
+    pip install git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git && \
+    pip install git+https://github.com/vitiugin/cliqs.git && \
+    pip install -i https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple \
 	anonymization-crisesURV \
-	antiDiscrimination-crisesURV
+	antiDiscrimination-crisesURV && \
+    conda clean --all --force-pkgs-dirs --yes && \
+    pip cache purge
 
-# -------------------------------
-# JupyterLab extensions
-# -------------------------------
-RUN pip install --no-cache-dir jupyterlab-topbar
-RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
+WORKDIR "${HOME}"
