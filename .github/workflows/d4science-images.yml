@@ -74,6 +74,7 @@ jobs:
           image: ${{ steps.docker_meta.outputs.tags }}
           options: -v ${{ github.workspace }}/${{ matrix.image }}:/image-data
           run: |
+            . /opt/conda/etc/profile.d/conda.sh && conda activate sbd
             for f in /image-data/tests/*.ipynb; do
               if [ -e "$f" ]; then
                 jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst \
