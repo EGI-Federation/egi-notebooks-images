@@ -1,7 +1,7 @@
 # CriticalZone
 
 
-ARG BASE_IMAGE=eginotebooks/d4science-base:latest
+ARG BASE_IMAGE=eginotebooks/base:latest
 FROM $BASE_IMAGE
 
 USER root
@@ -11,7 +11,10 @@ RUN apt-get update \
         nco \
         cdo \
         cmake \
+        gdal-bin \
         g++ \
+        python3-gdal \
+        libgdal-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -24,8 +27,11 @@ RUN pip install --no-cache-dir \
         pandas \
         scipy \
         matplotlib \
-        gdal \
+        numpy \
+        GDAL=="$(gdal-config --version).*" \
         h5netcdf
+
+#RUN conda install -c conda-forge gdal
 
 # -------------------------------
 # JupyterLab extensions
