@@ -32,7 +32,7 @@ jobs:
           fetch-depth: 0
       - name: Change list
         id: change-list
-        uses: tj-actions/changed-files@v42
+        uses: tj-actions/changed-files@v43
       - name: Check what needs to be built 
         id: build
         run: |
