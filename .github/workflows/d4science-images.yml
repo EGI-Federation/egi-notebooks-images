@@ -28,7 +28,7 @@ jobs:
 
   base-image:
     name: Build base image
-    needs: detect-changes 
+    needs: detect-changes
     if: needs.detect-changes.outputs.build-base == 1
     runs-on: ubuntu-latest
     outputs:
@@ -89,6 +89,13 @@ jobs:
           images: eginotebooks/${{ matrix.image }}
           tags: |
             type=sha
+      - name: Docker meta
+        id: docker_meta_gcp
+        uses: docker/metadata-action@v5
+        with:
+          images: europe-west4-docker.pkg.dev/d4science-prod-vre-prj/d4science-prod-images/${{ matrix.image }}
+          tags: |
+            type=sha
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Get previous build base
@@ -122,6 +129,14 @@ jobs:
           docker push ${{ steps.docker_meta.outputs.tags }}
           docker push eginotebooks/${{ matrix.image }}:latest
         if: ${{ github.event_name != 'pull_request' }}
+      # Now do the build adding the GCP extras in
+      - name: Get ready for GCP
+        run: |
+          docker build \
+            --build-arg BASE_IMAGE=${{ matrix.image }}:latest
+            --tag ${{ steps.docker_meta_gcp.outputs.tags }} \
+            --tag europe-west4-docker.pkg.dev/d4science-prod-vre-prj/d4science-prod-images/${{ matrix.image }}:latest \
+            d4science-gcp
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{ steps.docker_meta.outputs.tags }}
