@@ -133,7 +133,7 @@ jobs:
       - name: Get ready for GCP
         run: |
           docker build \
-            --build-arg BASE_IMAGE=${{ matrix.image }}:latest \
+            --build-arg BASE_IMAGE=eginotebooks/${{ matrix.image }}:latest \
             --tag ${{ steps.docker_meta_gcp.outputs.tags }} \
             --tag europe-west4-docker.pkg.dev/d4science-prod-vre-prj/d4science-prod-images/${{ matrix.image }}:latest \
             d4science-gcp
