@@ -1,6 +1,6 @@
 FROM quay.io/jupyter/minimal-notebook:2024-04-19 as base
 
-# Use uv to install python packages
+# Install necessary packages
 RUN mamba install -y \
   netcdf4==1.6.5 \
   numpy==1.26.4 \
