@@ -33,3 +33,4 @@ RUN conda install mamba -y --quiet -c conda-forge \
 
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
 RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor
+
