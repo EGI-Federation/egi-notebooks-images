@@ -24,6 +24,7 @@ jobs:
         "single-user-sobigdata-aaai24/Dockerfile"
         "single-user-criticalzone/Dockerfile"
         "single-user-ecologicalrestorationlab/Dockerfile"
+        "single-user-pluto-d4science/Dockerfile"
 
 
   base-image:
