@@ -17,6 +17,7 @@ jobs:
         "oneclient-sidecar/Dockerfile"
         "single-user-eiscat/Dockerfile"
         "webdav-sidecar/Dockerfile"
+        "webdav-rclone-sidecar/Dockerfile"
 
   sidecar-images:
     name: Build and push independent images
