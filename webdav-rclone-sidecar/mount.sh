@@ -10,14 +10,14 @@ JOVYAN_GRP=${JOVYAN_GRP:-100}
 VFS_CACHE_MODE=${VFS_CACHE_MODE:-full}
 
 if [ ! -d "$MOUNT_PATH" ]; then
-    mkdir -p "$MOUNT_PATH"
-    chown "$JOVYAN_UID:$JOVYAN_GRP" "$MOUNT_PATH"
+	mkdir -p "$MOUNT_PATH"
+	chown "$JOVYAN_UID:$JOVYAN_GRP" "$MOUNT_PATH"
 fi
 
 # wait to be killed
-do_umount () {
-    fusermount3 -u -z "$MOUNT_PATH"
-    exit $?
+do_umount() {
+	fusermount3 -u -z "$MOUNT_PATH"
+	exit $?
 }
 
 trap "do_umount" INT
@@ -37,6 +37,6 @@ rclone config create --non-interactive webdav-fs webdav "${args[@]}" "$@"
 # uid: unix owner
 # gid: unix group
 # vfs-cache-mode: random access and cache
-IFS=" " read -r -a mount_opts <<< "$MOUNT_OPTS"
+IFS=" " read -r -a mount_opts <<<"$MOUNT_OPTS"
 mount_opts+=("--vfs-cache-mode=$VFS_CACHE_MODE")
 rclone mount webdav-fs:/ "$MOUNT_PATH" --allow-non-empty --allow-other --uid="$JOVYAN_UID" --gid="$JOVYAN_GRP" "${mount_opts[@]}"
