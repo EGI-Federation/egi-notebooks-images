@@ -25,4 +25,4 @@ Examples:
     echo "$(oidc-token my-issuer)" >/tmp/token
     docker run --privileged -it --rm --name oidcmount -v /tmp/webdav:/mnt:shared -v /tmp/token:/tmp/token
       -e WEBDAV_URL="$WEBDAV_URL" \
-	  webdav-rclone-sidecar bearer_token_command="cat /tmp/token" &
+      webdav-rclone-sidecar bearer_token_command="cat /tmp/token" &
