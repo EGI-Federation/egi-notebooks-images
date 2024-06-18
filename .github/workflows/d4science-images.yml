@@ -54,7 +54,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build base
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: d4science-base
           tags: ${{ steps.docker_meta_base.outputs.tags }}
