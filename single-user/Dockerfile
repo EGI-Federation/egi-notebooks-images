@@ -31,6 +31,8 @@ RUN mamba install -y --quiet \
         qiskit \
         qiskit-machine-learning \
         dwave-ocean-sdk \
+        # resource usage info in GUI
+        jupyter-resource-usage \
     && conda clean --all
 
 # See https://github.com/mamba-org/mamba/issues/336
