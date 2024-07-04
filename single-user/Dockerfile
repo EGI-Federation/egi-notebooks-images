@@ -35,6 +35,10 @@ RUN mamba install -y --quiet \
         jupyter-resource-usage \
     && conda clean --all
 
+# not installable from mamba for now
+RUN pip install --no-cache-dir \
+        eo-learn
+
 # See https://github.com/mamba-org/mamba/issues/336
 # pytorch is not installing properly with mamba
 RUN mamba install -y pytorch torchvision torchaudio cpuonly -c pytorch -c anaconda -c conda-forge \
