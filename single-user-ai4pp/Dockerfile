@@ -66,11 +66,11 @@ RUN pip install --no-cache-dir \
 	tensorflow \
 	jupyter-tensorboard-proxy \
 	mlflow-server-proxy \
-	protobuf==4.21.9 \
+	protobuf==4.21.9
 	# torch==1.12.1+cu113 \
 	# torchvision==0.13.1+cu113 \
 	# torchaudio==0.12.1 \
-	--extra-index-url https://download.pytorch.org/whl/cu113
+	# --extra-index-url https://download.pytorch.org/whl/cu113
 
 ENV LD_LIBRARY_PATH="${CONDA_DIR}/lib:${LD_LIBRARY_PATH}"
 
