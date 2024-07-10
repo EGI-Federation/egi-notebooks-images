@@ -4,11 +4,6 @@ FROM $BASE_IMAGE
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN pip install \
-	PennyLane==0.26.0 \
-	qiskit==0.38.0 \
-	qiskit-machine-learning==0.4.0
-
 RUN mamba install -y --quiet \
         cftime \
         ipympl \
@@ -26,15 +21,28 @@ RUN mamba install -y --quiet \
 	matplotlib \
 	scipy \
 	lightgbm \
-	eo-learn \
 	plotly \
 	graphviz \
 	jq \
 	nb_conda_kernels \
-        dwave-ocean-sdk==5.5.0 \
-        amazon-braket-sdk==1.31.0 \
-	elyra \
+        # quantum SDKs
+        amazon-braket-sdk \
+        PennyLane \
+        qiskit \
+        qiskit-machine-learning \
+        dwave-ocean-sdk \
+        # resource usage info in GUI
+        jupyter-resource-usage \
     && conda clean --all
+
+# not installable from mamba for now
+RUN pip install --no-cache-dir \
+        eo-learn
+
+# not installable from mamba for now
+# XXX: problem with dependency: pydantic
+RUN pip install --no-cache-dir \
+        elyra
 
 # See https://github.com/mamba-org/mamba/issues/336
 # pytorch is not installing properly with mamba
