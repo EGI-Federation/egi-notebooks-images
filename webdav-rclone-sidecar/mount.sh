@@ -13,10 +13,10 @@ VFS_CACHE_MODE=${VFS_CACHE_MODE:-full}
 if [ -n "$MOUNT_WAIT_POINT" ]; then
 	i=0
 	echo "Checking $MOUNT_WAIT_POINT ($MOUNT_PATH)..."
-	while ! grep "^$MOUNT_WAIT_POINT" /proc/mounts && test $i -lt $((2*MOUNT_WAIT)); do
+	while ! grep "^$MOUNT_WAIT_POINT" /proc/mounts && test $i -lt $((2 * MOUNT_WAIT)); do
 		echo "Waiting for $MOUNT_WAIT_POINT..."
 		sleep 0.5
-		i=$((i+1))
+		i=$((i + 1))
 	done
 fi
 
