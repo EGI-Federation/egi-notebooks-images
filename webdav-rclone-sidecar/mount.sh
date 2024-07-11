@@ -5,9 +5,20 @@
 MOUNT_OPTS=${MOUNT_OPTS:-}
 # where to mount
 MOUNT_PATH=${MOUNT_PATH:-/mnt/}
+MOUNT_WAIT=${MOUNT_WAIT:-20}
 JOVYAN_UID=${JOVYAN_UID:-1000}
 JOVYAN_GRP=${JOVYAN_GRP:-100}
 VFS_CACHE_MODE=${VFS_CACHE_MODE:-full}
+
+if [ -n "$MOUNT_WAIT_POINT" ]; then
+	i=0
+	echo "Checking $MOUNT_WAIT_POINT ($MOUNT_PATH)..."
+	while ! grep "^$MOUNT_WAIT_POINT" /proc/mounts && test $i -lt $((2 * MOUNT_WAIT)); do
+		echo "Waiting for $MOUNT_WAIT_POINT..."
+		sleep 0.5
+		i=$((i + 1))
+	done
+fi
 
 if [ ! -d "$MOUNT_PATH" ]; then
 	mkdir -p "$MOUNT_PATH"
