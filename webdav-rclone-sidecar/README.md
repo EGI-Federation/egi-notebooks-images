@@ -14,7 +14,7 @@ Using environment:
 * MOUNT\_OPTS: space separated additional arguments for *rclone mount* command
 * MOUNT\_PATH: mount path (default: */mnt*)
 * MOUNT\_WAIT: wait time for mountpoint in /proc/mounts (default: *20*)
-* MOUNT\_WAIT\_POINT: mountpoint regex to wait for (default: (empty))
+* MOUNT\_WAIT\_POINT: mountpoint regular expression to wait for (default: (empty))
 * VFS\_CACHE\_MODE: value for rclone VFS cache mode (off, minimal, writes, full) (default: *full*)
 
 Examples:
