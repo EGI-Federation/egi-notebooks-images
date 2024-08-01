@@ -39,11 +39,6 @@ RUN mamba install -y --quiet \
 RUN pip install --no-cache-dir \
         eo-learn
 
-# not installable from mamba for now
-# XXX: problem with dependency: pydantic
-RUN pip install --no-cache-dir \
-        elyra
-
 # See https://github.com/mamba-org/mamba/issues/336
 # pytorch is not installing properly with mamba
 RUN mamba install -y pytorch torchvision torchaudio cpuonly -c pytorch -c anaconda -c conda-forge \
