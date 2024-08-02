@@ -17,10 +17,11 @@ jobs:
         "single-user/Dockerfile"
         "single-user-panosc/Dockerfile"
         "single-user-ai4pp/Dockerfile"
+        "single-user-ai/Dockerfile"
 
   base-image:
     name: Build base image
-    needs: detect-changes 
+    needs: detect-changes
     if: needs.detect-changes.outputs.build-base == 1
     runs-on: ubuntu-latest
     outputs:
