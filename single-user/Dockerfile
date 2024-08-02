@@ -35,16 +35,6 @@ RUN mamba install -y --quiet \
         jupyter-resource-usage \
     && conda clean --all
 
-# not installable from mamba for now
-RUN pip install --no-cache-dir \
-        eo-learn
-
-# See https://github.com/mamba-org/mamba/issues/336
-# pytorch is not installing properly with mamba
-RUN mamba install -y pytorch torchvision torchaudio cpuonly -c pytorch -c anaconda -c conda-forge \
-    && mamba install -y --quiet fastai -c fastai \
-    && conda clean --all
-
 # Octave, install on a different environment
 # Octave from conda won't build packages
 # see https://discourse.jupyter.org/t/installing-octave-packages-with-binder/4206
@@ -92,8 +82,7 @@ RUN pip install --no-cache-dir \
         git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
         h5glance \
         nbtop \
-	panel \
-        tflearn
+        panel
 
 # EMSO
 # python3.7, install on a different environment
