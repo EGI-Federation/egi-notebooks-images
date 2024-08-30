@@ -42,7 +42,8 @@ RUN mamba install -y -q \
 
 RUN pip install --no-cache-dir \
         shortid \
-        nbgitpuller
+        nbgitpuller \
+        git+https://github.com/EGI-Federation/notebooks-resource-warning
 
 WORKDIR "${HOME}"
 
