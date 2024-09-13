@@ -30,3 +30,6 @@ jobs:
           VALIDATE_DOCKERFILE_HADOLINT: false
           # disable this as well
           VALIDATE_CHECKOV: false
+          # Not linting the CSS from Jupyter as we don't want to modify this
+          # (so it's easy to track changes in casse it's needed)
+          FILTER_REGEX_EXCLUDE: "single-user-eosc/eosc/custom.css"
