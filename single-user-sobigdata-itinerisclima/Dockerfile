@@ -21,7 +21,7 @@ USER $NB_UID
 RUN pip install --no-cache-dir \
         zarr \
         holoviews \
-        hvplotC \
+        hvplot \
         cf_xarray \
         intake \
         intake_esm \
