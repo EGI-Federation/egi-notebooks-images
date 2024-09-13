@@ -15,6 +15,7 @@ jobs:
       base: base/Dockerfile
       images: |
         "single-user/Dockerfile"
+        "single-user-eosc/Dockerfile"
         "single-user-panosc/Dockerfile"
         "single-user-ai4pp/Dockerfile"
         "single-user-ai/Dockerfile"
