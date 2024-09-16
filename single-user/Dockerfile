@@ -63,7 +63,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # apptainer
-RUN add-apt-repository -y ppa:apptainer/ppa \
+RUN apt-get update \
+    && apt-get install -y software-properties-common \
+    && add-apt-repository -y ppa:apptainer/ppa \
     && apt-get update \
     && apt-get install --no-install-recommends -y \
         apptainer \
