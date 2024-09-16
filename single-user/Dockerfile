@@ -62,6 +62,14 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# apptainer
+RUN add-apt-repository -y ppa:apptainer/ppa \
+    && apt-get update \
+    && apt-get install --no-install-recommends -y \
+        apptainer \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 USER $NB_UID
 
 RUN mamba install -y --quiet \
