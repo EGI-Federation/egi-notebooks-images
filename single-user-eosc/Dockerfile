@@ -69,6 +69,7 @@ RUN pip install --no-cache-dir \
         panel
 
 # EOSC customisation
+# TODO: trigger image build on changes to these files
 COPY eosc /opt/conda/share/eosc
 RUN set -x \
     && export PKG_PATH="$(python -c 'import jupyter_server; print(jupyter_server.__path__[0])')" \
