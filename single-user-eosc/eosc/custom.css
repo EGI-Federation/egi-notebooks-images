@@ -1,5 +1,5 @@
 /*
-    Custom CSS modifying default JupyterLab default UI to include EOSC themes
+    Custom CSS modifying default JupyterLab UI to include EOSC themes
 */
 
 /*-----------------------------------------------------------------------------
@@ -443,11 +443,12 @@ all of MD as it is not optimized for dense, information rich UIs.
     width: 220px !important; /* size of the image space */
   }
   
-  #jp-MainMenu .lm-MenuBar-content {
-    margin-top: 14px !important;
+  #jp-menu-panel {
+    display: flex !important;
+    align-items: end !important;
   }
   
   .lm-MenuBar-item {
-    margin-top: 9px !important;
     line-height: 20px !important;
   }
+  
