@@ -11,6 +11,7 @@ Using environment:
 * WEBDAV\_PWD: WebDAV password
 * WEBDAV\_TOKEN: WebDAV OIDC token
 * WEBDAV\_VENDOR: WebDAV vendor (default: *other*)
+* REMOTE\_PATH: remote mount path on webdav backend (default: */*)
 * MOUNT\_OPTS: space separated additional arguments for *rclone mount* command
 * MOUNT\_PATH: mount path (default: */mnt*)
 * MOUNT\_WAIT: wait time for mountpoint in /proc/mounts (default: *20*)
