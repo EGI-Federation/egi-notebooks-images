@@ -452,3 +452,10 @@ all of MD as it is not optimized for dense, information rich UIs.
     line-height: 20px !important;
   }
   
+/* Modified extracted style from JupyterLab menus.css
+https://github.com/jupyterlab/jupyterlab/blob/0546815cb2615a7460c59dbf0494ddc94a04e139/packages/application/style/menus.css
+to allow border-top appear in default view because otherwise it is present only in single-doc view. 
+*/
+.lm-MenuBar.lm-mod-active .lm-MenuBar-item.lm-mod-active {
+  border-top: var(--jp-border-width) solid var(--jp-border-color1) !important;
+}

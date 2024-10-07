@@ -24,7 +24,10 @@ RUN mamba install -y --quiet \
 	plotly \
 	graphviz \
 	jq \
-	nb_conda_kernels \
+	nb_conda_kernels \ 
+        # RTC extension, must be disabled
+        # before Lab starts to work without RTC 
+        jupyter-collaboration=2.1.2 \
         # resource usage info in GUI
         jupyter-resource-usage \
     && conda clean --all
