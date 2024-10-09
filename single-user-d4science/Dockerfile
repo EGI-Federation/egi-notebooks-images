@@ -16,7 +16,7 @@ RUN apt-get update \
 
 USER $NB_UID
 
-RUN mamba install -y --quiet \
+RUN mamba install -y --quiet --channel conda-forge \
         basemap \
         beakerx \
         xgboost \

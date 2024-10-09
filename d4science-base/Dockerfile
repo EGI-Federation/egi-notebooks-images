@@ -70,7 +70,7 @@ RUN julia -e 'import Pkg; Pkg.update()' && \
 # -----------------------------------------------------------------------------
 
 
-RUN mamba install -y -q \
+RUN mamba install --channel conda-forge -y -q \
         rdflib \
         prov \
         graphviz \
