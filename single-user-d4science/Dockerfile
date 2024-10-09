@@ -16,7 +16,7 @@ RUN apt-get update \
 
 USER $NB_UID
 
-RUN mamba install -y --quiet \
+RUN mamba install -y --quiet --channel conda-forge \
         basemap \
         beakerx \
         xgboost \
@@ -34,6 +34,8 @@ RUN mamba install -y --quiet \
         nb_conda_kernels \
         nb_conda \
         pyophidia \
+	# bring dash extension hopefully
+	dash \
     && conda clean -tipy
 
 RUN conda create --quiet --yes -n java8 \
