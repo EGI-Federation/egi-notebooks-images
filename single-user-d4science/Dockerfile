@@ -34,6 +34,8 @@ RUN mamba install -y --quiet \
         nb_conda_kernels \
         nb_conda \
         pyophidia \
+	# bring dash extension hopefully
+	dash \
     && conda clean -tipy
 
 RUN conda create --quiet --yes -n java8 \
