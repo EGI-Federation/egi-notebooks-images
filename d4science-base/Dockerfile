@@ -101,6 +101,7 @@ RUN mamba install --channel conda-forge -y -q \
         pyophidia \
 	# bring dash extension hopefully
 	dash \
+	jupyter-server-proxy \
     && conda clean -tipy \
     && conda clean --all
 
