@@ -82,10 +82,28 @@ RUN mamba install --channel conda-forge -y -q \
         cartopy \
         ipyleaflet \
         nbgitpuller \
+        basemap \
+        beakerx \
+        xgboost \
+        lightgbm \
+        catboost \
+        netcdf4 \
+        aiohttp \
+        graph-tool \
+        scikit-learn \
+        scikit-mobility \
+        dask-jobqueue \
+        fs \
+        rasterio \
+        contextily \
+        nb_conda_kernels \
+        nb_conda \
+        pyophidia \
+	# bring dash extension hopefully
+	dash \
+    && conda clean -tipy \
     && conda clean --all
 
 RUN pip install --no-cache-dir shortid
 
 WORKDIR "${HOME}"
-
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
