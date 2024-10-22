@@ -4,14 +4,14 @@ FROM $BASE_IMAGE
 
 USER root
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
+RUN apt-get -qq update \
+    && apt-get -qq install --no-install-recommends -y \
         nco \
         cdo \
         gdal-bin \
         cmake \
         libgdal-dev \
-    && apt-get clean \
+    && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/*
 
 USER $NB_UID
@@ -23,7 +23,11 @@ RUN conda create --quiet --yes -n java8 \
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
 
-# Pinned networkx to 2.6.3 as 2.7 makes networksns fail
+# Installing torch explictly to have only CPU version
+RUN pip install --index-url https://download.pytorch.org/whl/cpu \
+	torch torchvision torchaudio
+
+
 # cdlib[C]==0.2.3 is too old for this env, so unpinning
 RUN pip install --no-cache-dir \
         bicm \
@@ -44,7 +48,6 @@ RUN pip install --no-cache-dir \
         git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
         fast-forward-indexes \
         NEMtropy \
-        folium==0.11.0 \
         geopy==2.0.0 \
         hvplot==0.6.0 \
         intake==0.6.0 \
@@ -53,7 +56,6 @@ RUN pip install --no-cache-dir \
         seaborn==0.11.0 \
         zarr==2.5.0 \
         holoviews \
-        networkx==2.6.3 \
         networksns \
         GDAL==$(gdal-config --version) #need to match the version of gdal installed
 
