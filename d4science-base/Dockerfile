@@ -5,13 +5,13 @@ ARG julia_version="1.9.3"
 
 USER root
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
+RUN apt-get -qq update \
+    && apt-get -qq install --no-install-recommends -y \
         less \
         graphviz \
         vim \
         openssh-client \
-    && apt-get clean \
+    && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
