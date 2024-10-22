@@ -34,7 +34,7 @@ RUN pip install --no-cache-dir shortid
 
 WORKDIR "${HOME}"
 
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
+# RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
 
 RUN mamba install -y --quiet \
         r-plotly \
