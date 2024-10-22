@@ -24,6 +24,7 @@ ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
 
 # Pinned networkx to 2.6.3 as 2.7 makes networksns fail
+# cdlib[C]==0.2.3 is too old for this env, so unpinning
 RUN pip install --no-cache-dir \
         bicm \
         rdp \
@@ -34,7 +35,7 @@ RUN pip install --no-cache-dir \
         ndlib \
         motuclient \
         panel==0.9.* \
-        cdlib[C]==0.2.3 \
+        cdlib[C] \
         cython \
         node_conformity \
         git+https://github.com/obidam/pyxpcm.git \
