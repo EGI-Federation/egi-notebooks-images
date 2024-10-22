@@ -26,60 +26,6 @@ USER $NB_UID
 
 ARG SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
 
-RUN mamba install -y --quiet \
-        basemap \
-        beakerx \
-        xgboost \
-        lightgbm \
-        catboost \
-        netcdf4 \
-        aiohttp \
-        graph-tool \
-        scikit-learn \
-        scikit-mobility \
-        dask-jobqueue \
-        fs \
-        rasterio \
-        contextily \
-        nb_conda_kernels \
-        nb_conda \
-    && conda clean -tipy
-
-# Pinned networkx to 2.6.3 as 2.7 makes networksns fail
-RUN pip install --no-cache-dir \
-        bicm \
-        rdp \
-        sentinelhub \
-        import_ipynb \
-        nbresuse \
-        ndlib \
-        motuclient \
-        panel==0.9.* \
-        cdlib[C]==0.2.3 \
-        cython \
-        node_conformity \
-        git+https://github.com/geopython/OWSLib.git \
-        git+https://github.com/guglielmocola/RetweetCascade.git \
-        fast-forward-indexes \
-        NEMtropy \
-        folium==0.11.0 \
-        geopy==2.0.0 \
-        hvplot==0.6.0 \
-        intake==0.6.0 \
-        intake-esm==2020.8.15 \
-        hda \
-        seaborn==0.11.0 \
-        zarr==2.5.0 \
-        holoviews \
-        networkx==2.6.3 \
-        networksns \
-        eventclf \
-        XAI-Library \
-        convrewriting \
-        git+https://github.com/guglielmocola/TwitterMonitorLib_v2.git \
-        pygm \
-        structify-net
-
 # -------------------------------
 # SoBigData ++ specific libraries
 # -------------------------------
