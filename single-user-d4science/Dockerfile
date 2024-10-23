@@ -75,3 +75,4 @@ RUN pip install --no-cache-dir \
     jupyterlab-topbar \
     jupyterlab-system-monitor
 RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
+RUN jupyter lab build
