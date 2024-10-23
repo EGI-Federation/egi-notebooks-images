@@ -54,7 +54,7 @@ RUN pip install --no-cache-dir \
         intake-esm==2020.8.15 \
         hda \
         seaborn==0.11.0 \
-        zarr==2.5.0 \
+        zarr \
         holoviews \
         networksns \
         GDAL==$(gdal-config --version) \
