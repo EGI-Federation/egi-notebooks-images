@@ -54,10 +54,11 @@ RUN pip install --no-cache-dir \
         intake-esm==2020.8.15 \
         hda \
         seaborn==0.11.0 \
-        zarr==2.5.0 \
+        zarr \
         holoviews \
         networksns \
-        GDAL==$(gdal-config --version) #need to match the version of gdal installed
+        GDAL==$(gdal-config --version) \
+        copernicusmarine
 
 # Julia Updates and packages installations
 # See https://support.d4science.org/issues/22065
@@ -66,7 +67,8 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
     && julia --eval 'using Pkg; Pkg.add(["Images","VideoIO"])' \
     && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
     && julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.9")' \
-    && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])'
+    && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])' \
+    && julia --eval 'using Pkg; Pkg.add(url="https://github.com/Alexander-Barth/CoastalCurrents.jl")'
 
 # -------------------------------
 # JupyterLab extensions
