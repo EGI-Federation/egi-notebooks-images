@@ -45,6 +45,8 @@ RUN pip install --no-cache-dir \
         nbgitpuller \
         git+https://github.com/EGI-Federation/notebooks-resource-warning
 
+COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/settings/
+
 WORKDIR "${HOME}"
 
 RUN NODE_OPTIONS="--openssl-legacy-provider" \
