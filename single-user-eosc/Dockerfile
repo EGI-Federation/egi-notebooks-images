@@ -24,9 +24,9 @@ RUN mamba install -y --quiet \
 	plotly \
 	graphviz \
 	jq \
-	nb_conda_kernels \ 
+	nb_conda_kernels \
         # RTC extension, must be disabled
-        # before Lab starts to work without RTC 
+        # before Lab starts to work without RTC
         jupyter-collaboration=2.1.2 \
         # resource usage info in GUI
         jupyter-resource-usage \
@@ -80,7 +80,7 @@ RUN set -x \
     && ln -s /opt/conda/share/eosc/custom.css "$PKG_PATH/static/custom/" \
     && ln -s /opt/conda/share/eosc/eosc-ntb-logo.svg "$PKG_PATH/static/custom/logo" \
     && mkdir -p /opt/conda/share/jupyter/lab/settings/ \
-    && ln -s /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
+    && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
 RUN jupyter lab build
 
