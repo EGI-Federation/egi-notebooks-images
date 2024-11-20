@@ -27,6 +27,7 @@ jobs:
         "single-user-pluto-d4science/Dockerfile"
         "single-user-sobigdata-itineris/Dockerfile"
         "single-user-sobigdata-itinerisclima/Dockerfile"
+        "single-user-d4science-jericocore/Dockerfile"
 
 
   base-image:
