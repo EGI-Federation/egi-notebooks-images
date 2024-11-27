@@ -10,8 +10,9 @@ RUN curl $FUSE_JAR > /sh-fuse-integration-jar-with-dependencies.jar
 
 COPY mount.sh /mount.sh
 
-RUN useradd -u 1000 -g 100 jovyan
+RUN groupadd -g 100 jovyan && \
+    usermod -g jovyan 1000
 
-USER jovyan
+USER 1000
 
 CMD ["/mount.sh"]
