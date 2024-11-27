@@ -69,7 +69,17 @@ RUN mamba install -y --quiet \
 RUN pip install --no-cache-dir \
         h5glance \
         nbtop \
-        panel
+        panel \
+        #User sharing extension, requires Jupyterhub 5,
+        #enabled sharing API and granted permission to 
+        #oauth token to be able to share an access to a server
+        #https://jupyterhub.readthedocs.io/en/stable/tutorial/sharing.html
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
+
+#This needs to be run because for some reason, Jupyter server
+#does not list server extension without this command, even though
+#config for auto-enable is present in the extension
+RUN jupyter server extension enable user_sharing_extension
 
 # EOSC customisation
 # TODO: trigger image build on changes to these files
