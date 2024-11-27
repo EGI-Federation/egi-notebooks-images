@@ -77,8 +77,8 @@ RUN pip install --no-cache-dir \
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
 
 #This needs to be run because for some reason, Jupyter server
-#does not list server extension without this command, even though
-#config for auto-enable is present in the extension
+#does not list server extension without this command, even
+#though config for auto-enable is present in the extension
 RUN jupyter server extension enable user_sharing_extension
 
 # EOSC customisation
