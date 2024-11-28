@@ -96,7 +96,6 @@ RUN mamba install --channel conda-forge -y -q \
         fs \
         rasterio \
         contextily \
-        nb_conda_kernels \
         nb_conda \
         pyophidia \
 	# bring dash extension hopefully
