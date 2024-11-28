@@ -83,7 +83,6 @@ RUN mamba install --channel conda-forge -y -q \
         ipyleaflet \
         nbgitpuller \
         basemap \
-        beakerx \
         xgboost \
         lightgbm \
         catboost \
