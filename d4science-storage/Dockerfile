@@ -1,10 +1,10 @@
-FROM eclipse-temurin:17
+FROM eclipse-temurin:11
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libfuse2 fuse \
     && rm -rf /var/lib/apt/lists/*
 
-ARG FUSE_JAR=https://maven.d4science.org/nexus/content/repositories/gcube-staging-jenkins/org/gcube/data-access/sh-fuse-integration/2.1.0/sh-fuse-integration-2.1.0-jar-with-dependencies.jar
+ARG FUSE_JAR=https://nexus.d4science.org/nexus/content/repositories/gcube-snapshots/org/gcube/data-access/sh-fuse-integration/3.0.0-SNAPSHOT/sh-fuse-integration-3.0.0-20241129.111221-1.jar
 
 RUN curl $FUSE_JAR > /sh-fuse-integration-jar-with-dependencies.jar
 
