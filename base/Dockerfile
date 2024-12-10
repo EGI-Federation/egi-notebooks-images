@@ -1,12 +1,12 @@
-# 2024-07-02
-# hub-5.0.0
-# julia-1.10.4
-# lab-4.2.3
-# notebook-7.2.1
-# python-3.11.9
+# 2024-12-10
+# hub-5.2.1
+# julia-1.11.1
+# lab-4.3.2
+# notebook-7.3.1
+# python-3.12.3
 # r-4.3.3
 # ubuntu-22.04
-FROM quay.io/jupyter/datascience-notebook:615b8cc01b33
+FROM quay.io/jupyter/datascience-notebook:87b37b4fd818
 
 USER root
 
@@ -38,6 +38,8 @@ RUN mamba install -y -q \
         cartopy \
         ipyleaflet \
         jupyter-server-proxy \
+        jupyterlab_widgets \
+        nodejs \
     && conda clean --all
 
 RUN pip install --no-cache-dir \
@@ -46,9 +48,3 @@ RUN pip install --no-cache-dir \
         git+https://github.com/EGI-Federation/notebooks-resource-warning
 
 COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/settings/
-
-WORKDIR "${HOME}"
-
-RUN NODE_OPTIONS="--openssl-legacy-provider" \
-    jupyter labextension install \
-        @jupyter-widgets/jupyterlab-manager jupyter-leaflet
