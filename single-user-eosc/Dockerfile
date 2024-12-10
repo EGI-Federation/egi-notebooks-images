@@ -30,6 +30,9 @@ RUN mamba install -y --quiet \
         jupyter-collaboration=3.0.0 \
         # resource usage info in GUI
         jupyter-resource-usage \
+        #TODO: remove jupyterlab upgrade
+        #when base image has latest jupyterlab
+        jupyterlab=4.3.2 \
     && conda clean --all
 
 # Octave, install on a different environment
