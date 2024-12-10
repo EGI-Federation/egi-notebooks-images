@@ -30,10 +30,10 @@ RUN mamba install -y --quiet \
         PennyLane \
         qiskit \
         qiskit-machine-learning \
-        dwave-ocean-sdk \
         # resource usage info in GUI
         jupyter-resource-usage \
     && conda clean --all
+ 
 
 # Octave, install on a different environment
 # Octave from conda won't build packages
@@ -77,13 +77,14 @@ RUN conda config --add channels bioconda \
         emboss \
     && conda clean --all
 
-# packages not in conda
+# packages not present or not their newest version in conda
 RUN pip install --no-cache-dir \
         git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
         h5glance \
         nbtop \
-        panel
-
+        panel \
+        # quantum SDK
+        dwave-ocean-sdk
 # EMSO
 # python3.7, install on a different environment
 RUN mamba create --name python3.7 -y --quiet -c conda-forge ipython python=3.7 ipykernel libsndfile \
