@@ -25,7 +25,7 @@ jobs:
         "single-user-criticalzone/Dockerfile"
         "single-user-ecologicalrestorationlab/Dockerfile"
         "single-user-pluto-d4science/Dockerfile"
-        "single-user-sobigdata-itineris/Dockerfile"
+        "single-user-sobigdata-itineris-evs/Dockerfile"
         "single-user-sobigdata-itinerisclima/Dockerfile"
         "single-user-d4science-jericocore/Dockerfile"
 
