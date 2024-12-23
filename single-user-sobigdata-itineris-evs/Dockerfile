@@ -14,6 +14,8 @@ RUN apt update \
         libcurl4-openssl-dev \
         libssl-dev \
         libjq-dev \
+        librdf0-dev \
+        libudunits2-dev \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
