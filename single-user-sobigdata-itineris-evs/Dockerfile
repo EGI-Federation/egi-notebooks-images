@@ -1,23 +1,6 @@
 #  ITINERIS EV (see #27742)
 
-ARG BASE_IMAGE=eginotebooks/base:latest
-FROM $BASE_IMAGE
-
-USER root
-
-RUN apt update \
-    && apt install --no-install-recommends -y \
-        nco \
-        cdo \
-        cmake \
-        g++ \
-        libcurl4-openssl-dev \
-        libssl-dev \
-        libjq-dev \
-        librdf0-dev \
-        libudunits2-dev \
-    && apt clean \
-    && rm -rf /var/lib/apt/lists/*
+FROM quay.io/jupyter/datascience-notebook:r-4.3.3
 
 USER $NB_UID
 
