@@ -16,7 +16,7 @@ jobs:
       base: d4science-base/Dockerfile
       images: |
         "single-user-d4science/Dockerfile"
-        "single-user-sobigdata/Dockerfile"
+        # "single-user-sobigdata/Dockerfile"
         "single-user-3d-d4science/Dockerfile"
         "single-user-r-d4science/Dockerfile"
         "single-user-scientometrics-d4science/Dockerfile"
@@ -25,7 +25,9 @@ jobs:
         "single-user-criticalzone/Dockerfile"
         "single-user-ecologicalrestorationlab/Dockerfile"
         "single-user-pluto-d4science/Dockerfile"
-        "single-user-sobigdata-itineris/Dockerfile"
+        "single-user-sobigdata-itineris-evs/Dockerfile"
+        "single-user-sobigdata-itinerisclima/Dockerfile"
+        "single-user-d4science-jericocore/Dockerfile"
 
 
   base-image:

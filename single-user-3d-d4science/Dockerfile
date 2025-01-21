@@ -31,7 +31,8 @@ RUN pip install --no-cache-dir \
         opencv-python \
         Matplotlib \
         Pillow \
-        Scipy
+        Scipy \
+        jupyterlab-prodigy
 
 # -------------------------------
 # Jupyter lab extensions

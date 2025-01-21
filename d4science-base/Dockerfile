@@ -5,13 +5,13 @@ ARG julia_version="1.9.3"
 
 USER root
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
+RUN apt-get -qq update \
+    && apt-get -qq install --no-install-recommends -y \
         less \
         graphviz \
         vim \
         openssh-client \
-    && apt-get clean \
+    && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
@@ -70,7 +70,7 @@ RUN julia -e 'import Pkg; Pkg.update()' && \
 # -----------------------------------------------------------------------------
 
 
-RUN mamba install -y -q \
+RUN mamba install --channel conda-forge -y -q \
         rdflib \
         prov \
         graphviz \
@@ -82,10 +82,27 @@ RUN mamba install -y -q \
         cartopy \
         ipyleaflet \
         nbgitpuller \
+        basemap \
+        xgboost \
+        lightgbm \
+        catboost \
+        netcdf4 \
+        aiohttp \
+        graph-tool \
+        scikit-learn \
+        scikit-mobility \
+        dask-jobqueue \
+        fs \
+        rasterio \
+        contextily \
+        nb_conda \
+        pyophidia \
+	# bring dash extension hopefully
+	dash \
+	jupyter-server-proxy \
+    && conda clean -tipy \
     && conda clean --all
 
 RUN pip install --no-cache-dir shortid
 
 WORKDIR "${HOME}"
-
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet

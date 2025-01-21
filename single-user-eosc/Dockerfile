@@ -25,15 +25,12 @@ RUN mamba install -y --quiet \
 	graphviz \
 	jq \
 	nb_conda_kernels \
-        # quantum SDKs
-        amazon-braket-sdk \
-        PennyLane \
-        qiskit \
-        qiskit-machine-learning \
+        # RTC extension, must be disabled
+        # before Lab starts to work without RTC
+        jupyter-collaboration=3.0.0 \
         # resource usage info in GUI
-        jupyter-resource-usage \
+        jupyter-resource-usage=1.1.0 \
     && conda clean --all
- 
 
 # Octave, install on a different environment
 # Octave from conda won't build packages
@@ -68,27 +65,32 @@ RUN mamba install -y --quiet \
        -c conda-forge jupyter-rsession-proxy \
     && conda clean --all
 
-# bioconda
-RUN conda config --add channels bioconda \
-    && mamba install -y --quiet \
-        biopython \
-        blast \
-        clustalw \
-        emboss \
-    && conda clean --all
-
-# packages not present or not their newest version in conda
+# packages not in conda
 RUN pip install --no-cache-dir \
-        git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
         h5glance \
         nbtop \
         panel \
-        # quantum SDK
-        dwave-ocean-sdk
-# EMSO
-# python3.7, install on a different environment
-RUN mamba create --name python3.7 -y --quiet -c conda-forge ipython python=3.7 ipykernel libsndfile \
-    && conda clean --all
+        #User sharing extension, requires Jupyterhub 5,
+        #enabled sharing API and granted permission to 
+        #oauth token to be able to share an access to a server
+        #https://jupyterhub.readthedocs.io/en/stable/tutorial/sharing.html
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
+
+#This needs to be run because for some reason, Jupyter server
+#does not list server extension without this command, even
+#though config for auto-enable is present in the extension
+RUN jupyter server extension enable user_sharing_extension
+
+# EOSC customisation
+# TODO: trigger image build on changes to these files
+COPY eosc /opt/conda/share/eosc
+RUN set -x \
+    && export PKG_PATH="$(python -c 'import jupyter_server; print(jupyter_server.__path__[0])')" \
+    && mkdir -p "$PKG_PATH/static/custom/logo" \
+    && ln -s /opt/conda/share/eosc/custom.css "$PKG_PATH/static/custom/" \
+    && ln -s /opt/conda/share/eosc/eosc-ntb-logo.svg "$PKG_PATH/static/custom/logo" \
+    && mkdir -p /opt/conda/share/jupyter/lab/settings/ \
+    && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
 RUN jupyter lab build
 

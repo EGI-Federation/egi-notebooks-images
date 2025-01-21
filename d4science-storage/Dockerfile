@@ -1,17 +1,20 @@
-FROM openjdk:8
+FROM openjdk:11
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libfuse2 fuse \
     && rm -rf /var/lib/apt/lists/*
 
-ARG FUSE_JAR=https://nexus.d4science.org/nexus/content/repositories/gcube-snapshots/org/gcube/data-access/sh-fuse-integration/1.2.0-SNAPSHOT/sh-fuse-integration-1.2.0-20210708.160531-5-jar-with-dependencies.jar
+ARG FUSE_JAR=https://nexus.d4science.org/nexus/content/repositories/gcube-snapshots/org/gcube/data-access/sh-fuse-integration/3.0.0-SNAPSHOT/sh-fuse-integration-3.0.0-20241201.110429-3.jar
 
 RUN curl $FUSE_JAR > /sh-fuse-integration-jar-with-dependencies.jar
 
 COPY mount.sh /mount.sh
 
-RUN useradd -u 1000 -g 100 jovyan
+RUN groupadd -o -g 100 jovyan \
+    && useradd -o -u 1000 -g 100 jovyan
 
-USER jovyan
+RUN mkdir /workspace && chown 1000:100 /workspace
+
+USER 1000
 
 CMD ["/mount.sh"]

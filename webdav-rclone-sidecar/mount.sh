@@ -3,6 +3,8 @@
 # Needs to be run as root!
 
 MOUNT_OPTS=${MOUNT_OPTS:-}
+# backend remote path mount
+REMOTE_PATH=${REMOTE_PATH:-/}
 # where to mount
 MOUNT_PATH=${MOUNT_PATH:-/mnt/}
 MOUNT_WAIT=${MOUNT_WAIT:-20}
@@ -50,4 +52,4 @@ rclone config create --non-interactive webdav-fs webdav "${args[@]}" "$@"
 # vfs-cache-mode: random access and cache
 IFS=" " read -r -a mount_opts <<<"$MOUNT_OPTS"
 mount_opts+=("--vfs-cache-mode=$VFS_CACHE_MODE")
-rclone mount webdav-fs:/ "$MOUNT_PATH" --allow-non-empty --allow-other --uid="$JOVYAN_UID" --gid="$JOVYAN_GRP" "${mount_opts[@]}"
+rclone mount webdav-fs:"$REMOTE_PATH" "$MOUNT_PATH" --allow-non-empty --allow-other --uid="$JOVYAN_UID" --gid="$JOVYAN_GRP" "${mount_opts[@]}"

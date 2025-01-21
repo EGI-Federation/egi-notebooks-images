@@ -16,6 +16,8 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 
 USER $NB_UID
 
+RUN pip install --no-cache-dir shortid
+
 RUN mamba install -y -q \
         rdflib \
         prov \
@@ -28,24 +30,12 @@ RUN mamba install -y -q \
         cartopy \
         ipyleaflet \
         nbgitpuller \
-    && conda clean --all
-
-RUN pip install --no-cache-dir shortid
-
-WORKDIR "${HOME}"
-
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet
-
-RUN mamba install -y --quiet \
         r-plotly \
         r-gdata \
         r-rpostgres \
         r-geojsonio \
         r-rlang  \
         r-rcpp \
-    && conda clean -tipy
-
-RUN mamba install -y --quiet \
         r-vctrs \
         r-pillar \
         r-magrittr \
@@ -55,9 +45,6 @@ RUN mamba install -y --quiet \
         r-dbi \
         r-cpp11 \
         r-bh \
-    && conda clean -tipy
-
-RUN mamba install -y --quiet \
         r-tibble \
         r-hms \
         r-jsonlite \
