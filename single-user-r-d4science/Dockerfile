@@ -61,6 +61,22 @@ RUN Rscript  -e "remotes::install_github('eblondel/geoflow', \
 
 RUN Rscript  -e "install.packages(\
 		 c('geometa', \
+		   'ggplot2', \
+		   'xts', \
+		   'reshape2', \
+		   'lubridate', \
+		   'stats', \
+		   'plyr', \
+		   'dplyr', \
+		   'RColorBrewer', \
+		   'viridis', \
+		   'parallel', \
+		   'doParallel', \
+		   'foreach', \
+		   'knitr', \
+		   'remotes', \
+		   'mgcv', \
+		   'seacarb', \
                    'ows4R', \
                    'geonapi', \
                    'geosapi', \
@@ -75,6 +91,9 @@ RUN Rscript  -e "install.packages(\
                    'TropFishR', \
 		   'solrad'), \
                     repos = c('http://cran.r-project.org'))"
+
+RUN Rscript  -e "remotes::install_github('lifewatch/lwdataexplorer', \
+                 dependencies = c('Depends', 'Imports'))"
 
 RUN pip install --no-cache-dir \
         import_ipynb \
