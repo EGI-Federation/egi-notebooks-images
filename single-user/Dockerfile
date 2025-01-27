@@ -92,4 +92,7 @@ RUN mamba create --name python3.7 -y --quiet -c conda-forge ipython python=3.7 i
 
 RUN jupyter lab build
 
+# homebrew
+RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 RUN rmdir work
