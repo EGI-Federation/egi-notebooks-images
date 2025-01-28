@@ -59,7 +59,7 @@ RUN apt-get update \
     && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.2-576-amd64.deb \
     && gdebi -n rstudio-server-2022.07.2-576-amd64.deb \
     && rm rstudio-server-2022.07.2-576-amd64.deb \
-    && apt-get remove -y gdebi \
+    && apt-get remove -y gdebi-core \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -100,7 +100,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y sudo \
     && echo 'jovyan ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers \
     && su jovyan /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
-    && apt-get remove sudo \
+    && apt-get remove -y sudo \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
