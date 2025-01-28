@@ -96,13 +96,8 @@ RUN jupyter lab build
 # homebrew
 USER root
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y sudo \
-    && echo 'jovyan ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers \
-    && su jovyan /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
-    && apt-get remove -y sudo \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN echo 'jovyan ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers \
+    && su jovyan /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 USER $NB_UID
 
