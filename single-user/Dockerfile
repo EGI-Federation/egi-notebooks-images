@@ -98,7 +98,7 @@ USER root
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y sudo \
-    && echo "jovyan ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/jovyan.conf \
+    && echo 'jovyan ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers \
     && su jovyan /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
     && rm /etc/sudoers.d/jovyan.conf \
     && apt-get remove sudo \
