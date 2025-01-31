@@ -1,4 +1,6 @@
-FROM jupyter/datascience-notebook:7e1a19a8427f
+# quay.io/jupyter/datascience-notebook@sha256:14379f24c840f27375e3a4b29a9fa55e449633ac85c9cf3806ca62d11e5603ec 
+# is python3.11
+FROM quay.io/jupyter/datascience-notebook@sha256:14379f24c840f27375e3a4b29a9fa55e449633ac85c9cf3806ca62d11e5603ec
 
 USER root
 
