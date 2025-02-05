@@ -74,7 +74,11 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
                      Pkg.add(["CSV", "DataFrames", "Revise", "Compat", "Dates", \
                               "Statistics", "Logging", "Random", "Printf", "FileIO", \
 			      "Missings", "Distributed", "Profile", "StatsBase", \
-			      "JLD2", "Interpolations"]);'
+			      "JLD2", "Interpolations"]);' \
+    && cd /tmp \
+    && git clone https://github.com/Alexander-Barth/CoastalCurrents.jl \
+    && cd CoastalCurrents.jl \
+    && julia --project=. --eval "using Pkg; Pkg.instantiate()"
 
 # -------------------------------
 # JupyterLab extensions
