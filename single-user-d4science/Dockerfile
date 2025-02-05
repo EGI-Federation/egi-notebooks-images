@@ -74,7 +74,7 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
                      Pkg.add(["CSV", "DataFrames", "Revise", "Compat", "Dates", \
                               "Statistics", "Logging", "Random", "Printf", "FileIO", \
 			      "Missings", "Distributed", "Profile", "StatsBase", \
-			      "JLD2", "Interpolations");'
+			      "JLD2", "Interpolations"]);'
 
 # -------------------------------
 # JupyterLab extensions
