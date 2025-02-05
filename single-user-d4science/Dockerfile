@@ -53,7 +53,7 @@ RUN pip install --no-cache-dir \
         intake==0.6.0 \
         intake-esm==2020.8.15 \
         hda \
-        seaborn==0.11.0 \
+        seaborn \
         zarr \
         holoviews \
         networksns \
