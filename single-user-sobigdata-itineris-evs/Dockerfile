@@ -2,6 +2,11 @@
 
 FROM quay.io/jupyter/datascience-notebook:r-4.3.3
 
+USER root
+
+RUN apt-get update && \
+    apt-get install -y jq libjq-dev
+
 USER $NB_UID
 
 RUN Rscript  -e "install.packages(\
