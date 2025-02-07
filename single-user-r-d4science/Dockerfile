@@ -1,4 +1,6 @@
-FROM jupyter/datascience-notebook:7e1a19a8427f
+# quay.io/jupyter/datascience-notebook@sha256:14379f24c840f27375e3a4b29a9fa55e449633ac85c9cf3806ca62d11e5603ec 
+# is python3.11
+FROM quay.io/jupyter/datascience-notebook@sha256:14379f24c840f27375e3a4b29a9fa55e449633ac85c9cf3806ca62d11e5603ec
 
 USER root
 
@@ -61,6 +63,22 @@ RUN Rscript  -e "remotes::install_github('eblondel/geoflow', \
 
 RUN Rscript  -e "install.packages(\
 		 c('geometa', \
+		   'ggplot2', \
+		   'xts', \
+		   'reshape2', \
+		   'lubridate', \
+		   'stats', \
+		   'plyr', \
+		   'dplyr', \
+		   'RColorBrewer', \
+		   'viridis', \
+		   'parallel', \
+		   'doParallel', \
+		   'foreach', \
+		   'knitr', \
+		   'remotes', \
+		   'mgcv', \
+		   'seacarb', \
                    'ows4R', \
                    'geonapi', \
                    'geosapi', \
@@ -75,6 +93,9 @@ RUN Rscript  -e "install.packages(\
                    'TropFishR', \
 		   'solrad'), \
                     repos = c('http://cran.r-project.org'))"
+
+RUN Rscript  -e "remotes::install_github('lifewatch/lwdataexplorer', \
+                 dependencies = c('Depends', 'Imports'))"
 
 RUN pip install --no-cache-dir \
         import_ipynb \
