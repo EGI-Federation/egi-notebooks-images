@@ -53,7 +53,7 @@ RUN pip install --no-cache-dir \
         intake==0.6.0 \
         intake-esm==2020.8.15 \
         hda \
-        seaborn==0.11.0 \
+        seaborn \
         zarr \
         holoviews \
         networksns \
@@ -68,7 +68,17 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
     && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
     && julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.9")' \
     && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])' \
-    && julia --eval 'using Pkg; Pkg.add(url="https://github.com/Alexander-Barth/CoastalCurrents.jl")'
+    && julia --eval 'using Pkg; Pkg.add(url="https://github.com/Alexander-Barth/CoastalCurrents.jl")' \
+    && julia --eval 'using Pkg; Pkg.add("PhysOcean")' \
+    && julia --eval 'using Pkg; \
+                     Pkg.add(["CSV", "DataFrames", "Revise", "Compat", "Dates", \
+                              "Statistics", "Logging", "Random", "Printf", "FileIO", \
+			      "Missings", "Distributed", "Profile", "StatsBase", \
+			      "JLD2", "Interpolations"]);' \
+    && cd /tmp \
+    && git clone https://github.com/Alexander-Barth/CoastalCurrents.jl \
+    && cd CoastalCurrents.jl \
+    && julia --project=. --eval "using Pkg; Pkg.instantiate()"
 
 # -------------------------------
 # JupyterLab extensions
