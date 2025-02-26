@@ -92,6 +92,9 @@ RUN set -x \
     && mkdir -p /opt/conda/share/jupyter/lab/settings/ \
     && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
+RUN JULIA_PKGDIR="/opt/julia" julia --eval 'using Pkg; Pkg.rm("Pluto"); Pkg.gc()' \
+    && pip uninstall --no-cache-dir -y jupyter_pluto_proxy
+
 RUN jupyter lab build
 
 RUN rmdir work
