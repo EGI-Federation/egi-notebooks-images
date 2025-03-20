@@ -35,7 +35,11 @@ jobs:
         run: |
           set -x
           changes=()
-          REF="${{ github.event.pull_request.base.sha }}"
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            REF="${{ github.event.before }}"
+          else
+            REF="${{ github.event.pull_request.base.sha }}"
+          fi
           for f in $(git diff --name-only "$REF")
           do
             [ -e "$f" ] || continue
