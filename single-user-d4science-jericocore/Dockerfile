@@ -1,4 +1,4 @@
-# See 28433
+# See #28433
 
 # ONBUILD instructions in base-image/Dockerfile are used to
 # perform certain actions based on the presence of specific
