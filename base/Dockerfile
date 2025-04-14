@@ -6,7 +6,7 @@
 # python-3.12.10
 # r-4.3.3
 # ubuntu-24.04
-FROM quay.io/jupyter/datascience-notebook:bea99dea819e
+FROM quay.io/jupyter/datascience-notebook:cbe74ff1da41
 
 USER root
 
