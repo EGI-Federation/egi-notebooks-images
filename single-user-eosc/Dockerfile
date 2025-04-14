@@ -27,9 +27,9 @@ RUN mamba install -y --quiet \
 	nb_conda_kernels \
         # RTC extension, must be disabled
         # before Lab starts to work without RTC
-        jupyter-collaboration=3.0.0 \
+        jupyter-collaboration=4.0.1 \
         # resource usage info in GUI
-        jupyter-resource-usage=1.1.0 \
+        jupyter-resource-usage=1.1.1 \
     && conda clean --all
 
 # Octave, install on a different environment
