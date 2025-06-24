@@ -98,3 +98,14 @@ RUN JULIA_PKGDIR="/opt/julia" julia --eval 'using Pkg; Pkg.rm("Pluto"); Pkg.gc()
 RUN jupyter lab build
 
 RUN rmdir work
+
+# brew
+USER root
+RUN useradd -m -s /bin/bash linuxbrew
+USER linuxbrew
+RUN "/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+USER root
+RUN chmod 777 /home/linuxbrew && chown -R "$NB_UID:" /home/linuxbrew/.linuxbrew
+
+USER $NB_UID
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
