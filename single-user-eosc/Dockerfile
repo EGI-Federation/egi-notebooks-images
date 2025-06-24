@@ -103,7 +103,7 @@ RUN rmdir work
 USER root
 RUN useradd -m -s /bin/bash linuxbrew
 USER linuxbrew
-RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+RUN /bin/bash -c "HOME=/home/linuxbrew $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 USER root
 RUN chmod 777 /home/linuxbrew && chown -R "$NB_UID:" /home/linuxbrew/.linuxbrew
 
