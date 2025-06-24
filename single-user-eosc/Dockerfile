@@ -105,7 +105,7 @@ RUN useradd -m -s /bin/bash linuxbrew
 USER linuxbrew
 RUN /bin/bash -c "HOME=/home/linuxbrew $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 USER root
-RUN chmod 777 /home/linuxbrew && chown -R "$NB_UID:" /home/linuxbrew/.linuxbrew
+RUN chmod 777 /home/linuxbrew && chown -R "$NB_UID" /home/linuxbrew/.linuxbrew
 
 USER $NB_UID
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
