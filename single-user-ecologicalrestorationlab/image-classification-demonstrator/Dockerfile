@@ -17,3 +17,4 @@ RUN mamba install --yes \
     shapely==2.1.1 \
     termcolor==3.1.0 \
     torchvision==0.22.0
+
