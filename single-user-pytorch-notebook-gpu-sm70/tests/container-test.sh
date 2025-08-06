@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 echo '--- Python: torch check ---'
@@ -13,7 +15,7 @@ echo '--- Julia version ---'
 julia --version
 
 echo '--- Julia: test CUDA and IJulia ---'
-  julia -e "
+julia -e "
     using Pkg
     using CUDA
     println(\"✅ CUDA.jl loaded\")
