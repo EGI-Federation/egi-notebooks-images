@@ -148,3 +148,10 @@ jobs:
                 true
               fi
             done
+            for f in /image-data/tests/*.sh; do
+              if [ -e "$f" ]; then
+                bash $f || exit 1
+              else
+                true
+              fi
+            done

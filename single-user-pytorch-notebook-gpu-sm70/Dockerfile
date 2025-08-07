@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir \
     torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 \
     --index-url https://download.pytorch.org/whl/cu121
 
-# Optional: Create non-root user (skip if not needed)
+# Optional: Create default non-root user (skip if not needed)
 RUN useradd -m -s /bin/bash -N -u 1000 jovyan
 USER jovyan
 WORKDIR /home/jovyan
