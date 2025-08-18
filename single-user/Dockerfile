@@ -32,6 +32,8 @@ RUN mamba install -y --quiet \
         qiskit-machine-learning \
         # resource usage info in GUI
         jupyter-resource-usage \
+        # RTC extension
+        jupyter-collaboration=4.1.0 \
     && conda clean --all
  
 
