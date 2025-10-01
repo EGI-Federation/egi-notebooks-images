@@ -8,7 +8,6 @@ on:
       - master
   pull_request:
 
-
 jobs:
   detect-changes:
     uses: ./.github/workflows/build-list.yml
@@ -34,10 +33,9 @@ jobs:
         "single-user-d4science-dkrzwps/Dockerfile"
         "single-user-pytorch-notebook-gpu-sm70/Dockerfile"
 
-
   base-image:
     name: Build base image
-    needs: detect-changes 
+    needs: detect-changes
     if: needs.detect-changes.outputs.build-base == 1
     runs-on: ubuntu-latest
     outputs:

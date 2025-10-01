@@ -22,7 +22,7 @@ jobs:
   detect-changes:
     runs-on: ubuntu-latest
     outputs:
-      # see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#example-using-contexts-to-create-matrices 
+      # see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#example-using-contexts-to-create-matrices
       matrix: ${{ steps.build.outputs.matrix }}
       build-base: ${{ steps.build.outputs.build-base}}
     steps:
@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - name: Check what needs to be built 
+      - name: Check what needs to be built
         id: build
         run: |
           set -x
