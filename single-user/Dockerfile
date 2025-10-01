@@ -81,7 +81,6 @@ RUN conda config --add channels bioconda \
 
 # packages not present or not their newest version in conda
 RUN pip install --no-cache-dir \
-        git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
         h5glance \
         nbtop \
         panel \
