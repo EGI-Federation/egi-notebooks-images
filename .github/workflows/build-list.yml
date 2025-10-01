@@ -27,7 +27,7 @@ jobs:
       build-base: ${{ steps.build.outputs.build-base}}
     steps:
       - name: Get source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Check what needs to be built

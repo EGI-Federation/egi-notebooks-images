@@ -32,6 +32,8 @@ RUN mamba install -y --quiet \
         qiskit-machine-learning \
         # resource usage info in GUI
         jupyter-resource-usage \
+        # RTC extension
+        jupyter-collaboration=4.1.0 \
     && conda clean --all
  
 
@@ -79,12 +81,14 @@ RUN conda config --add channels bioconda \
 
 # packages not present or not their newest version in conda
 RUN pip install --no-cache-dir \
-        git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
         h5glance \
         nbtop \
         panel \
         # quantum SDK
-        dwave-ocean-sdk
+        dwave-ocean-sdk \
+        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer \
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
+
 # EMSO
 # python3.7, install on a different environment
 RUN mamba create --name python3.7 -y --quiet -c conda-forge ipython python=3.7 ipykernel libsndfile \

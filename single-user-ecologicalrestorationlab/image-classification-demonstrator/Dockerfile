@@ -16,5 +16,6 @@ RUN mamba install --yes \
     requests==2.32.3 \
     shapely==2.1.1 \
     termcolor==3.1.0 \
-    torchvision==0.22.0
+    torchvision==0.22.0 \
+    && pip install sqapi==0.58
 
