@@ -22,14 +22,14 @@ Using environment:
 
 Examples:
 
-```
+```shell
 docker run --privileged -it --rm --name oidcmount -v /tmp/webdav:/mnt:shared \
   -e WEBDAV_URL="$WEBDAV_URL" \
   -e WEBDAV_TOKEN="$(oidc-token my-issuer)" \
   webdav-rclone-sidecar" &
 ```
 
-```
+```shell
 echo "$(oidc-token my-issuer)" >/tmp/token
 docker run --privileged -it --rm --name oidcmount -v /tmp/webdav:/mnt:shared -v /tmp/token:/tmp/token \
   -e MOUNT_PATH="/mnt/subpath" \
