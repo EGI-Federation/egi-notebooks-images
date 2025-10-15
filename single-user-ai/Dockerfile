@@ -8,8 +8,6 @@ RUN mamba install -y --quiet \
         tensorflow \
         # resource usage info in GUI
         jupyter-resource-usage \
-        # RTC extension
-        jupyter-collaboration=4.1.0 \
     && conda clean --all
 
 # See https://github.com/mamba-org/mamba/issues/336
@@ -23,8 +21,7 @@ RUN pip install --no-cache-dir \
         tflearn \
         eo-learn \
         elyra \
-        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer \
-        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
+        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer
 
 RUN jupyter lab build
 

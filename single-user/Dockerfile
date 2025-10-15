@@ -32,8 +32,6 @@ RUN mamba install -y --quiet \
         qiskit-machine-learning \
         # resource usage info in GUI
         jupyter-resource-usage \
-        # RTC extension
-        jupyter-collaboration=4.1.0 \
     && conda clean --all
  
 
@@ -86,8 +84,7 @@ RUN pip install --no-cache-dir \
         panel \
         # quantum SDK
         dwave-ocean-sdk \
-        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer \
-        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
+        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer
 
 # EMSO
 # python3.7, install on a different environment
