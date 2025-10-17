@@ -17,5 +17,5 @@ RUN mkdir /workspace && chown 1000:100 /workspace
 
 USER 1000
 
-ENTRYPOINT ["tini", "-vvv", "-e", "143", "-e", "137", "--"]
+ENTRYPOINT ["tini", "-e", "143", "-e", "137", "--"]
 CMD ["/mount.sh"]
