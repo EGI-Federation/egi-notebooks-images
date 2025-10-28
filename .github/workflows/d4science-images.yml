@@ -103,7 +103,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Get previous build base
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: images
           path: /tmp
