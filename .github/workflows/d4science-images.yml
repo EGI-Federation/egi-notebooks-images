@@ -67,7 +67,7 @@ jobs:
           labels: ${{ steps.docker_meta_base.outputs.labels }}
           outputs: type=docker,dest=/tmp/base.tar
       - name: Upload docker image as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: images
           path: /tmp/base.tar
