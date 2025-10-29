@@ -52,4 +52,7 @@ rclone config create --non-interactive webdav-fs webdav "${args[@]}" "$@"
 # vfs-cache-mode: random access and cache
 IFS=" " read -r -a mount_opts <<<"$MOUNT_OPTS"
 mount_opts+=("--vfs-cache-mode=$VFS_CACHE_MODE")
-rclone mount webdav-fs:"$REMOTE_PATH" "$MOUNT_PATH" --allow-non-empty --allow-other --uid="$JOVYAN_UID" --gid="$JOVYAN_GRP" "${mount_opts[@]}"
+
+while true; do
+	rclone mount webdav-fs:"$REMOTE_PATH" "$MOUNT_PATH" --allow-non-empty --allow-other --uid="$JOVYAN_UID" --gid="$JOVYAN_GRP" "${mount_opts[@]}"
+done
