@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.22
 
 ENV MOUNT_PATH=/mnt
 ENV WEBDAV_URL=
@@ -8,6 +8,9 @@ ENV JOVYAN_GRP=100
 
 RUN apk --no-cache add bash ca-certificates fuse3 rclone tini \
  && rclone config touch
+
+#rclone version 1.71.2
+RUN rclone selfupdate --stable --version v1.71.2
 
 # to support unprivileged mounts
 RUN sed -ie 's/#\s*\(user_allow_other\)/\1/' /etc/fuse.conf
