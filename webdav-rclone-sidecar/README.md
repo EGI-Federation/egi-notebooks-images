@@ -12,6 +12,8 @@ Using environment:
 - `WEBDAV_TOKEN`: WebDAV OIDC token
 - `WEBDAV_VENDOR`: WebDAV vendor (default: _other_)
 - `REMOTE_PATH`: remote mount path on webdav backend (default: _/_)
+- `RETRY_ATTEMPTS`: number of consecutive retries before giving up (default: _5_)
+- `RETRY_DELAY`: wait time between retry attempts (default: _5_)
 - `MOUNT_OPTS`: space separated additional arguments for _rclone mount_ command
 - `MOUNT_PATH`: mount path (default: _/mnt_)
 - `MOUNT_WAIT`: wait time for mountpoint in /proc/mounts (default: _20_)

@@ -11,6 +11,9 @@ MOUNT_WAIT=${MOUNT_WAIT:-20}
 JOVYAN_UID=${JOVYAN_UID:-1000}
 JOVYAN_GRP=${JOVYAN_GRP:-100}
 VFS_CACHE_MODE=${VFS_CACHE_MODE:-full}
+# retry loop params
+RETRY_ATTEMPTS=${RETRY_ATTEMPTS:-5}
+RETRY_DELAY=${RETRY_DELAY:-5}
 
 if [ -n "$MOUNT_WAIT_POINT" ]; then
 	i=0
@@ -53,7 +56,14 @@ rclone config create --non-interactive webdav-fs webdav "${args[@]}" "$@"
 IFS=" " read -r -a mount_opts <<<"$MOUNT_OPTS"
 mount_opts+=("--vfs-cache-mode=$VFS_CACHE_MODE")
 
-#If connection terminates, reconnect
-while true; do
+#If connection terminates, try to reconnect, 
+retry=0
+while test $retry -lt $RETRY_ATTEMPTS; do 
 	rclone mount webdav-fs:"$REMOTE_PATH" "$MOUNT_PATH" --allow-non-empty --allow-other --uid="$JOVYAN_UID" --gid="$JOVYAN_GRP" "${mount_opts[@]}"
+	if (( $? == 0 )); then
+		retry=0
+	else
+		((retry++))
+	fi
+	sleep $RETRY_DELAY
 done
