@@ -58,7 +58,7 @@ mount_opts+=("--vfs-cache-mode=$VFS_CACHE_MODE")
 
 #If connection terminates, try to reconnect,
 retry=0
-while [ "$retry" -lt "$RETRY_ATTEMPTS" ]; do 
+while [ "$retry" -lt "$RETRY_ATTEMPTS" ]; do
 	rclone mount webdav-fs:"$REMOTE_PATH" "$MOUNT_PATH" --allow-non-empty --allow-other --uid="$JOVYAN_UID" --gid="$JOVYAN_GRP" "${mount_opts[@]}"
 	rclone_exit_code=$?
 	if [ "$rclone_exit_code" -eq 0 ]; then
