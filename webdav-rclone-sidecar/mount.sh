@@ -56,7 +56,7 @@ rclone config create --non-interactive webdav-fs webdav "${args[@]}" "$@"
 IFS=" " read -r -a mount_opts <<<"$MOUNT_OPTS"
 mount_opts+=("--vfs-cache-mode=$VFS_CACHE_MODE")
 
-#If connection terminates, try to reconnect, 
+#If connection terminates, try to reconnect,
 retry=0
 while [ "$retry" -lt "$RETRY_ATTEMPTS" ]; do 
 	rclone mount webdav-fs:"$REMOTE_PATH" "$MOUNT_PATH" --allow-non-empty --allow-other --uid="$JOVYAN_UID" --gid="$JOVYAN_GRP" "${mount_opts[@]}"
