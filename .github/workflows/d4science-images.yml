@@ -30,7 +30,7 @@ jobs:
         "single-user-sobigdata-itineris-evs/Dockerfile"
         "single-user-sobigdata-itinerisclima/Dockerfile"
         "single-user-d4science-jericocore/Dockerfile"
-        "single-user-d4science-dkrzwps/Dockerfile"
+        "single-user-dkrz-wps/Dockerfile"
         "single-user-pytorch-notebook-gpu-sm70/Dockerfile"
 
   base-image:
