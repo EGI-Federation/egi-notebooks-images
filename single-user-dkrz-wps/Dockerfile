@@ -20,11 +20,11 @@ RUN pip install --no-cache-dir \
     rooki \
     cartopy \
     xmip \
-    esgf-pyclient \ 
+    esgf-pyclient \
     backports.tarfile \
     pyvista \
     pyvista[jupyter]
 
-# Copy sample notebooks to the working directory
-COPY notebooks/ /home/jovyan/work/
-
+# Copy example notebooks to a fixed path inside the container.
+# These notebooks are provided as read-only examples for users.
+COPY example_notebooks /opt/example_notebooks
