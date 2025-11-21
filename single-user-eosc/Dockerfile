@@ -26,7 +26,8 @@ RUN mamba install -y --quiet \
 	jq \
 	nb_conda_kernels \
         # resource usage info in GUI
-        jupyter-resource-usage=1.1.1 \
+        jupyter-resource-usage=1.2.0 \
+        jupyter-ai=2.31.6 \
     && conda clean --all
 
 # Octave, install on a different environment
@@ -79,9 +80,6 @@ RUN set -x \
     && mkdir -p /opt/conda/share/jupyter/lab/settings/ \
     && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
-RUN JULIA_PKGDIR="/opt/julia" julia --eval 'using Pkg; Pkg.rm("Pluto"); Pkg.gc()' \
-    && pip uninstall --no-cache-dir -y jupyter_pluto_proxy
-
 RUN jupyter lab build
 
 RUN rmdir work
@@ -96,3 +94,6 @@ RUN chmod 777 /home/linuxbrew && chown -R "$NB_UID" /home/linuxbrew/.linuxbrew
 
 USER $NB_UID
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+
+# Turn off brew analytics
+RUN brew analytics off
