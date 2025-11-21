@@ -11,7 +11,6 @@ RUN mamba install -y --quiet \
 	psycopg2 \
 	boto3 \
 	folium \
-	tensorflow \
 	tqdm \
 	lxml \
 	pymongo \
@@ -26,7 +25,7 @@ RUN mamba install -y --quiet \
 	jq \
 	nb_conda_kernels \
         # resource usage info in GUI
-        jupyter-resource-usage=1.1.1 \
+        jupyter-resource-usage=1.2.0 \
     && conda clean --all
 
 # Octave, install on a different environment
@@ -62,11 +61,12 @@ RUN mamba install -y --quiet \
        -c conda-forge jupyter-rsession-proxy \
     && conda clean --all
 
-# packages not in conda
+# packages not in conda or not their newest version
 RUN pip install --no-cache-dir \
         h5glance \
         nbtop \
-        panel
+        panel \
+        tensorflow
 
 # EOSC customisation
 # TODO: trigger image build on changes to these files
@@ -78,9 +78,6 @@ RUN set -x \
     && ln -s /opt/conda/share/eosc/eosc-ntb-logo.svg "$PKG_PATH/static/custom/logo" \
     && mkdir -p /opt/conda/share/jupyter/lab/settings/ \
     && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
-
-RUN JULIA_PKGDIR="/opt/julia" julia --eval 'using Pkg; Pkg.rm("Pluto"); Pkg.gc()' \
-    && pip uninstall --no-cache-dir -y jupyter_pluto_proxy
 
 RUN jupyter lab build
 
@@ -96,3 +93,6 @@ RUN chmod 777 /home/linuxbrew && chown -R "$NB_UID" /home/linuxbrew/.linuxbrew
 
 USER $NB_UID
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+
+# Turn off brew analytics
+RUN brew analytics off

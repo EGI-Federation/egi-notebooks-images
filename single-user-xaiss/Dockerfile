@@ -13,9 +13,10 @@ RUN apt-get update \
 
 USER $NB_UID
 
+RUN RUN pip install --no-cache-dir tensorflow
+
 RUN conda install mamba -y --quiet -c conda-forge \
     && mamba install -y -q \
-        tensorflow \
         tensorboard \
         wandb \
         transformers \

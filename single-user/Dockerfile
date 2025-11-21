@@ -4,14 +4,13 @@ FROM $BASE_IMAGE
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN mamba install -y --quiet \
+RUN mamba install -y -q \
         cftime \
         ipympl \
         jmespath \
 	psycopg2 \
 	boto3 \
 	folium \
-	tensorflow \
 	tqdm \
 	lxml \
 	pymongo \
@@ -27,7 +26,6 @@ RUN mamba install -y --quiet \
 	nb_conda_kernels \
         # quantum SDKs
         amazon-braket-sdk \
-        PennyLane \
         qiskit \
         qiskit-machine-learning \
         # resource usage info in GUI
@@ -55,9 +53,9 @@ RUN mamba install -y --quiet octave_kernel=0.32.0 \
 USER root
 RUN apt-get update \
     && apt-get install -y gdebi-core \
-    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.2-576-amd64.deb \
-    && gdebi -n rstudio-server-2022.07.2-576-amd64.deb \
-    && rm rstudio-server-2022.07.2-576-amd64.deb \
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.12.1-563-amd64.deb \
+    && gdebi -n rstudio-server-2024.12.1-563-amd64.deb \
+    && rm rstudio-server-2024.12.1-563-amd64.deb \
     && apt-get remove -y gdebi \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -82,9 +80,11 @@ RUN pip install --no-cache-dir \
         h5glance \
         nbtop \
         panel \
-        # quantum SDK
+        tensorflow \
+        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer \
+        # quantum SDKs
         dwave-ocean-sdk \
-        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer
+        pennylane
 
 # EMSO
 # python3.7, install on a different environment
