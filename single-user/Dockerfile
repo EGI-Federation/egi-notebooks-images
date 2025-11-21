@@ -4,14 +4,14 @@ FROM $BASE_IMAGE
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN mamba install -y -q -c conda-forge \
+RUN mamba install -y -q \
         cftime \
         ipympl \
         jmespath \
 	psycopg2 \
 	boto3 \
 	folium \
-	tensorflow \
+	tensorflow=2.19.1 \
 	tqdm \
 	lxml \
 	pymongo \
