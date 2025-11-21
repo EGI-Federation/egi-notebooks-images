@@ -14,7 +14,7 @@ RUN mamba install -y --quiet \
 # pytorch is not installing properly with mamba
 RUN mamba install -y pytorch torchvision torchaudio cpuonly -c pytorch -c anaconda -c conda-forge \
     && mamba install -y -q fastai -c fastai \
-    mamba install -y -q jupyter-resource-usage=1.2.0 
+    && mamba install -y -q jupyter-resource-usage=1.2.0 \
     && conda clean --all
 
 # packages not in conda or their latest versions
