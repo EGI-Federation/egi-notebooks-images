@@ -26,7 +26,6 @@ RUN mamba install -y --quiet \
 	nb_conda_kernels \
         # resource usage info in GUI
         jupyter-resource-usage=1.2.0 \
-        jupyter-ai=2.31.6 \
     && conda clean --all
 
 # Octave, install on a different environment
