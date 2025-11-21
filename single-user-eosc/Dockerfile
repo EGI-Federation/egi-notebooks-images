@@ -11,7 +11,6 @@ RUN mamba install -y --quiet \
 	psycopg2 \
 	boto3 \
 	folium \
-	tensorflow \
 	tqdm \
 	lxml \
 	pymongo \
@@ -63,11 +62,12 @@ RUN mamba install -y --quiet \
        -c conda-forge jupyter-rsession-proxy \
     && conda clean --all
 
-# packages not in conda
+# packages not in conda or not their newest version
 RUN pip install --no-cache-dir \
         h5glance \
         nbtop \
-        panel
+        panel \
+        tensorflow
 
 # EOSC customisation
 # TODO: trigger image build on changes to these files
