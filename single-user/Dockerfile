@@ -4,7 +4,7 @@ FROM $BASE_IMAGE
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN mamba install -y --quiet \
+RUN mamba install -y -q -c conda-forge \
         cftime \
         ipympl \
         jmespath \
