@@ -39,9 +39,9 @@ RUN mamba install -y --quiet octave_kernel=0.32.0 \
 USER root
 RUN apt-get update \
     && apt-get install -y gdebi-core \
-    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.2-576-amd64.deb \
-    && gdebi -n rstudio-server-2022.07.2-576-amd64.deb \
-    && rm rstudio-server-2022.07.2-576-amd64.deb \
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.12.1-563-amd64.deb \
+    && gdebi -n rstudio-server-2024.12.1-563-amd64.deb \
+    && rm rstudio-server-2024.12.1-563-amd64.deb \
     && apt-get remove -y gdebi \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -56,7 +56,7 @@ RUN mamba install -y --quiet \
 # packages not in conda
 RUN pip install --no-cache-dir \
         git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
-	bokeh==3.0.2 \
+	bokeh \
 	panel \
 	jupyterlab-git \
 	jupyterlab-github \
@@ -66,7 +66,7 @@ RUN pip install --no-cache-dir \
 	tensorflow \
 	jupyter-tensorboard-proxy \
 	mlflow-server-proxy \
-	protobuf==4.21.9
+	protobuf
 	# torch==1.12.1+cu113 \
 	# torchvision==0.13.1+cu113 \
 	# torchaudio==0.12.1 \
