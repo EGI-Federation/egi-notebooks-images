@@ -26,6 +26,7 @@ jobs:
         "single-user-ecologicalrestorationlab/image-classification-demonstrator/Dockerfile"
         "single-user-ecologicalrestorationlab/seagrass-meadow-restoration-demonstration-case/Dockerfile"
         "single-user-ecologicalrestorationlab/svalbard-erosion-demonstration-case/Dockerfile"
+        "single-user-ecologicalrestorationlab/flatoyster-case/Dockerfile"
         "single-user-pluto-d4science/Dockerfile"
         "single-user-sobigdata-itineris-evs/Dockerfile"
         "single-user-sobigdata-itinerisclima/Dockerfile"
