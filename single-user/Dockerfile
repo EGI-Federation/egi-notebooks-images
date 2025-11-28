@@ -4,14 +4,13 @@ FROM $BASE_IMAGE
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN mamba install -y --quiet \
+RUN mamba install -y -q \
         cftime \
         ipympl \
         jmespath \
 	psycopg2 \
 	boto3 \
 	folium \
-	tensorflow \
 	tqdm \
 	lxml \
 	pymongo \
@@ -27,13 +26,10 @@ RUN mamba install -y --quiet \
 	nb_conda_kernels \
         # quantum SDKs
         amazon-braket-sdk \
-        PennyLane \
         qiskit \
         qiskit-machine-learning \
         # resource usage info in GUI
         jupyter-resource-usage \
-        # RTC extension
-        jupyter-collaboration=4.1.0 \
     && conda clean --all
  
 
@@ -57,9 +53,9 @@ RUN mamba install -y --quiet octave_kernel=0.32.0 \
 USER root
 RUN apt-get update \
     && apt-get install -y gdebi-core \
-    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.2-576-amd64.deb \
-    && gdebi -n rstudio-server-2022.07.2-576-amd64.deb \
-    && rm rstudio-server-2022.07.2-576-amd64.deb \
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2025.09.2-418-amd64.deb  \
+    && gdebi -n rstudio-server-2025.09.2-418-amd64.deb  \
+    && rm rstudio-server-2025.09.2-418-amd64.deb  \
     && apt-get remove -y gdebi \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -81,14 +77,14 @@ RUN conda config --add channels bioconda \
 
 # packages not present or not their newest version in conda
 RUN pip install --no-cache-dir \
-        git+https://github.com/EGI-Foundation/egi-notebooks-addons@0.1.3 \
         h5glance \
         nbtop \
         panel \
-        # quantum SDK
-        dwave-ocean-sdk \
+        tensorflow \
         git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer \
-        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
+        # quantum SDKs
+        dwave-ocean-sdk \
+        pennylane
 
 # EMSO
 # python3.7, install on a different environment
