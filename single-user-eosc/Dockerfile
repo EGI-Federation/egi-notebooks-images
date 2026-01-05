@@ -66,7 +66,9 @@ RUN pip install --no-cache-dir \
         h5glance \
         nbtop \
         panel \
-        tensorflow
+        tensorflow \
+        # File Sync & Sharing health status extension
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/owncloud-mount-health-extension
 
 # EOSC customisation
 # TODO: trigger image build on changes to these files
