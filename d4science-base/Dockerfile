@@ -61,7 +61,6 @@ RUN julia -e 'import Pkg; Pkg.update()' && \
     julia -e 'import Pkg; Pkg.add("HDF5")' && \
     julia -e 'using Pkg; pkg"add IJulia"; pkg"precompile"' && \
     julia --eval 'using Pkg; Pkg.pin("IJulia")' && \
-    julia --eval "using Pkg; Pkg.update()" && \
     julia --eval 'using Pkg; Pkg.add(["Images","VideoIO"])' && \
     julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' && \
     julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.9")' && \
