@@ -16,16 +16,16 @@ RUN apt-get -qq update \
 
 USER $NB_UID
 
-RUN conda create --quiet --yes -n java8 \
-    && mamba install -n java8 --yes openjdk=8 \
-    && conda clean -tipy
+#RUN conda create --quiet --yes -n java8 \
+#    && mamba install -n java8 --yes openjdk=8 \
+#    && conda clean -tipy
 
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
 
 # Installing torch explictly to have only CPU version
-RUN pip install --index-url https://download.pytorch.org/whl/cpu \
-	torch torchvision torchaudio
+#RUN pip install --index-url https://download.pytorch.org/whl/cpu \
+#	torch torchvision torchaudio
 
 
 # cdlib[C]==0.2.3 is too old for this env, so unpinning
@@ -60,22 +60,13 @@ RUN pip install --no-cache-dir \
         GDAL==$(gdal-config --version) \
         copernicusmarine
 
-# Julia Updates and packages installations
-# See https://support.d4science.org/issues/22065
-RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
-    && julia --eval "using Pkg; Pkg.update()" \
-    && julia --eval 'using Pkg; Pkg.add(["Images","VideoIO"])' \
-    && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
-    && julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.9")' \
-    && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])' \
-    && julia --eval 'using Pkg; Pkg.add(url="https://github.com/Alexander-Barth/CoastalCurrents.jl")' \
-    && julia --eval 'using Pkg; Pkg.add("PhysOcean")'
 
 # -------------------------------
 # JupyterLab extensions
 # -------------------------------
 RUN pip install --no-cache-dir \
     jupyterlab-topbar \
-    jupyterlab-system-monitor
-RUN jupyter labextension disable @jupyterlab/filebrowser-extension:share-file
-RUN jupyter lab build
+    jupyterlab-system-monitor \
+    && jupyter labextension disable @jupyterlab/filebrowser-extension:share-file \
+    && jupyter lab build \
+    && jupyter lab clean
