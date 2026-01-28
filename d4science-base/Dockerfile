@@ -60,11 +60,18 @@ USER $NB_UID
 RUN julia -e 'import Pkg; Pkg.update()' && \
     julia -e 'import Pkg; Pkg.add("HDF5")' && \
     julia -e 'using Pkg; pkg"add IJulia"; pkg"precompile"' && \
+    julia --eval 'using Pkg; Pkg.pin("IJulia")' && \
     # move kernelspec out of home \
     mv "${HOME}/.local/share/jupyter/kernels/julia"* "${CONDA_DIR}/share/jupyter/kernels/" && \
     chmod -R go+rx "${CONDA_DIR}/share/jupyter" && \
     rm -rf "${HOME}/.local" && \
-    fix-permissions "${JULIA_PKGDIR}" "${CONDA_DIR}/share/jupyter"
+    fix-permissions "${JULIA_PKGDIR}" "${CONDA_DIR}/share/jupyter" && \
+    julia --eval 'using Pkg; Pkg.add(["Images","VideoIO"])' && \
+    julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' && \
+    julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.9")' && \
+    julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])' && \
+    julia --eval 'using Pkg; Pkg.add(url="https://github.com/Alexander-Barth/CoastalCurrents.jl")' && \
+    julia --eval 'using Pkg; Pkg.add("PhysOcean")'
 
 # end Julia Setup
 # -----------------------------------------------------------------------------
@@ -89,8 +96,6 @@ RUN mamba install --channel conda-forge -y -q \
         netcdf4 \
         aiohttp \
         graph-tool \
-        scikit-learn \
-        scikit-mobility \
         dask-jobqueue \
         fs \
         rasterio \
