@@ -11,7 +11,6 @@ RUN mamba install -y --quiet \
 	psycopg2 \
 	boto3 \
 	folium \
-	tensorflow \
 	tqdm \
 	lxml \
 	pymongo \
@@ -25,11 +24,8 @@ RUN mamba install -y --quiet \
 	graphviz \
 	jq \
 	nb_conda_kernels \
-        # RTC extension, must be disabled
-        # before Lab starts to work without RTC
-        jupyter-collaboration=3.0.0 \
         # resource usage info in GUI
-        jupyter-resource-usage=1.1.0 \
+        jupyter-resource-usage=1.2.0 \
     && conda clean --all
 
 # Octave, install on a different environment
@@ -52,9 +48,9 @@ RUN mamba install -y --quiet octave_kernel=0.32.0 \
 USER root
 RUN apt-get update \
     && apt-get install -y gdebi-core \
-    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.2-576-amd64.deb \
-    && gdebi -n rstudio-server-2022.07.2-576-amd64.deb \
-    && rm rstudio-server-2022.07.2-576-amd64.deb \
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2025.09.2-418-amd64.deb  \
+    && gdebi -n rstudio-server-2025.09.2-418-amd64.deb  \
+    && rm rstudio-server-2025.09.2-418-amd64.deb  \
     && apt-get remove -y gdebi \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -65,21 +61,14 @@ RUN mamba install -y --quiet \
        -c conda-forge jupyter-rsession-proxy \
     && conda clean --all
 
-# packages not in conda
+# packages not in conda or not their newest version
 RUN pip install --no-cache-dir \
         h5glance \
         nbtop \
         panel \
-        #User sharing extension, requires Jupyterhub 5,
-        #enabled sharing API and granted permission to 
-        #oauth token to be able to share an access to a server
-        #https://jupyterhub.readthedocs.io/en/stable/tutorial/sharing.html
-        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
-
-#This needs to be run because for some reason, Jupyter server
-#does not list server extension without this command, even
-#though config for auto-enable is present in the extension
-RUN jupyter server extension enable user_sharing_extension
+        tensorflow \
+        # File Sync & Sharing health status extension
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/owncloud-mount-health-extension
 
 # EOSC customisation
 # TODO: trigger image build on changes to these files
@@ -95,3 +84,17 @@ RUN set -x \
 RUN jupyter lab build
 
 RUN rmdir work
+
+# brew
+USER root
+RUN useradd -m -s /bin/bash linuxbrew
+USER linuxbrew
+RUN /bin/bash -c "HOME=/home/linuxbrew $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+USER root
+RUN chmod 777 /home/linuxbrew && chown -R "$NB_UID" /home/linuxbrew/.linuxbrew
+
+USER $NB_UID
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+
+# Turn off brew analytics
+RUN brew analytics off

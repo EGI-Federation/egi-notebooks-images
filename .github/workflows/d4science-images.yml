@@ -8,7 +8,6 @@ on:
       - master
   pull_request:
 
-
 jobs:
   detect-changes:
     uses: ./.github/workflows/build-list.yml
@@ -23,17 +22,21 @@ jobs:
         "single-user-sobigdata-lipari23/Dockerfile"
         "single-user-sobigdata-aaai24/Dockerfile"
         "single-user-criticalzone/Dockerfile"
-        "single-user-ecologicalrestorationlab/Dockerfile"
+        "single-user-ecologicalrestorationlab/intertidal-mapper-notebook/Dockerfile"
+        "single-user-ecologicalrestorationlab/image-classification-demonstrator/Dockerfile"
+        "single-user-ecologicalrestorationlab/seagrass-meadow-restoration-demonstration-case/Dockerfile"
+        "single-user-ecologicalrestorationlab/svalbard-erosion-demonstration-case/Dockerfile"
+        "single-user-ecologicalrestorationlab/flatoyster-case/Dockerfile"
         "single-user-pluto-d4science/Dockerfile"
         "single-user-sobigdata-itineris-evs/Dockerfile"
         "single-user-sobigdata-itinerisclima/Dockerfile"
         "single-user-d4science-jericocore/Dockerfile"
-        "single-user-d4science-dkrzwps/Dockerfile"
-
+        "single-user-dkrz-wps/Dockerfile"
+        "single-user-pytorch-notebook-gpu-sm70/Dockerfile"
 
   base-image:
     name: Build base image
-    needs: detect-changes 
+    needs: detect-changes
     if: needs.detect-changes.outputs.build-base == 1
     runs-on: ubuntu-latest
     outputs:
@@ -45,7 +48,7 @@ jobs:
           sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Docker meta
         id: docker_meta_base
         uses: docker/metadata-action@v5
@@ -65,7 +68,7 @@ jobs:
           labels: ${{ steps.docker_meta_base.outputs.labels }}
           outputs: type=docker,dest=/tmp/base.tar
       - name: Upload docker image as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: images
           path: /tmp/base.tar
@@ -86,18 +89,22 @@ jobs:
           sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+      - name: Set the image name "/"
+        id: image-name
+        run: |
+          echo "IMAGE=$(echo "${{ matrix.image }}" | tr "/" "-")" >> "$GITHUB_OUTPUT"
       - name: Docker meta
         id: docker_meta
         uses: docker/metadata-action@v5
         with:
-          images: eginotebooks/${{ matrix.image }}
+          images: eginotebooks/${{ steps.image-name.outputs.IMAGE}}
           tags: |
             type=sha
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Get previous build base
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: images
           path: /tmp
@@ -120,12 +127,12 @@ jobs:
           docker build \
             --build-arg BASE_IMAGE=${{ needs.base-image.outputs.base }} \
             --tag ${{ steps.docker_meta.outputs.tags }} \
-            --tag eginotebooks/${{ matrix.image }}:latest \
+            --tag eginotebooks/${{ steps.image-name.outputs.IMAGE }}:latest \
             ${{ matrix.image }}
       - name: Push full image
         run: |
           docker push ${{ steps.docker_meta.outputs.tags }}
-          docker push eginotebooks/${{ matrix.image }}:latest
+          docker push eginotebooks/${{ steps.image-name.outputs.IMAGE }}:latest
         if: ${{ github.event_name != 'pull_request' }}
       - uses: addnab/docker-run-action@v3
         with:
@@ -136,6 +143,13 @@ jobs:
               if [ -e "$f" ]; then
                 jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst \
                        --execute --stdout $f || exit 1
+              else
+                true
+              fi
+            done
+            for f in /image-data/tests/*.sh; do
+              if [ -e "$f" ]; then
+                bash $f || exit 1
               else
                 true
               fi

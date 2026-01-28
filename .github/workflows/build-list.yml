@@ -22,22 +22,29 @@ jobs:
   detect-changes:
     runs-on: ubuntu-latest
     outputs:
-      # see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#example-using-contexts-to-create-matrices 
+      # see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#example-using-contexts-to-create-matrices
       matrix: ${{ steps.build.outputs.matrix }}
       build-base: ${{ steps.build.outputs.build-base}}
     steps:
       - name: Get source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - name: Change list
-        id: change-list
-        uses: tj-actions/changed-files@v45
-      - name: Check what needs to be built 
+      - name: Check what needs to be built
         id: build
         run: |
           set -x
-          read -r -a changes <<< "${{ steps.change-list.outputs.all_changed_files }}"
+          changes=()
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            REF="${{ github.event.before }}"
+          else
+            REF="${{ github.event.pull_request.base.sha }}"
+          fi
+          for f in $(git diff --name-only "$REF")
+          do
+            [ -e "$f" ] || continue
+            changes+=("$f")
+          done
           base="${{ inputs.base }}"
           images=(${{ inputs.images }})
           build_base=0

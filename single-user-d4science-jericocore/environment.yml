@@ -148,6 +148,7 @@ dependencies:
   - xstac
   - zarr
   - jupyter-book
+  - jupyterhub
   - ghp-import
   - jsonschema-with-format-nongpl
   - webcolors
