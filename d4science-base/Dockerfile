@@ -58,6 +58,11 @@ USER $NB_UID
 # to the system share location. Avoids problems with runtime UID change not
 # taking effect properly on the .local folder in the jovyan home dir.
 RUN julia -e 'import Pkg; Pkg.update()' && \
+    # move kernelspec out of home \
+    mv "${HOME}/.local/share/jupyter/kernels/julia"* "${CONDA_DIR}/share/jupyter/kernels/" && \
+    chmod -R go+rx "${CONDA_DIR}/share/jupyter" && \
+    rm -rf "${HOME}/.local" && \
+    fix-permissions "${JULIA_PKGDIR}" "${CONDA_DIR}/share/jupyter" && \
     julia -e 'import Pkg; Pkg.add("HDF5")' && \
     julia -e 'using Pkg; pkg"add IJulia"; pkg"precompile"' && \
     julia --eval 'using Pkg; Pkg.pin("IJulia")' && \
@@ -67,11 +72,6 @@ RUN julia -e 'import Pkg; Pkg.update()' && \
     julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])' && \
     julia --eval 'using Pkg; Pkg.add(url="https://github.com/Alexander-Barth/CoastalCurrents.jl")' && \
     julia --eval 'using Pkg; Pkg.add("PhysOcean")' \
-    # move kernelspec out of home \
-    mv "${HOME}/.local/share/jupyter/kernels/julia"* "${CONDA_DIR}/share/jupyter/kernels/" && \
-    chmod -R go+rx "${CONDA_DIR}/share/jupyter" && \
-    rm -rf "${HOME}/.local" && \
-    fix-permissions "${JULIA_PKGDIR}" "${CONDA_DIR}/share/jupyter"
 
 # end Julia Setup
 # -----------------------------------------------------------------------------
