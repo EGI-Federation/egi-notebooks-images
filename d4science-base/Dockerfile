@@ -67,8 +67,8 @@ RUN julia -e 'import Pkg; Pkg.update()' && \
     rm -rf "${HOME}/.local" && \
     fix-permissions "${JULIA_PKGDIR}" "${CONDA_DIR}/share/jupyter" && \
     julia --eval 'using Pkg; Pkg.add(["Images","VideoIO"])' && \
-    julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' && \
-    julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.9")' && \
+    julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-uliege/OceanPlot.jl",rev="master")'
+    julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.14")' && \
     julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])' && \
     julia --eval 'using Pkg; Pkg.add(url="https://github.com/Alexander-Barth/CoastalCurrents.jl")' && \
     julia --eval 'using Pkg; Pkg.add("PhysOcean")'
