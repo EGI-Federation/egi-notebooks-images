@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v6
       - name: Docker meta
         id: docker_meta_base
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ github.repository_owner }}/notebooks-d4science-base
           tags: |
@@ -96,7 +96,7 @@ jobs:
           echo "IMAGE=$(echo "${{ matrix.image }}" | tr "/" "-")" >> "$GITHUB_OUTPUT"
       - name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: eginotebooks/${{ steps.image-name.outputs.IMAGE}}
           tags: |
