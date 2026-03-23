@@ -67,9 +67,9 @@ RUN pip install --no-cache-dir \
         nbtop \
         panel \
         tensorflow \
+        sisl \
         # File Sync & Sharing health status extension
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/owncloud-mount-health-extension \
-        sisl \
         git+https://github.com/dipc-cc/hubbard.git
 
 # EOSC customisation
