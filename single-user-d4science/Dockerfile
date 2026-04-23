@@ -43,8 +43,8 @@ RUN pip install --no-cache-dir \
         cython \
         node_conformity \
         git+https://github.com/obidam/pyxpcm.git \
-        git+https://github.com/geopython/OWSLib.git \
-        git+https://github.com/euroargodev/argopy.git@master \
+        OWSLib==0.29.3 \
+        'argopy<1.3' \
         git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
         fast-forward-indexes \
         NEMtropy \
@@ -68,6 +68,7 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
     && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-ulg/DIVAndNN.jl")' \
     && julia --eval 'using Pkg; Pkg.add(name="DIVAnd", version="2.7.9")' \
     && julia --eval 'using Pkg; Pkg.add(["JSON", "PyCall", "PyPlot", "Glob", "DataStructures", "NCDatasets"])' \
+    && julia --eval 'using Pkg; Pkg.add(url="https://github.com/gher-uliege/OceanPlot.jl", rev="master")' \
     && julia --eval 'using Pkg; Pkg.add(url="https://github.com/Alexander-Barth/CoastalCurrents.jl")' \
     && julia --eval 'using Pkg; Pkg.add("PhysOcean")' \
     && julia --eval 'using Pkg; \
@@ -78,7 +79,7 @@ RUN julia --eval 'using Pkg; Pkg.pin("IJulia")' \
     && cd /tmp \
     && git clone https://github.com/Alexander-Barth/CoastalCurrents.jl \
     && cd CoastalCurrents.jl \
-    && julia --project=. --eval "using Pkg; Pkg.instantiate()"
+    && julia --project=. -e "using Pkg; Pkg.instantiate()"
 
 # -------------------------------
 # JupyterLab extensions
