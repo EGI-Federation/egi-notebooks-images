@@ -65,7 +65,6 @@ RUN pip install --no-cache-dir \
 	papermill \
 	tensorflow \
 	jupyter-tensorboard-proxy \
-	mlflow-server-proxy \
 	protobuf
 	# torch==1.12.1+cu113 \
 	# torchvision==0.13.1+cu113 \
