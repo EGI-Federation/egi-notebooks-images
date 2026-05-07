@@ -49,16 +49,18 @@ USER $NB_UID
 RUN mamba install -y --quiet octave_kernel=0.32.0 \
     && conda clean --all
 
+# FIXME: uncomment when unproper redirection is solved
+#        (Hub 5.4.6 is problematic)
 # Rstudio
-USER root
-RUN apt-get update \
-    && apt-get install -y gdebi-core \
-    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2025.09.2-418-amd64.deb  \
-    && gdebi -n rstudio-server-2025.09.2-418-amd64.deb  \
-    && rm rstudio-server-2025.09.2-418-amd64.deb  \
-    && apt-get remove -y gdebi \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# USER root
+# RUN apt-get update \
+#     && apt-get install -y gdebi-core \
+#     && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2025.09.2-418-amd64.deb  \
+#     && gdebi -n rstudio-server-2025.09.2-418-amd64.deb  \
+#     && rm rstudio-server-2025.09.2-418-amd64.deb  \
+#     && apt-get remove -y gdebi \
+#     && apt-get clean \
+#     && rm -rf /var/lib/apt/lists/*
 
 USER $NB_UID
 
