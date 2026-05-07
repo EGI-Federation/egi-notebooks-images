@@ -59,9 +59,11 @@ RUN mamba install -y --quiet octave_kernel=0.32.0 \
 
 USER $NB_UID
 
-RUN mamba install -y --quiet \
-       -c conda-forge jupyter-rsession-proxy \
-    && conda clean --all
+#FIXME: uncomment when rstudio issue is fixed
+#       (Jupyterhub 5.4.6 is the problematic version)
+# RUN mamba install -y --quiet \
+#        -c conda-forge jupyter-rsession-proxy \
+#     && conda clean --all
 
 # packages not in conda or not their newest version
 RUN pip install --no-cache-dir \
