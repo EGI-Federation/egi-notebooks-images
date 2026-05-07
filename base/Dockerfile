@@ -8,6 +8,10 @@
 # ubuntu-24.04.4
 FROM quay.io/jupyter/datascience-notebook:bc0e14e1b5a4
 
+#FIXME: remove this line when datascience-notebook
+#       with jupyterhub==5.4.6 is available 
+RUN pip install --no-cache-dir jupyterhub==5.4.6
+
 USER root
 
 RUN apt-get update \
