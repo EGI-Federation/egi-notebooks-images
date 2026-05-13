@@ -57,6 +57,10 @@ RUN apt-get update \
 
 USER $NB_UID
 
+# adds system-wide setting for rstudio to use wget instead libcurl
+RUN echo 'options(download.file.method = "wget")' >> /opt/conda/lib/R/etc/Rprofile.site
+
+
 # jupyter-rsession-proxy=2.5.0 breaks rstudio
 # option by invalid redirects
 RUN mamba install -y --quiet \
