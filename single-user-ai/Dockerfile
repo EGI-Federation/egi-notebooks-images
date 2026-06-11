@@ -15,6 +15,7 @@ RUN mamba install -y --quiet \
 RUN mamba install -y pytorch torchvision torchaudio cpuonly -c pytorch -c anaconda -c conda-forge \
     && mamba install -y -q fastai -c fastai \
     && mamba install -y -q jupyter-resource-usage=1.2.0 \
+    && mamba install -y -q jupyter-collaboration \
     && conda clean --all
 
 # packages not in conda or their latest versions
@@ -23,7 +24,9 @@ RUN pip install --no-cache-dir \
         eo-learn \
         tensorflow \
         elyra \
-        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer
+        # share-manager extensions
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer \
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
 
 RUN jupyter lab build
 
