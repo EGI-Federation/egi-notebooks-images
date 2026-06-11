@@ -30,6 +30,8 @@ RUN mamba install -y -q \
         qiskit-machine-learning \
         # resource usage info in GUI
         jupyter-resource-usage \
+        # RTC
+        jupyter-collaboration \
     && conda clean --all
  
 
@@ -86,7 +88,9 @@ RUN pip install --no-cache-dir \
         nbtop \
         panel \
         tensorflow \
-        git+https://gitlab.cesnet.cz/702/projekty/notebooks-customizations/jupyterlab-token-acquirer \
+        # share-manager extensions
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer \
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension \
         # quantum SDKs
         dwave-ocean-sdk \
         pennylane
