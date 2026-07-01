@@ -93,7 +93,9 @@ RUN pip install --no-cache-dir \
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension \
         # quantum SDKs
         dwave-ocean-sdk \
-        pennylane
+        pennylane \
+        # Apricotlab
+        git+https://github.com/grycap/apricotlab.git@main
 
 # EMSO
 # python3.7, install on a different environment
