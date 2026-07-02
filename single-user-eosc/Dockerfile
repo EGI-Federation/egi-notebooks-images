@@ -26,6 +26,8 @@ RUN mamba install -y --quiet \
 	nb_conda_kernels \
         # resource usage info in GUI
         jupyter-resource-usage=1.2.0 \
+        # RTC extension
+        jupyter-collaboration \
     && conda clean --all
 
 # Octave, install on a different environment
@@ -74,6 +76,9 @@ RUN pip install --no-cache-dir \
         panel \
         tensorflow \
         sisl[viz] \
+        # share-manager extensions
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer \
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension \
         # File Sync & Sharing health status extension
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/owncloud-mount-health-extension \
         git+https://github.com/dipc-cc/hubbard.git
