@@ -77,8 +77,8 @@ RUN pip install --no-cache-dir \
         tensorflow \
         sisl[viz] \
         # share-manager extensions
-        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension \
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer \
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension \
         # File Sync & Sharing health status extension
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/owncloud-mount-health-extension \
         git+https://github.com/dipc-cc/hubbard.git
