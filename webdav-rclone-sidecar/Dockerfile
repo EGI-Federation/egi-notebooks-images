@@ -22,6 +22,6 @@ RUN rclone config touch
 USER ''
 
 COPY mount.sh /usr/local/bin/
-COPY token-getter.sh /user/local/bin
+COPY token-getter.sh /usr/local/bin
 
 ENTRYPOINT [ "tini", "-g", "--", "mount.sh" ]
