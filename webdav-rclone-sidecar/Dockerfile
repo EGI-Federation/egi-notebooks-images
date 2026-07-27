@@ -6,11 +6,11 @@ ENV WEBDAV_VENDOR=other
 ENV JOVYAN_UID=1000
 ENV JOVYAN_GRP=100
 
-RUN apk --no-cache add bash ca-certificates fuse3 rclone tini \
+RUN apk --no-cache add bash ca-certificates fuse3 rclone tini curl jq \
  && rclone config touch
 
-#rclone version 1.71.2
-RUN rclone selfupdate --stable --version v1.71.2
+#rclone version 1.74.4
+RUN rclone selfupdate --stable --version v1.74.4
 
 # to support unprivileged mounts
 RUN sed -ie 's/#\s*\(user_allow_other\)/\1/' /etc/fuse.conf
@@ -22,5 +22,6 @@ RUN rclone config touch
 USER ''
 
 COPY mount.sh /usr/local/bin/
+COPY token-getter.sh /usr/local/bin
 
 ENTRYPOINT [ "tini", "-g", "--", "mount.sh" ]
