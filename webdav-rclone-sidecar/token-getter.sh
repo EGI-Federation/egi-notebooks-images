@@ -1,4 +1,6 @@
 #!/bin/bash
 set -e
 
-curl -s -q "$SHARE_MANAGER_URL/token/$JUPYTERHUB_USER" -H "Authorization: bearer $SHARE_MANAGER_TOKEN" | jq -r '.access_token'
+TOKEN_URL="$(echo -n $SHARE_MANAGER_URL | sed 's/\/\+$//')/token/${JUPYTERHUB_USER}"
+curl -s -q "$TOKEN_URL" -H "Authorization: bearer $SHARE_MANAGER_TOKEN" \
+	| jq -r '.access_token'
