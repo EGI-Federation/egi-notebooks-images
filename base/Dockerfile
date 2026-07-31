@@ -1,12 +1,12 @@
-# 2026-06-23
+# 2026-08-28
 # hub-5.5.0
 # julia-1.12.6
-# lab-4.6.0
-# notebook-7.6.0
+# lab-4.6.2
+# notebook-7.6.1
 # python-3.13.14
 # r-4.5.3
 # ubuntu-24.04.4
-FROM quay.io/jupyter/datascience-notebook:91aceb0b50cd
+FROM quay.io/jupyter/datascience-notebook:c49624e35d4f
 
 USER root
 
