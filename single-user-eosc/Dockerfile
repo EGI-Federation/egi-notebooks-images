@@ -27,7 +27,7 @@ RUN mamba install -y --quiet \
         # resource usage info in GUI
         jupyter-resource-usage=1.2.0 \
         # RTC extension
-        jupyter-collaboration \
+        #jupyter-collaboration \
     && conda clean --all
 
 # Octave, install on a different environment
