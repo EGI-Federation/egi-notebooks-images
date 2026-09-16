@@ -101,6 +101,11 @@ RUN pip install --no-cache-dir \
         # Apricotlab
         git+https://github.com/grycap/apricotlab.git@main
 
+
+COPY conda-switcher-pip-blacklist.txt /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt \
+
+RUN chmod 644 /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt \
+
 # EMSO
 # python3.7, install on a different environment
 RUN mamba create --name python3.7 -y --quiet -c conda-forge ipython python=3.7 ipykernel libsndfile \

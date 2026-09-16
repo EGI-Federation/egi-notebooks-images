@@ -32,6 +32,13 @@ RUN pip install --no-cache-dir \
         # conda-switcher extension
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/conda-switcher
 
+# This is a potential future feature initialization for conda-switcher
+# to ignore specified packages when managing environments
+#
+# XXX: Requires CONDA_SWITCHER_BLACKLIST=1 for activation 
+# COPY conda-switcher-pip-blacklist.txt /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt
+# RUN chmod 644 /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt
+
 RUN jupyter lab build
 
 RUN rmdir work
