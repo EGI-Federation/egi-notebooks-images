@@ -32,6 +32,8 @@ RUN mamba install -y -q \
         jupyter-resource-usage \
         # RTC
         jupyter-collaboration \
+        # conda-switcher required dependency
+        conda-pack \
     && conda clean --all
  
 
@@ -91,11 +93,21 @@ RUN pip install --no-cache-dir \
         # share-manager extensions
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer \
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension \
+        # conda-switcher extension
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/conda-switcher \
         # quantum SDKs
         dwave-ocean-sdk \
         pennylane \
         # Apricotlab
         git+https://github.com/grycap/apricotlab.git@main
+
+
+# This is a potential future feature initialization for conda-switcher
+# to ignore specified packages when managing environments
+#
+# XXX: Requires CONDA_SWITCHER_BLACKLIST=1 for activation 
+# COPY conda-switcher-pip-blacklist.txt /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt
+# RUN chmod 644 ${CONDA_PREFIX}/etc/jupyter/conda-switcher-pip-blacklist.txt
 
 # EMSO
 # python3.7, install on a different environment
