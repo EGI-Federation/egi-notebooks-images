@@ -37,7 +37,7 @@ RUN pip install --no-cache-dir \
 #
 # XXX: Requires CONDA_SWITCHER_BLACKLIST=1 for activation 
 # COPY conda-switcher-pip-blacklist.txt /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt
-# RUN chmod 644 /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt
+# RUN chmod 644 ${CONDA_PREFIX}/etc/jupyter/conda-switcher-pip-blacklist.txt
 
 RUN jupyter lab build
 

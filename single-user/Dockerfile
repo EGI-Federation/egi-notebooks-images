@@ -102,9 +102,12 @@ RUN pip install --no-cache-dir \
         git+https://github.com/grycap/apricotlab.git@main
 
 
-COPY conda-switcher-pip-blacklist.txt /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt \
-
-RUN chmod 644 /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt \
+# This is a potential future feature initialization for conda-switcher
+# to ignore specified packages when managing environments
+#
+# XXX: Requires CONDA_SWITCHER_BLACKLIST=1 for activation 
+# COPY conda-switcher-pip-blacklist.txt /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt
+# RUN chmod 644 ${CONDA_PREFIX}/etc/jupyter/conda-switcher-pip-blacklist.txt
 
 # EMSO
 # python3.7, install on a different environment
