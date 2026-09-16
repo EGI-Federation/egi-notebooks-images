@@ -28,6 +28,8 @@ RUN mamba install -y --quiet \
         jupyter-resource-usage=1.2.0 \
         # RTC extension
         jupyter-collaboration \
+        # conda-switcher required dependency
+        conda-pack \
     && conda clean --all
 
 # Octave, install on a different environment
@@ -79,6 +81,8 @@ RUN pip install --no-cache-dir \
         # share-manager extensions
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension \
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer \
+        # conda-switcher extension
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/conda-switcher \
         # File Sync & Sharing health status extension
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/owncloud-mount-health-extension \
         git+https://github.com/dipc-cc/hubbard.git
