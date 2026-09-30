@@ -3,7 +3,8 @@
 FROM quay.io/jupyter/datascience-notebook@sha256:4f2234a0fe4e113e4639cd179ba18981ea2476e41f309a22855f1357c7743429
 
 # Builds image as requested in https://support.d4science.org/issues/32070
-RUN Rscript -e 'remotes::install_version("rfishbase", version = "3.1.10", repos = Sys.getenv("CRAN", unset = "https://cloud.r-project.org"), upgrade = "never")' && \
+RUN Rscript -e 'install.packages("remotes")' && \
+    Rscript -e 'remotes::install_version("rfishbase", version = "3.1.10", repos = Sys.getenv("CRAN", unset = "https://cloud.r-project.org"), upgrade = "never")' && \
     Rscript -e 'stopifnot(packageVersion("rfishbase") == "3.1.10"); cat("rfishbase pinned to", as.character(packageVersion("rfishbase")), "\n")' && \
     rm -rf /tmp/downloaded_packages/*
 
