@@ -33,6 +33,7 @@ jobs:
         "single-user-d4science-jericocore/Dockerfile"
         "single-user-dkrz-wps/Dockerfile"
         "single-user-pytorch-notebook-gpu-sm70/Dockerfile"
+        "single-user-d4science-sofia-taf/Dockerfile"
 
   base-image:
     name: Build base image
