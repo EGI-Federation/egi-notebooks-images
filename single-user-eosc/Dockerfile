@@ -85,6 +85,8 @@ RUN pip install --no-cache-dir \
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/conda-switcher \
         # File Sync & Sharing health status extension
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/owncloud-mount-health-extension \
+        # EOSC Styling extension
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/eosc-styling \
         git+https://github.com/dipc-cc/hubbard.git
 
 # EOSC customisation
