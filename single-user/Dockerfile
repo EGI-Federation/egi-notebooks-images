@@ -99,7 +99,7 @@ RUN pip install --no-cache-dir \
         dwave-ocean-sdk \
         pennylane \
         # Apricotlab
-        git+https://github.com/grycap/apricotlab.git@main
+        git+https://github.com/grycap/apricotlab.git@v1.3.1
 
 
 # This is a potential future feature initialization for conda-switcher
