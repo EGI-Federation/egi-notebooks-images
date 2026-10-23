@@ -29,8 +29,8 @@ RUN mamba install -y --quiet \
         # RTC extension
         jupyter-collaboration \
         # conda-switcher required dependency
-        conda-pack \
         'patchelf>=0.19' \
+        conda-pack \
     && conda clean --all
 
 # Octave, install on a different environment

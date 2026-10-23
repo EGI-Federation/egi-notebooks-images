@@ -33,8 +33,8 @@ RUN mamba install -y -q \
         # RTC
         jupyter-collaboration \
         # conda-switcher required dependency
-        conda-pack \
         'patchelf>=0.19' \
+        conda-pack \
     && conda clean --all
  
 
