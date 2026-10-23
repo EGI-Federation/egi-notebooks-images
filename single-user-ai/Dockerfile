@@ -18,6 +18,7 @@ RUN mamba install -y pytorch torchvision torchaudio cpuonly -c pytorch -c anacon
     jupyter-collaboration \
     # conda-switcher required dependency
     conda-pack \
+    'patchelf>=0.19' \
     && conda clean --all
 
 # packages not in conda or their latest versions
