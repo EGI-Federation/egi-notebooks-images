@@ -30,6 +30,7 @@ RUN mamba install -y --quiet \
         jupyter-collaboration \
         # conda-switcher required dependency
         conda-pack \
+        'patchelf>=0.19' \
     && conda clean --all
 
 # Octave, install on a different environment
