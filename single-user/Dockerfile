@@ -28,6 +28,8 @@ RUN mamba install -y -q \
         amazon-braket-sdk \
         qiskit \
         qiskit-machine-learning \
+        # for circuit drawing in qiskit
+        pylatexenc \
         # resource usage info in GUI
         jupyter-resource-usage \
         # RTC
