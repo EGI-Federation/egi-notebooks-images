@@ -28,7 +28,7 @@ RUN mamba install -y --quiet \
         jupyter-resource-usage=1.2.0 \
         # RTC extension
         jupyter-collaboration \
-        # conda-switcher required dependency
+        # conda-switcher required dependencies
         'patchelf>=0.19' \
         conda-pack \
     && conda clean --all
