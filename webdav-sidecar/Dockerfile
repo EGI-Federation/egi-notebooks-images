@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.24
 
 ENV MOUNT_PATH=/mnt
 ENV WEBDAV_URL=
