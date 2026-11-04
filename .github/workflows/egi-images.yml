@@ -68,14 +68,13 @@ jobs:
           target: single-user-ai
       - name: Run tests
         run: |
-          set -e
-          set -x
-          echo "this should do test the image"
+          set -xe
           for image in "single-user" "single-user-eosc"; do
-            for test in single-user/tests/$image/*.ipynb; do
+            for test in "single-user/tests/$image/*.ipynb"; do
+              echo "Testing $test with $image"
               docker run -v "${{ github.workspace }}/single-user/tests/$image:/single-user/tests/$image" \
                 "eginotebooks/$image:${{ steps.docker_meta.outputs.tags }}" \
-                   /bin/sh -c "jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst --execute --stdout  "/$test" || exit 1"
+                   /bin/sh -c "jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst --execute --stdout  /$test || exit 1"
             done
           done
         if: github.event_name == 'pull_request'

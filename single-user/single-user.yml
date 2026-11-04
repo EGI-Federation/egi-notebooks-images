@@ -6,5 +6,9 @@ dependencies:
   - "amazon-braket-sdk"
   - "qiskit"
   - "qiskit-machine-learning"
+  - "pennylane"
+  - "dwave-ocean-sdk"
   # for circuit drawing in qiskit
   - "pylatexenc"
+  - pip:
+      - git+https://github.com/grycap/apricotlab.git@v1.3.1

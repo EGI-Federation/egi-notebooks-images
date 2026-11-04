@@ -37,6 +37,13 @@ COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/setting
 # adds system-wide setting for rstudio to use wget instead libcurl
 RUN echo 'options(download.file.method = "wget")' >> /opt/conda/lib/R/etc/Rprofile.site
 
+# This is a potential future feature initialization for conda-switcher
+# to ignore specified packages when managing environments
+#
+# XXX: Requires CONDA_SWITCHER_BLACKLIST=1 for activation
+# COPY conda-switcher-pip-blacklist.txt /opt/conda/etc/jupyter/conda-switcher-pip-blacklist.txt
+# RUN chmod 644 ${CONDA_PREFIX}/etc/jupyter/conda-switcher-pip-blacklist.txt
+
 RUN rmdir work
 
 #
@@ -82,6 +89,8 @@ RUN mamba install -y -f /tmp/single-user.yml \
     && fix-permissions "/home/${NB_USER}" \
     && rm /tmp/single-user.yml
 
+RUN jupyter lab build
+
 #
 # SINGLE USER EOSC
 #
@@ -97,12 +106,11 @@ RUN mamba install -y -f /tmp/single-user-eosc.yml \
 
 # EOSC customisation
 # TODO: trigger image build on changes to these files
-COPY eosc /opt/conda/share/eosc
+COPY --chown=$NB_UID:$NB_GID eosc /opt/conda/share/eosc
 RUN mkdir -p /opt/conda/share/jupyter/lab/settings/ \
     && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
 RUN jupyter lab build
-
 
 # brew
 USER root
@@ -130,3 +138,5 @@ RUN mamba install -y -f /tmp/single-user-ai.yml \
     && fix-permissions "${CONDA_DIR}" \
     && fix-permissions "/home/${NB_USER}" \
     && rm /tmp/single-user-ai.yml
+
+RUN jupyter lab build

@@ -22,6 +22,9 @@ dependencies:
   - "jq"
   - "nb_conda_kernels"
   - "python-dateutil"
+  - "h5glance"
+  - "panel"
+  - "tensorflow"
   # resource usage info in GUI
   - "jupyter-resource-usage=1.2.0"
   # RTC
@@ -34,3 +37,11 @@ dependencies:
   - "jupyter-rsession-proxy>=2.5.1"
   # octave kernel
   - "octave_kernel=0.32.0"
+
+  - pip:
+      - nbtop
+      # share-manager extensions
+      - git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension
+      - git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer
+      # conda-switcher extension
+      - git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/conda-switcher
