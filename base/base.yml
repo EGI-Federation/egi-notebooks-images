@@ -1,0 +1,63 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - 'r-plotly'
+  - 'r-gdata'
+  - 'rdflib'
+  - 'prov'
+  - 'graphviz'
+  - 'pydot'
+  - 'lxml'
+  - 'geojson'
+  - 'pydap'
+  - 'xarray'
+  - 'cartopy'
+  - 'ipyleaflet'
+  - 'jupyter-server-proxy'
+  - 'jupyterlab_widgets'
+  - 'nodejs'
+  - 'cftime'
+  - 'ipympl'
+  - 'jmespath'
+  - 'psycopg2'
+  - 'boto3'
+  - 'folium'
+  - 'tqdm'
+  - 'lxml'
+  - 'pymongo'
+  - 'rasterstats'
+  - 'geopandas'
+  - 'ipywidgets'
+  - 'matplotlib'
+  - 'scipy'
+  - 'lightgbm'
+  - 'plotly'
+  - 'graphviz'
+  - 'jq'
+  - 'nb_conda_kernels'
+  - 'python-dateutil'
+  # quantum SDKs
+  - 'amazon-braket-sdk'
+  - 'qiskit'
+  - 'qiskit-machine-learning'
+  # for circuit drawing in qiskit
+  - 'pylatexenc'
+  # resource usage info in GUI
+  - 'jupyter-resource-usage=1.2.0'
+  - # RTC
+  - 'jupyter-collaboration'
+  # conda-switcher required dependencies
+  - 'patchelf>=0.19'
+  - 'conda-pack'
+  # these were before as separate pip installs
+  - 'shortid'
+  - 'nbgitpuller'
+  # v2.5.0 breaks RStudio
+  - 'jupyter-rsession-proxy>=2.5.1'
+  # octave kernel
+  - 'octave_kernel=0.32.0'
+
+  - pip:
+    - git+https://github.com/EGI-Federation/notebooks-resource-warning
+
