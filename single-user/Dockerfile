@@ -94,8 +94,8 @@ RUN pip install --no-cache-dir \
         panel \
         tensorflow \
         # share-manager extensions
-        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer \
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/user-sharing-extension \
+        git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/jupyterlab-token-acquirer \
         # conda-switcher extension
         git+https://gitlab.cesnet.cz/702/projekty/eosc-notebooks/conda-switcher \
         # quantum SDKs
