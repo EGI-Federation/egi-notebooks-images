@@ -16,6 +16,15 @@ RUN apt-get update \
         graphviz \
         vim \
         openssh-client \
+    # Octave
+    && apt-get install --install-recommends -y \
+        octave octave-signal gnuplot \
+    # RStudio
+    && apt-get install -y gdebi-core \
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2026.10.1-239-amd64.deb \
+    && gdebi -n rstudio-server-2026.10.1-239-amd64.deb \
+    && rm rstudio-server-2026.10.1-239-amd64.deb \
+    && apt-get remove -y gdebi \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -24,27 +33,14 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 
 USER $NB_UID
 
-RUN mamba install -y -q \
-        r-plotly \
-        r-gdata \
-        rdflib \
-        prov \
-        graphviz \
-        pydot \
-        lxml \
-        geojson \
-        pydap \
-        xarray \
-        cartopy \
-        ipyleaflet \
-        jupyter-server-proxy \
-        jupyterlab_widgets \
-        nodejs \
-    && conda clean --all
+COPY base.yml /tmp/base.yml
 
-RUN pip install --no-cache-dir \
-        shortid \
-        nbgitpuller \
-        git+https://github.com/EGI-Federation/notebooks-resource-warning
+RUN mamba install -y -f /tmp/base.yml \
+    && mamba clean --all -f -y \
+    && fix-permissions "${CONDA_DIR}" \
+    && fix-permissions "/home/${NB_USER}"
 
 COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/settings/
+
+# adds system-wide setting for rstudio to use wget instead libcurl
+RUN echo 'options(download.file.method = "wget")' >> /opt/conda/lib/R/etc/Rprofile.site
