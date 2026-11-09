@@ -1,0 +1,10 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  # quantum SDKs
+  - 'amazon-braket-sdk'
+  - 'qiskit'
+  - 'qiskit-machine-learning'
+  # for circuit drawing in qiskit
+  - 'pylatexenc'

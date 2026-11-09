@@ -6,7 +6,7 @@
 # python-3.13.17
 # r-4.5.3
 # ubuntu-26.04
-FROM quay.io/jupyter/datascience-notebook:4aa9f4159aaf
+FROM quay.io/jupyter/datascience-notebook:4aa9f4159aaf AS base
 
 USER root
 
@@ -44,3 +44,58 @@ COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/setting
 
 # adds system-wide setting for rstudio to use wget instead libcurl
 RUN echo 'options(download.file.method = "wget")' >> /opt/conda/lib/R/etc/Rprofile.site
+
+
+#
+# SINGLE USER EGI
+#
+FROM base AS single-user
+
+COPY single-user.yml /tmp/single-user.yml
+
+RUN mamba install -y -f /tmp/single-user.yml \
+    && mamba clean --all -f -y \
+    && fix-permissions "${CONDA_DIR}" \
+    && fix-permissions "/home/${NB_USER}"
+
+
+#
+# SINGLE USER EOSC
+#
+FROM base AS single-user-eosc
+
+COPY single-user-eosc.yml /tmp/single-user-eosc.yml
+
+RUN mamba install -y -f /tmp/single-user-eosc.yml \
+    && mamba clean --all -f -y \
+    && fix-permissions "${CONDA_DIR}" \
+    && fix-permissions "/home/${NB_USER}"
+
+# EOSC customisation
+# TODO: trigger image build on changes to these files
+COPY eosc /opt/conda/share/eosc
+RUN set -x \
+    && export PKG_PATH="$(python -c 'import jupyter_server; print(jupyter_server.__path__[0])')" \
+    && mkdir -p "$PKG_PATH/static/custom/logo" \
+    && ln -s /opt/conda/share/eosc/custom.css "$PKG_PATH/static/custom/" \
+    && ln -s /opt/conda/share/eosc/eosc-ntb-logo.svg "$PKG_PATH/static/custom/logo" \
+    && mkdir -p /opt/conda/share/jupyter/lab/settings/ \
+    && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
+
+RUN jupyter lab build
+
+RUN rmdir work
+
+# brew
+USER root
+RUN useradd -m -s /bin/bash linuxbrew
+USER linuxbrew
+RUN /bin/bash -c "HOME=/home/linuxbrew $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+USER root
+RUN chmod 777 /home/linuxbrew && chown -R "$NB_UID" /home/linuxbrew/.linuxbrew
+
+USER $NB_UID
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+
+# Turn off brew analytics
+RUN brew analytics off
