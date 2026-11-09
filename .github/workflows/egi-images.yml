@@ -51,8 +51,8 @@ jobs:
           load: ${{ github.event_name == 'pull_request' }}
           tags: ${{ steps.docker_meta_single_user.outputs.tags }}
           labels: ${{ steps.docker_meta_single_user.outputs.labels }}
-          context: single-user 
-          file: Dockerfile
+          context: . 
+          file: single-user/Dockerfile
           target: single-user
       - name: Build single-user_eosc
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc
@@ -61,8 +61,8 @@ jobs:
           load: ${{ github.event_name == 'pull_request' }}
           tags: ${{ steps.docker_meta_single_user_eosc.outputs.tags }}
           labels: ${{ steps.docker_meta_single_user_eosc.outputs.labels }}
-          context: single-user 
-          file: Dockerfile
+          context: . 
+          file: single-user/Dockerfile
           target: single-user-eosc
       - name: Run tests
         run: |
