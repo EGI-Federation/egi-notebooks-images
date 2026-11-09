@@ -88,12 +88,7 @@ RUN mamba install -y -f /tmp/single-user-eosc.yml \
 # EOSC customisation
 # TODO: trigger image build on changes to these files
 COPY eosc /opt/conda/share/eosc
-RUN set -x \
-    && export PKG_PATH="$(python -c 'import jupyter_server; print(jupyter_server.__path__[0])')" \
-    && mkdir -p "$PKG_PATH/static/custom/logo" \
-    && ln -s /opt/conda/share/eosc/custom.css "$PKG_PATH/static/custom/" \
-    && ln -s /opt/conda/share/eosc/eosc-ntb-logo.svg "$PKG_PATH/static/custom/logo" \
-    && mkdir -p /opt/conda/share/jupyter/lab/settings/ \
+RUN mkdir -p /opt/conda/share/jupyter/lab/settings/ \
     && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
 RUN jupyter lab build
