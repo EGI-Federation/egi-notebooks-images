@@ -9,20 +9,10 @@ on:
   pull_request:
 
 jobs:
-  detect-changes:
-    uses: ./.github/workflows/build-list.yml
-    with:
-      base: base/Dockerfile
-      images: |
-        "single-user/Dockerfile"
 
   user-images:
     name: Build and push images
     runs-on: ubuntu-latest
-    needs: [base-image, detect-changes]
-
-    strategy:
-      matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
 
     steps:
       - name: try to make free space
