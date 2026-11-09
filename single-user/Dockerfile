@@ -16,15 +16,6 @@ RUN apt-get update \
         graphviz \
         vim \
         openssh-client \
-    # Octave
-    && apt-get install --install-recommends -y \
-        octave octave-signal gnuplot \
-    # RStudio
-    && apt-get install -y gdebi-core \
-    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2026.10.1-239-amd64.deb \
-    && gdebi -n rstudio-server-2026.10.1-239-amd64.deb \
-    && rm rstudio-server-2026.10.1-239-amd64.deb \
-    && apt-get remove -y gdebi \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -45,11 +36,35 @@ COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/setting
 # adds system-wide setting for rstudio to use wget instead libcurl
 RUN echo 'options(download.file.method = "wget")' >> /opt/conda/lib/R/etc/Rprofile.site
 
+#
+# Octave and RStudio additions
+#
+FROM base AS full-base
+
+RUN apt-get update \
+    # Octave
+    && apt-get install --install-recommends -y \
+        octave octave-signal gnuplot \
+    # RStudio
+    && apt-get install -y gdebi-core \
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2026.10.1-239-amd64.deb \
+    && gdebi -n rstudio-server-2026.10.1-239-amd64.deb \
+    && rm rstudio-server-2026.10.1-239-amd64.deb \
+    && apt-get remove -y gdebi \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY full-base.yml /tmp/full-base.yml
+
+RUN mamba install -y -f /tmp/full-base.yml \
+    && mamba clean --all -f -y \
+    && fix-permissions "${CONDA_DIR}" \
+    && fix-permissions "/home/${NB_USER}"
 
 #
 # SINGLE USER EGI
 #
-FROM base AS single-user
+FROM full-base AS single-user
 
 COPY single-user.yml /tmp/single-user.yml
 
@@ -62,7 +77,7 @@ RUN mamba install -y -f /tmp/single-user.yml \
 #
 # SINGLE USER EOSC
 #
-FROM base AS single-user-eosc
+FROM full-base AS single-user-eosc
 
 COPY single-user-eosc.yml /tmp/single-user-eosc.yml
 
@@ -74,7 +89,12 @@ RUN mamba install -y -f /tmp/single-user-eosc.yml \
 # EOSC customisation
 # TODO: trigger image build on changes to these files
 COPY eosc /opt/conda/share/eosc
-RUN mkdir -p /opt/conda/share/jupyter/lab/settings/ \
+RUN set -x \
+    && export PKG_PATH="$(python -c 'import jupyter_server; print(jupyter_server.__path__[0])')" \
+    && mkdir -p "$PKG_PATH/static/custom/logo" \
+    && ln -s /opt/conda/share/eosc/custom.css "$PKG_PATH/static/custom/" \
+    && ln -s /opt/conda/share/eosc/eosc-ntb-logo.svg "$PKG_PATH/static/custom/logo" \
+    && mkdir -p /opt/conda/share/jupyter/lab/settings/ \
     && ln -sf /opt/conda/share/eosc/overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
 RUN jupyter lab build
