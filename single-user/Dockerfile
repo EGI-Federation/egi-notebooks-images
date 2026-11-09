@@ -73,7 +73,6 @@ RUN mamba install -y -f /tmp/single-user.yml \
     && fix-permissions "${CONDA_DIR}" \
     && fix-permissions "/home/${NB_USER}"
 
-
 #
 # SINGLE USER EOSC
 #
