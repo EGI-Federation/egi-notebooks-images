@@ -51,7 +51,7 @@ jobs:
           load: ${{ github.event_name == 'pull_request' }}
           tags: ${{ steps.docker_meta_single_user.outputs.tags }}
           labels: ${{ steps.docker_meta_single_user.outputs.labels }}
-          context: .
+          context: single-user 
           file: Dockerfile
           target: single-user
       - name: Build single-user_eosc
@@ -61,7 +61,7 @@ jobs:
           load: ${{ github.event_name == 'pull_request' }}
           tags: ${{ steps.docker_meta_single_user_eosc.outputs.tags }}
           labels: ${{ steps.docker_meta_single_user_eosc.outputs.labels }}
-          context: .
+          context: single-user 
           file: Dockerfile
           target: single-user-eosc
       - name: Run tests
