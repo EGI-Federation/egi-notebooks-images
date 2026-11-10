@@ -21,24 +21,11 @@ jobs:
           sudo rm -rf /opt/ghc
       - name: Checkout
         uses: actions/checkout@v7
-      - name: Docker meta
-        id: docker_meta_single_user
+      - name: Docker meta data 
+        id: docker_meta
         uses: docker/metadata-action@v6
         with:
-          images: eginotebooks/single-user
-          tags: |
-            type=sha
-      - name: Docker meta
-        id: docker_meta_single_user_eosc
-        uses: docker/metadata-action@v6
-        with:
-          images: eginotebooks/single-user-eosc
-          tags: |
-            type=sha
-        id: docker_meta_single_user_ai
-        uses: docker/metadata-action@v6
-        with:
-          images: eginotebooks/single-user-ai
+          images: ""
           tags: |
             type=sha
       - name: Set up QEMU
@@ -54,8 +41,8 @@ jobs:
         with:
           push: ${{ github.event_name != 'pull_request' }}
           load: ${{ github.event_name == 'pull_request' }}
-          tags: ${{ steps.docker_meta_single_user.outputs.tags }}
-          labels: ${{ steps.docker_meta_single_user.outputs.labels }}
+          tags: eginotebooks/single-user:${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
           context: single-user
           file: single-user/Dockerfile
           target: single-user
@@ -64,8 +51,8 @@ jobs:
         with:
           push: ${{ github.event_name != 'pull_request' }}
           load: ${{ github.event_name == 'pull_request' }}
-          tags: ${{ steps.docker_meta_single_user_eosc.outputs.tags }}
-          labels: ${{ steps.docker_meta_single_user_eosc.outputs.labels }}
+          tags: eginotebooks/single-user-eosc:${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
           context: single-user
           file: single-user/Dockerfile
           target: single-user-eosc
@@ -74,8 +61,8 @@ jobs:
         with:
           push: ${{ github.event_name != 'pull_request' }}
           load: ${{ github.event_name == 'pull_request' }}
-          tags: ${{ steps.docker_meta_single_user_ai.outputs.tags }}
-          labels: ${{ steps.docker_meta_single_user_ai.outputs.labels }}
+          tags: eginotebooks/single-user-eosc-ai:${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
           context: single-user
           file: single-user/Dockerfile
           target: single-user-ai
