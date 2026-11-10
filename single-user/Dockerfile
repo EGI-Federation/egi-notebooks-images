@@ -24,7 +24,7 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 
 USER $NB_UID
 
-COPY --chwon $NB_UID base.yml /tmp/base.yml
+COPY --chown $NB_UID:$NB_GID base.yml /tmp/base.yml
 
 RUN mamba install -y -f /tmp/base.yml \
     && mamba clean --all -f -y \
@@ -36,6 +36,8 @@ COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/setting
 
 # adds system-wide setting for rstudio to use wget instead libcurl
 RUN echo 'options(download.file.method = "wget")' >> /opt/conda/lib/R/etc/Rprofile.site
+
+RUN rmdir work
 
 #
 # Octave and RStudio additions
@@ -59,36 +61,39 @@ RUN apt-get update \
 
 USER $NB_UID
 
-COPY full-base.yml /tmp/full-base.yml
+COPY --chown=$NB_UID:$NB_GID full-base.yml /tmp/full-base.yml
 
 RUN mamba install -y -f /tmp/full-base.yml \
     && mamba clean --all -f -y \
     && fix-permissions "${CONDA_DIR}" \
-    && fix-permissions "/home/${NB_USER}"
+    && fix-permissions "/home/${NB_USER}" \
+    && rm /tmp/full-base.yml
 
 #
 # SINGLE USER EGI
 #
 FROM full-base AS single-user
 
-COPY single-user.yml /tmp/single-user.yml
+COPY --chown=$NB_UID:$NB_GID single-user.yml /tmp/single-user.yml
 
 RUN mamba install -y -f /tmp/single-user.yml \
     && mamba clean --all -f -y \
     && fix-permissions "${CONDA_DIR}" \
-    && fix-permissions "/home/${NB_USER}"
+    && fix-permissions "/home/${NB_USER}" \
+    && rm /tmp/single-user.yml
 
 #
 # SINGLE USER EOSC
 #
 FROM full-base AS single-user-eosc
 
-COPY single-user-eosc.yml /tmp/single-user-eosc.yml
+COPY --chown=$NB_UID:$NB_GID single-user-eosc.yml /tmp/single-user-eosc.yml
 
 RUN mamba install -y -f /tmp/single-user-eosc.yml \
     && mamba clean --all -f -y \
     && fix-permissions "${CONDA_DIR}" \
-    && fix-permissions "/home/${NB_USER}"
+    && fix-permissions "/home/${NB_USER}" \
+    && rm /tmp/single-user-eosc.yml
 
 # EOSC customisation
 # TODO: trigger image build on changes to these files
@@ -98,7 +103,6 @@ RUN mkdir -p /opt/conda/share/jupyter/lab/settings/ \
 
 RUN jupyter lab build
 
-RUN rmdir work
 
 # brew
 USER root
@@ -119,9 +123,10 @@ RUN brew analytics off
 #
 FROM base AS single-user-ai
 
-COPY single-user-ai.yml /tmp/single-user-ai.yml
+COPY --chown=$NB_UID:$NB_GID single-user-ai.yml /tmp/single-user-ai.yml
 
 RUN mamba install -y -f /tmp/single-user-ai.yml \
     && mamba clean --all -f -y \
     && fix-permissions "${CONDA_DIR}" \
-    && fix-permissions "/home/${NB_USER}"
+    && fix-permissions "/home/${NB_USER}" \
+    && rm /tmp/single-user-ai.yml
