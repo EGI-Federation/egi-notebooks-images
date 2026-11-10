@@ -41,6 +41,8 @@ RUN echo 'options(download.file.method = "wget")' >> /opt/conda/lib/R/etc/Rprofi
 #
 FROM base AS full-base
 
+USER root
+
 RUN apt-get update \
     # Octave
     && apt-get install --install-recommends -y \
@@ -53,6 +55,8 @@ RUN apt-get update \
     && apt-get remove -y gdebi \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+USER $NB_UID
 
 COPY full-base.yml /tmp/full-base.yml
 
@@ -108,3 +112,15 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
 
 # Turn off brew analytics
 RUN brew analytics off
+
+#
+# SINGLE USER AI
+#
+FROM base AS single-user-ai
+
+COPY single-user-ai.yml /tmp/single-user-ai.yml
+
+RUN mamba install -y -f /tmp/single-user-ai.yml \
+    && mamba clean --all -f -y \
+    && fix-permissions "${CONDA_DIR}" \
+    && fix-permissions "/home/${NB_USER}"
