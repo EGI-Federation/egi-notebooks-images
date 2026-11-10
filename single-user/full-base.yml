@@ -24,7 +24,6 @@ dependencies:
   - "python-dateutil"
   - "h5glance"
   - "panel"
-  - "tensorflow"
   # resource usage info in GUI
   - "jupyter-resource-usage=1.2.0"
   # RTC
