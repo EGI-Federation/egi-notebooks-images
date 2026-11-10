@@ -4,7 +4,7 @@ channels:
 dependencies:
   # installing everything through pip
   - pip:
-      - pytorch
+      - torch
       - torchvision
       - torchaudio
       - fastai
