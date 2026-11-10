@@ -24,12 +24,13 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 
 USER $NB_UID
 
-COPY base.yml /tmp/base.yml
+COPY --chwon $NB_UID base.yml /tmp/base.yml
 
 RUN mamba install -y -f /tmp/base.yml \
     && mamba clean --all -f -y \
     && fix-permissions "${CONDA_DIR}" \
-    && fix-permissions "/home/${NB_USER}"
+    && fix-permissions "/home/${NB_USER}" \
+    && rm /tmp/base.yml
 
 COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/settings/
 

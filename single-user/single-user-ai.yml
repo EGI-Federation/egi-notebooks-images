@@ -1,0 +1,14 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  # installing everything through pip
+  - pip:
+    - pytorch
+    - torchvision
+    - torchaudio
+    - fastai
+    - tflearn
+    - eo-learn
+    - tensorflow
+    - elyra 
