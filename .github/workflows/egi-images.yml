@@ -61,7 +61,7 @@ jobs:
         with:
           push: ${{ github.event_name != 'pull_request' }}
           load: ${{ github.event_name == 'pull_request' }}
-          tags: eginotebooks/single-user-eosc-ai:${{ steps.docker_meta.outputs.tags }}
+          tags: eginotebooks/single-user-ai:${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           context: single-user
           file: single-user/Dockerfile
