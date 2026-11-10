@@ -70,12 +70,13 @@ jobs:
         run: |
           set -xe
           for image in "single-user" "single-user-eosc"; do
-            cd "single-user/tests/$image"
+            pushd "single-user/tests/$image"
             for test in *.ipynb; do
               echo "Testing $test with $image"
               docker run -v "${{ github.workspace }}/single-user/tests/$image:/tests/$image" \
                 "eginotebooks/$image:${{ steps.docker_meta.outputs.tags }}" \
                    /bin/sh -c "jupyter nbconvert --ExecutePreprocessor.timeout=600 --to rst --execute --stdout  /tests/$image/$test || exit 1"
             done
+            popd
           done
         if: github.event_name == 'pull_request'
