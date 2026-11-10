@@ -24,7 +24,7 @@ RUN curl https://raw.githubusercontent.com/kadwanev/retry/master/retry \
 
 USER $NB_UID
 
-COPY --chown $NB_UID base.yml /tmp/base.yml
+COPY --chown=$NB_UID:$NB_GID base.yml /tmp/base.yml
 
 RUN mamba install -y -f /tmp/base.yml \
     && mamba clean --all -f -y \
@@ -32,7 +32,7 @@ RUN mamba install -y -f /tmp/base.yml \
     && fix-permissions "/home/${NB_USER}" \
     && rm /tmp/base.yml
 
-COPY --chown=$NB_UID overrides.json /opt/conda/share/jupyter/lab/settings/
+COPY --chown=$NB_UID:$NB_GID overrides.json /opt/conda/share/jupyter/lab/settings/
 
 # adds system-wide setting for rstudio to use wget instead libcurl
 RUN echo 'options(download.file.method = "wget")' >> /opt/conda/lib/R/etc/Rprofile.site
@@ -61,7 +61,7 @@ RUN apt-get update \
 
 USER $NB_UID
 
-COPY --chown=$NB_UID full-base.yml /tmp/full-base.yml
+COPY --chown=$NB_UID:$NB_GID full-base.yml /tmp/full-base.yml
 
 RUN mamba install -y -f /tmp/full-base.yml \
     && mamba clean --all -f -y \
@@ -74,7 +74,7 @@ RUN mamba install -y -f /tmp/full-base.yml \
 #
 FROM full-base AS single-user
 
-COPY --chown=$NB_UID single-user.yml /tmp/single-user.yml
+COPY --chown=$NB_UID:$NB_GID single-user.yml /tmp/single-user.yml
 
 RUN mamba install -y -f /tmp/single-user.yml \
     && mamba clean --all -f -y \
@@ -87,7 +87,7 @@ RUN mamba install -y -f /tmp/single-user.yml \
 #
 FROM full-base AS single-user-eosc
 
-COPY --chown=$NB_UID single-user-eosc.yml /tmp/single-user-eosc.yml
+COPY --chown=$NB_UID:$NB_GID single-user-eosc.yml /tmp/single-user-eosc.yml
 
 RUN mamba install -y -f /tmp/single-user-eosc.yml \
     && mamba clean --all -f -y \
@@ -123,7 +123,7 @@ RUN brew analytics off
 #
 FROM base AS single-user-ai
 
-COPY --chown=$NB_UID single-user-ai.yml /tmp/single-user-ai.yml
+COPY --chown=$NB_UID:$NB_GID single-user-ai.yml /tmp/single-user-ai.yml
 
 RUN mamba install -y -f /tmp/single-user-ai.yml \
     && mamba clean --all -f -y \
