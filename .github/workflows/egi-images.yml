@@ -9,7 +9,6 @@ on:
   pull_request:
 
 jobs:
-
   user-images:
     name: Build and push images
     runs-on: ubuntu-latest
@@ -36,6 +35,12 @@ jobs:
           images: eginotebooks/single-user-eosc
           tags: |
             type=sha
+        id: docker_meta_single_user_ai
+        uses: docker/metadata-action@v6
+        with:
+          images: eginotebooks/single-user-ai
+          tags: |
+            type=sha
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
       - name: Login to DockerHub
@@ -51,19 +56,29 @@ jobs:
           load: ${{ github.event_name == 'pull_request' }}
           tags: ${{ steps.docker_meta_single_user.outputs.tags }}
           labels: ${{ steps.docker_meta_single_user.outputs.labels }}
-          context: single-user 
+          context: single-user
           file: single-user/Dockerfile
           target: single-user
-      - name: Build single-user_eosc
+      - name: Build single-user-eosc
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc
         with:
           push: ${{ github.event_name != 'pull_request' }}
           load: ${{ github.event_name == 'pull_request' }}
           tags: ${{ steps.docker_meta_single_user_eosc.outputs.tags }}
           labels: ${{ steps.docker_meta_single_user_eosc.outputs.labels }}
-          context: single-user 
+          context: single-user
           file: single-user/Dockerfile
           target: single-user-eosc
+      - name: Build single-user-ai
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc
+        with:
+          push: ${{ github.event_name != 'pull_request' }}
+          load: ${{ github.event_name == 'pull_request' }}
+          tags: ${{ steps.docker_meta_single_user_ai.outputs.tags }}
+          labels: ${{ steps.docker_meta_single_user_ai.outputs.labels }}
+          context: single-user
+          file: single-user/Dockerfile
+          target: single-user-ai
       - name: Run tests
         run: |
           set -e
