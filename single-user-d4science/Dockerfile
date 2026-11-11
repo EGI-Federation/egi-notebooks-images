@@ -45,7 +45,8 @@ RUN pip install --no-cache-dir \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master \
-        git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
+        # Removing this one temporarily
+        # git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
         fast-forward-indexes \
         NEMtropy \
         geopy==2.0.0 \
