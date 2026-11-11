@@ -1,0 +1,24 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - "r-plotly"
+  - "r-gdata"
+  - "rdflib"
+  - "prov"
+  - "graphviz"
+  - "pydot"
+  - "lxml"
+  - "geojson"
+  - "pydap"
+  - "xarray"
+  - "cartopy"
+  - "ipyleaflet"
+  - "jupyter-server-proxy"
+  - "jupyterlab_widgets"
+  - "nodejs"
+  - "shortid"
+  - "nbgitpuller"
+
+  - pip:
+      - git+https://github.com/EGI-Federation/notebooks-resource-warning

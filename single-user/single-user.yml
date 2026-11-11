@@ -1,0 +1,16 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  # quantum SDKs
+  - "amazon-braket-sdk"
+  - "qiskit"
+  - "qiskit-machine-learning"
+  # for circuit drawing in qiskit
+  - "pylatexenc"
+  - pip:
+      # Quantum SDKs that do not install with conda
+      - pennylane
+      - dwave-ocean-sdk
+      # IM plugin
+      - git+https://github.com/grycap/apricotlab.git@v1.3.1
