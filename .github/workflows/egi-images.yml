@@ -69,7 +69,7 @@ jobs:
       - name: Run tests
         run: |
           set -xe
-          for image in "single-user" "single-user-eosc"; do
+          for image in "single-user" "single-user-eosc" "single-user-ai"; do
             pushd "single-user/tests/$image"
             for test in *.ipynb; do
               echo "Testing $test with $image"
