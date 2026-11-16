@@ -27,6 +27,8 @@ ENV C_INCLUDE_PATH=/usr/include/gdal
 RUN pip install --index-url https://download.pytorch.org/whl/cpu \
 	torch torchvision torchaudio
 
+# Ensure legacy source packages like rdp can build metadata
+RUN python -m pip install --no-cache-dir --upgrade pip setuptools wheel
 
 # cdlib[C]==0.2.3 is too old for this env, so unpinning
 RUN pip install --no-cache-dir \
