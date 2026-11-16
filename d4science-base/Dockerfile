@@ -70,38 +70,38 @@ RUN julia -e 'import Pkg; Pkg.update()' && \
 # -----------------------------------------------------------------------------
 
 
-RUN mamba install --channel conda-forge -y -q \
-        rdflib \
-        prov \
-        graphviz \
-        pydot \
-        lxml \
-        geojson \
-        pydap \
-        xarray \
-        cartopy \
-        ipyleaflet \
-        nbgitpuller \
-        basemap \
-        xgboost \
-        lightgbm \
-        catboost \
-        netcdf4 \
-        aiohttp \
-        graph-tool \
-        scikit-learn \
-        scikit-mobility \
-        dask-jobqueue \
-        fs \
-        rasterio \
-        contextily \
-        nb_conda \
-        pyophidia \
-	# bring dash extension hopefully
-	dash \
-	jupyter-server-proxy \
-    && conda clean -tipy \
-    && conda clean --all
+#RUN mamba install --channel conda-forge -y -q \
+#        rdflib \
+#        prov \
+#        graphviz \
+#        pydot \
+#        lxml \
+#        geojson \
+#        pydap \
+#        xarray \
+#        cartopy \
+#        ipyleaflet \
+#        nbgitpuller \
+#        basemap \
+#        xgboost \
+#        lightgbm \
+#        catboost \
+#        netcdf4 \
+#        aiohttp \
+#        graph-tool \
+#        scikit-learn \
+#        scikit-mobility \
+#        dask-jobqueue \
+#        fs \
+#        rasterio \
+#        contextily \
+#        nb_conda \
+#        pyophidia \
+#	# bring dash extension hopefully
+#	dash \
+#	jupyter-server-proxy \
+#    && conda clean -tipy \
+#    && conda clean --all
 
 RUN pip install --no-cache-dir shortid
 
