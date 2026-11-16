@@ -43,7 +43,6 @@ RUN pip install --no-cache-dir \
         panel==0.9.* \
         cdlib[C] \
         cython \
-        node_conformity \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master \
