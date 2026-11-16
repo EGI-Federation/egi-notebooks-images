@@ -1,4 +1,4 @@
-FROM quay.io/jupyter/minimal-notebook AS base
+FROM quay.io/jupyter/minimal-notebook:python-3.12 AS base
 
 RUN mamba install -y \
                   numpy==1.26.4 \

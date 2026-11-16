@@ -27,6 +27,8 @@ ENV C_INCLUDE_PATH=/usr/include/gdal
 RUN pip install --index-url https://download.pytorch.org/whl/cpu \
 	torch torchvision torchaudio
 
+# Ensure legacy source packages like rdp can build metadata
+RUN python -m pip install --no-cache-dir --upgrade pip setuptools wheel
 
 # cdlib[C]==0.2.3 is too old for this env, so unpinning
 RUN pip install --no-cache-dir \
@@ -41,11 +43,11 @@ RUN pip install --no-cache-dir \
         panel==0.9.* \
         cdlib[C] \
         cython \
-        node_conformity \
         git+https://github.com/obidam/pyxpcm.git \
         git+https://github.com/geopython/OWSLib.git \
         git+https://github.com/euroargodev/argopy.git@master \
-        git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
+        # Removing this one temporarily
+        # git+https://github.com/guglielmocola/RetweetCascade.git@f96319d0107473715104acceb2ff0925d35dd9e3 \
         fast-forward-indexes \
         NEMtropy \
         geopy==2.0.0 \
